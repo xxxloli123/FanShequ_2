@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray2"
     tools:context=".service_page.repair.RepairEvaluateActivity">
 
     <com.zhy.autolayout.AutoRelativeLayout
@@ -49,9 +51,185 @@
             android:visibility="gone" />
     </com.zhy.autolayout.AutoRelativeLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="2px"/>
 
-    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:id="@+id/mrb_"
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_margin="24px"
+            android:src="@mipmap/portrait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="30px"
+            android:id="@+id/tv_name"
+            android:text="蕉迟但到"
+            android:textColor="@color/text_1"
+            android:layout_marginTop="18px"
+            android:layout_toRightOf="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="28px"
+            android:id="@+id/tv_order_amount"
+            android:text="蕉迟但到"
+            android:textColor="@color/text_1"
+            android:layout_marginTop="77px"
+            android:layout_toRightOf="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/img_call"
+            android:onClick="onCLicks"
+            android:layout_marginRight="33px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/phone1"
+            android:padding="22px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.willy.ratingbar.ScaleRatingBar
+        android:padding="18px"
+        android:gravity="center"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/simpleRatingBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srb_numStars="5"
+        app:srb_drawableEmpty="@mipmap/uncheck"
+        app:srb_drawableFilled="@mipmap/stars"
+        app:srb_minimumStars="0.5"
+        app:srb_rating="2.5"
+        app:srb_starWidth="55px"
+        app:srb_starHeight="55px"
+        app:srb_starPadding="11px"
+        app:srb_stepSize="0.5"
+        app:srb_isIndicator="false"
+        app:srb_clickable="true"
+        app:srb_scrollable="true"
+        app:srb_clearRatingEnabled="true">
+    </com.willy.ratingbar.ScaleRatingBar>
+
+    <TextView
+        android:id="@+id/tv_satisfaction"
+        android:drawableLeft="@mipmap/smiling"
+        android:text="  比较满意"
+        android:textColor="@color/yellow2"
+        android:textSize="28px"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_margin="22px"
+            android:layout_centerVertical="true"
+            android:background="@color/grayD"
+            android:layout_width="match_parent"
+            android:layout_height="2px"/>
+
+        <TextView
+            android:textColor="@color/text_9"
+            android:layout_centerHorizontal="true"
+            android:background="@color/gray2"
+            android:padding="11px"
+            android:text="为师傅点个赞吧"
+            android:textSize="30px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <GridLayout
+        android:columnCount="3"
+        android:padding="33px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:onClick="onCLicks"
+            android:id="@+id/ckb_fw"
+            android:button="@null"
+            android:background="@drawable/tag_fw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <CheckBox
+            android:onClick="onCLicks"
+            android:id="@+id/ckb_sd"
+            android:layout_marginLeft="88px"
+            android:button="@null"
+            android:background="@drawable/tag_sd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <CheckBox
+            android:onClick="onCLicks"
+            android:id="@+id/ckb_fy"
+            android:layout_marginLeft="88px"
+            android:button="@null"
+            android:background="@drawable/tag_fy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <CheckBox
+            android:onClick="onCLicks"
+            android:id="@+id/ckb_hq"
+            android:layout_marginTop="44px"
+            android:button="@null"
+            android:background="@drawable/tag_hq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </GridLayout>
+
+    <EditText
+        android:layout_marginRight="33px"
+        android:layout_marginLeft="33px"
+        android:gravity="top"
+        android:id="@+id/edt_content"
+        android:layout_width="match_parent"
+        android:layout_height="222px"
+        android:background="@drawable/shape_comment_choose_bg2"
+        android:hint="说点什么吧"
+        android:padding="12px"
+        android:textColor="@color/text_6"
+        android:textColorHint="@color/text_9"
+        android:textSize="30px" />
+
+    <CheckBox
+        android:button="@drawable/check"
+        android:text="  匿名评论"
+        android:textColor="@color/text_9"
+        android:layout_margin="33px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:onClick="onCLicks"
+        android:textSize="44px"
+        android:textColor="@color/white"
+        android:text="提交"
+        android:layout_margin="22px"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/rectangular_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

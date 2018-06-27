@@ -16,6 +16,7 @@
     <color name="lightred">#ff4d4d</color>
     <color name="warnred">#ff4b4b</color>
     <color name="yellow">#FFC125</color>
+    <color name="yellow2">#F3B829</color>
     <color name="orange">#FF7200</color>
     <color name="orange2">#ffa358</color>
 
@@ -41,4 +42,6 @@
     <color name="blue2">#1983d1</color>
     <color name="line">#cccccc</color>
     <color name="background">#ECE7E6</color>
+    <color name="gray2">#EFEFEF</color>
+
 </resources>
