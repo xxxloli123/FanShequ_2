@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_lightblue2_color_selector"
+    android:gravity="center_vertical"
+    android:paddingLeft="12px"
+    android:paddingRight="12px">
+
+    <CheckBox
+        android:id="@+id/checkbox_check"
+        android:layout_width="64px"
+        android:layout_height="64px" />
+
+    <ImageView
+        android:id="@+id/iv_goods_logo"
+        android:scaleType="centerCrop"
+        android:layout_width="220px"
+        android:layout_marginRight="20px"
+        android:layout_height="wrap_content" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_goods_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4px"
+                android:layout_weight="1"
+                android:textColor="@color/text_6"
+                android:textSize="32px" />
+
+            <Button
+                android:id="@+id/btn_close"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:background="@mipmap/close_off" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <TextView
+            android:id="@+id/tv_goodsDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_9"
+            android:textSize="24px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8px"
+            android:text="在线支付送货上门"
+            android:textColor="@color/text_9"
+            android:textSize="24px" />
+
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightred"
+            android:textSize="32px" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8px"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_goods_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_9"
+                android:textSize="24px" />
+
+            <com.fanhong.cn.myviews.CountBox
+                android:id="@+id/car_countBox"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

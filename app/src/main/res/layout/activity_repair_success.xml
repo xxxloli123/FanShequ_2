@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_top" />
+
+    <TextView
+        android:id="@+id/label_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="提交成功，正在为您安排维修人员\n请保持手机畅通"
+        android:textColor="@color/text_6"
+        android:lineSpacingExtra="10px"
+        android:textSize="28px" />
+    <ImageView
+        android:layout_width="180px"
+        android:layout_height="180px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40px"
+        android:src="@mipmap/ilon_tijiaochenggong"
+        android:layout_above="@id/label_notice"/>
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentBottom="true"
+        android:text="返回首页"
+        android:textColor="@color/white"
+        android:textSize="30px"
+        android:background="@color/lightred"/>
+</com.zhy.autolayout.AutoRelativeLayout>

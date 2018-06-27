@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/activity_top"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/bg1"
+        android:orientation="vertical">
+            <EditText
+                android:id="@+id/filter_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_input_cellname"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_margin="15px"
+                android:gravity="center"
+                android:hint="请输入小区名称"
+                android:singleLine="true"
+                android:textSize="32px" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ListView
+                android:id="@+id/cell_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:divider="#eeeeee"
+                android:dividerHeight="1px" />
+            <TextView
+                android:id="@+id/dialog"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:background="#e581ff02"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="28sp"
+                android:visibility="invisible" />
+            <com.fanhong.cn.myviews.SideBar
+                android:id="@+id/sidebar"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center" />
+        </FrameLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

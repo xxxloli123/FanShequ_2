@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/mainLayout">
+    <include layout="@layout/activity_top"/>
+    <EditText
+        android:id="@+id/add_fx_edit"
+        android:layout_width="match_parent"
+        android:layout_height="350px"
+        android:gravity="top"
+        android:hint="分享新鲜事..."
+        android:textColor="@color/text_6"
+        android:background="@null"
+        android:focusedByDefault="true"
+        android:padding="10px"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/add_pic1"
+            android:layout_width="180px"
+            android:layout_height="180px"
+            android:src="@mipmap/btn_add_img"
+            android:layout_margin="10px"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/add_pic2"-->
+            <!--android:layout_width="180px"-->
+            <!--android:layout_height="180px"-->
+            <!--android:src="@drawable/btn_add_img"-->
+            <!--android:layout_margin="10px"-->
+            <!--android:visibility="gone"/>-->
+        <!--<ImageView-->
+            <!--android:id="@+id/add_pic3"-->
+            <!--android:layout_width="180px"-->
+            <!--android:layout_height="180px"-->
+            <!--android:src="@drawable/btn_add_img"-->
+            <!--android:layout_margin="10px"-->
+            <!--android:visibility="gone"/>-->
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

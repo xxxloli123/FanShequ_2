@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="10px"
+    android:paddingBottom="10px">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="45px"
+        android:layout_height="45px"
+        android:src="@mipmap/default_photo"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8px"
+        android:text="author"
+        android:textColor="@color/text_6"/>
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="time"
+            android:layout_marginRight="20px"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="10px"
+        android:text="content"
+        android:textColor="@color/text_3"/>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_fill"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:background="@color/white"
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentTop="true"
+        >
+
+        <ImageView
+            android:padding="12px"
+            android:layout_marginLeft="12px"
+            android:onClick="onCLicks"
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/black_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="title"
+            android:textColor="@color/text_1"
+            android:textSize="40px" />
+
+        <TextView
+            android:id="@+id/top_extra"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:padding="10px"
+            android:text="extra"
+            android:textColor="@color/white"
+            android:textSize="36px"
+            android:visibility="gone" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="2px"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:padding="40px"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/edt_community_name"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/shape_comment_choose_bg2"
+                android:hint="小区名称"
+                android:padding="10px"
+                android:textColor="@color/text_6"
+                android:textColorHint="@color/text_9"
+                android:textSize="30px" />
+
+            <EditText
+                android:inputType="number"
+                android:layout_marginBottom="24px"
+                android:layout_marginTop="24px"
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/shape_comment_choose_bg2"
+                android:hint="联系电话"
+                android:padding="10px"
+                android:textColor="@color/text_6"
+                android:textColorHint="@color/text_9"
+                android:textSize="30px" />
+
+            <TextView
+                android:onClick="onCLicks"
+                android:gravity="center_vertical"
+                android:visibility="visible"
+                android:id="@+id/edt_repair_article"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@drawable/shape_comment_choose_bg2"
+                android:hint="维修物品"
+                android:padding="10px"
+                android:textColor="@color/text_6"
+                android:textColorHint="@color/text_9"
+                android:textSize="30px" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/all_select"
+                android:visibility="gone"
+                android:background="#f6f4f4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_marginTop="24px"
+                    android:paddingLeft="16px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="30px"
+                        android:textColor="@color/text_3"
+                        android:text="车库门"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="85px"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:onClick="onCLicks"
+                            android:background="@mipmap/reduction"
+                            android:id="@+id/ibt_garage_minus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textSize="30px"
+                            android:textColor="@color/text_3"
+                            android:id="@+id/tv_garage_quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="30px"
+                            android:layout_marginRight="30px"
+                            android:text="0" />
+
+                        <ImageButton
+                            android:onClick="onCLicks"
+                            android:background="@mipmap/add"
+                            android:id="@+id/ibt_garage_add"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:paddingLeft="16px"
+                    android:layout_marginTop="24px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="30px"
+                        android:textColor="@color/text_3"
+                        android:text="人行门"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="85px"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:onClick="onCLicks"
+                            android:background="@mipmap/reduction"
+                            android:id="@+id/ibt_sidewalk_minus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textSize="30px"
+                            android:textColor="@color/text_3"
+                            android:id="@+id/tv_sidewalk_quantity"
+                            android:layout_marginLeft="30px"
+                            android:layout_marginRight="30px"
+                            android:text="0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:onClick="onCLicks"
+                            android:background="@mipmap/add"
+                            android:id="@+id/ibt_sidewalk_add"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:paddingLeft="16px"
+                    android:layout_marginTop="24px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="30px"
+                        android:textColor="@color/text_3"
+                        android:text="单元门"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="85px"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:onClick="onCLicks"
+                            android:background="@mipmap/reduction"
+                            android:id="@+id/ibt_unit_minus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textSize="30px"
+                            android:textColor="@color/text_3"
+                            android:id="@+id/tv_unit_quantity"
+                            android:layout_marginLeft="30px"
+                            android:layout_marginRight="30px"
+                            android:text="0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:onClick="onCLicks"
+                            android:background="@mipmap/add"
+                            android:id="@+id/ibt_unit_add"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <Button
+                    android:onClick="onCLicks"
+                    android:layout_marginTop="24px"
+                    android:background="@color/grass_color"
+                    android:textColor="@color/white"
+                    android:id="@+id/btn_save"
+                    android:text="保存"
+                    android:layout_width="match_parent"
+                    android:layout_height="64px" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <EditText
+                android:gravity="top"
+                android:layout_marginTop="24px"
+                android:id="@+id/edt_remark"
+                android:layout_width="match_parent"
+                android:layout_height="250px"
+                android:background="@drawable/shape_comment_choose_bg2"
+                android:hint="备注 (请详细描述需要维修的情况)"
+                android:padding="12px"
+                android:textColor="@color/text_6"
+                android:textColorHint="@color/text_9"
+                android:textSize="30px" />
+
+            <TextView
+                android:textColor="@color/text_6"
+                android:textSize="25px"
+                android:layout_margin="16px"
+                android:text="将需要维修的物品进行照相可以更好的反馈情况哦"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8px"
+                android:gravity="center_vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <!--<com.zhy.autolayout.AutoLinearLayout-->
+                    <!--android:id="@+id/layout_chosen"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginRight="8px"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:visibility="gone">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/img_1"-->
+                        <!--android:layout_width="139px"-->
+                        <!--android:layout_height="139px"-->
+                        <!--android:scaleType="centerCrop" />-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/img_2"-->
+                        <!--android:layout_width="139px"-->
+                        <!--android:layout_height="139px"-->
+                        <!--android:layout_marginLeft="8px"-->
+                        <!--android:scaleType="centerCrop" />-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/img_3"-->
+                        <!--android:layout_width="139px"-->
+                        <!--android:layout_height="139px"-->
+                        <!--android:layout_marginLeft="8px"-->
+                        <!--android:scaleType="centerCrop" />-->
+                <!--</com.zhy.autolayout.AutoLinearLayout>-->
+
+                <ImageView
+                    android:onClick="onCLicks"
+                    android:id="@+id/img_add"
+                    android:layout_width="139px"
+                    android:layout_height="139px"
+                    android:background="@drawable/selector_comment_choose_bg"
+                    android:clickable="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_choose_pic" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <Button
+                android:onClick="onCLicks"
+                android:layout_marginTop="24px"
+                android:background="@color/grass_color"
+                android:textColor="@color/white"
+                android:id="@+id/btn_submit"
+                android:text="提交内容"
+                android:layout_width="match_parent"
+                android:layout_height="64px" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </ScrollView>
+
+</com.zhy.autolayout.AutoLinearLayout>

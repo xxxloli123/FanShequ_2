@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200px"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/img_news_photo"
+        android:layout_width="160px"
+        android:layout_height="160px"
+        android:layout_margin="20px"
+        android:scaleType="fitXY"
+        android:src="@mipmap/img_default" />
+
+    <ImageView
+        android:id="@+id/news_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ilon_inform" />
+    <!--android:src="@mipmap/ilon_notice_"-->
+
+    <TextView
+    android:id="@+id/tv_news_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@id/img_news_photo"
+    android:layout_toLeftOf="@id/news_flag"
+    android:layout_toRightOf="@id/img_news_photo"
+    android:ellipsize="end"
+    android:lineSpacingExtra="12px"
+    android:lines="2"
+    android:text="因城市道路整改，本小区将于今天早上九点至下午六点停止供水，请…"
+    android:textColor="@color/text_3"
+    android:textSize="30px" />
+    <TextView
+        android:id="@+id/tv_news_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/img_news_photo"
+        android:layout_toRightOf="@id/img_news_photo"
+        android:textColor="@color/text_9"
+        android:textSize="20px"
+        android:text="天安数码城物业"/>
+
+    <TextView
+        android:id="@+id/tv_news_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/img_news_photo"
+        android:layout_toRightOf="@id/img_news_photo"
+        android:layout_marginLeft="180px"
+        android:textColor="@color/text_9"
+        android:textSize="20px"
+        android:text="2017年6月19日 17:00"/>
+</com.zhy.autolayout.AutoRelativeLayout>

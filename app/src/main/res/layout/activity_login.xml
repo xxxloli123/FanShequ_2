@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg1"
+    android:orientation="vertical"
+    tools:context="com.fanhong.cn.login_pages.LoginActivity">
+
+    <include layout="@layout/activity_top" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="50px"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50px"
+            android:paddingLeft="24px"
+            android:paddingRight="24px"
+            android:src="@mipmap/ico_account" />
+
+        <EditText
+            android:id="@+id/edt_username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="@string/login_user"
+            android:inputType="phone"
+            android:textColor="@color/text_3"
+            android:textColorHint="@color/text_9"
+            android:textSize="17sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="50px"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50px"
+            android:paddingLeft="24px"
+            android:paddingRight="24px"
+            android:src="@mipmap/ico_password" />
+
+        <EditText
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="@string/login_password"
+            android:inputType="textPassword"
+            android:textColor="@color/text_3"
+            android:textColorHint="@color/text_9"
+            android:textSize="17sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/layout_code"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="50px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50px"
+            android:paddingLeft="24px"
+            android:paddingRight="24px"
+            android:src="@mipmap/ico_yzm" />
+
+        <EditText
+            android:id="@+id/edt_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyz_"
+            android:hint="@string/login_code"
+            android:textColor="@color/text_3"
+            android:textColorHint="@color/text_9"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/img_showCode"
+            android:layout_width="200px"
+            android:layout_height="match_parent" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="50px"
+        android:background="@drawable/denglu_selector"
+        android:onClick="onLogin"
+        android:id="@+id/btn_login"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="19.0sp" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onForgetPwd"
+            android:text="@string/forgot"
+            android:textColor="@drawable/register_textcolor_selector"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:onClick="onRegister"
+            android:text="@string/register"
+            android:textColor="@drawable/register_textcolor_selector"
+            android:textSize="14sp" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>

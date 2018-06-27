@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="3px"
+    android:layout_marginTop="10px"
+    android:layout_marginLeft="15px"
+    android:layout_marginRight="15px">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10px"
+        android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/lt_photo"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:src="@mipmap/default_photo"
+            android:layout_marginLeft="15px"/>
+        <TextView
+            android:id="@+id/lt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:text="■■■■"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <TextView
+        android:id="@+id/lt_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5px"
+        android:lineSpacingExtra="12px"
+        android:text="■■■■"
+        android:paddingLeft="30px"
+        android:paddingRight="20px"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginTop="8px"
+            android:background="#dedede"/>
+        <!--<TextView-->
+            <!--android:id="@+id/lt_text_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="回复"-->
+            <!--android:drawableLeft="@drawable/ilon_xx"-->
+            <!--android:padding="3px"-->
+            <!--android:drawablePadding="5px"-->
+            <!--android:layout_marginRight="50px"/>-->
+
+
+</com.zhy.autolayout.AutoLinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_top" />
+
+    <TextView
+        android:id="@+id/label_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36.7px"
+        android:layout_marginTop="21px"
+        android:text="小区简介："
+        android:textColor="@color/text_3"
+        android:textSize="30px" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36.7px"
+        android:layout_marginRight="36.7px"
+        android:layout_marginTop="16px"
+        android:lineSpacingExtra="6px"
+        android:textColor="@color/text_6"
+        android:textSize="26px" />
+
+    <ImageView
+        android:id="@+id/img_description"
+        android:layout_width="638px"
+        android:layout_height="258px"
+        android:layout_marginLeft="36.7px"
+        android:layout_marginRight="36.7px"
+        android:layout_marginTop="50px" />
+
+    <TextView
+        android:id="@+id/label_nearby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36.7px"
+        android:layout_marginTop="50px"
+        android:text="周边配套："
+        android:textColor="@color/text_3"
+        android:textSize="30px" />
+
+    <TextView
+        android:id="@+id/tv_nearby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36.7px"
+        android:layout_marginRight="36.7px"
+        android:layout_marginTop="16px"
+        android:lineSpacingExtra="12px"
+        android:textColor="@color/text_6"
+        android:textSize="26px" />
+
+    <TextView
+        android:id="@+id/label_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36.7px"
+        android:layout_marginTop="50px"
+        android:text="物管费：x元/平方米"
+        android:textColor="@color/text_3"
+        android:textSize="30px" />
+
+    <View
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/layout_btn_call"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="#FF9001"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ilon_kefu"
+            android:backgroundTint="@color/white" />
+
+        <TextView
+            android:id="@+id/label_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16px"
+            android:text="拨打小区电话"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

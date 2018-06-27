@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70px"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:paddingLeft="28px"
+    android:paddingRight="28px">
+
+    <TextView
+        android:id="@+id/tv_order_goodsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLength="12"
+        android:maxLines="1"
+        android:text="拉面泡面刀削面拉面泡面刀削面拉面泡面刀削面"
+        android:layout_weight="1"
+        android:textColor="@color/text_9"
+        android:textSize="30px" />
+
+    <TextView
+        android:id="@+id/tv_order_goodsNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="120px"
+        android:paddingRight="60px"
+        android:text="x1"
+        android:textColor="@color/text_9"
+        android:textSize="30px" />
+
+    <Button
+        android:id="@+id/btn_order_goods_evaluate"
+        android:layout_width="120px"
+        android:layout_height="54px"
+        android:background="@drawable/orange_button_background"
+        android:text="@string/evaluate"
+        android:textColor="@color/white"
+        android:textSize="30px" />
+</com.zhy.autolayout.AutoLinearLayout>

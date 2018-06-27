@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="240px"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/img_goods"
+        android:layout_width="180px"
+        android:layout_height="180px"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="50px"
+        android:focusable="false" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4px"
+        android:layout_toRightOf="@id/img_goods"
+        android:text="东北大米"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/text_6"
+        android:textSize="34px" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_toRightOf="@id/img_goods"
+        android:ellipsize="end"
+        android:lines="2"
+        android:paddingBottom="8px"
+        android:paddingTop="8px"
+        android:text="优质东北大米"
+        android:textColor="@color/text_9"
+        android:textSize="26px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="送货上门"
+        android:textColor="@color/white"
+        android:layout_toRightOf="@id/img_goods"
+        android:layout_below="@id/tv_content"
+        android:background="@color/orange"
+        android:padding="4px"
+        android:textSize="24px"/>
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:focusable="false"
+        android:layout_toRightOf="@id/img_goods"
+        android:layout_alignParentBottom="true"
+        android:text="￥50.8"
+        android:textStyle="bold"
+        android:textColor="@color/lightred"
+        android:layout_marginBottom="14px"
+        android:textSize="34px"/>
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="20px">
+
+    <TextView
+        android:id="@+id/tv_item_order_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_9"
+        android:textSize="30px" />
+
+    <TextView
+        android:id="@+id/tv_item_order_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/text_9"
+        android:textSize="30px" />
+
+    <TextView
+        android:id="@+id/tv_item_order_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_order_time"
+        android:layout_marginBottom="10px"
+        android:layout_marginTop="10px"
+        android:ellipsize="end"
+        android:lines="2"
+        android:maxLines="2"
+        android:textColor="@color/text_6"
+        android:textSize="34px" />
+
+    <TextView
+        android:id="@+id/tv_item_order_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_item_order_title"
+        android:textColor="@color/text_6"
+        android:textSize="36px" />
+</com.zhy.autolayout.AutoRelativeLayout>

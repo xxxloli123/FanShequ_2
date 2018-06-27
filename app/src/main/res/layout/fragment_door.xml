@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_top" />
+
+    <ExpandableListView
+        android:id="@+id/door_expandable_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:groupIndicator="@null"
+        android:dividerHeight="3px"
+        android:divider="#ddd"
+        android:visibility="visible"/>
+    <TextView
+        android:id="@+id/no_key_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400px"
+        android:text="暂无钥匙"
+        android:textColor="@color/text_6"
+        android:drawablePadding="15px"
+        android:gravity="center_horizontal"
+        android:drawableTop="@mipmap/biaoqing"
+        android:visibility="gone"/>
+</com.zhy.autolayout.AutoLinearLayout>

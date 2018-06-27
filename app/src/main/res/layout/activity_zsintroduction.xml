@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/activity_top"/>
+    <ScrollView
+        android:id="@+id/scroll_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/iv_fenxiao1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-220px"
+                android:src="@mipmap/test_diyizhang" />
+            <ImageView
+                android:id="@+id/iv_fenxiao2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-220px"
+                android:src="@mipmap/test_dierzhang" />
+            <TextView
+                android:id="@+id/tv_join_now"
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:background="@mipmap/button_lijicanyu"
+                android:text="立即参与"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="38px"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

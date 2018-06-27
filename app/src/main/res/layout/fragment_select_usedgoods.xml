@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <ListView
+        android:id="@+id/used_goods_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="4px"
+        android:divider="@color/bg1"/>
+    <TextView
+        android:id="@+id/no_goods_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400px"
+        android:text="暂无商品出售"
+        android:textColor="@color/text_6"
+        android:drawablePadding="15px"
+        android:gravity="center_horizontal"
+        android:drawableTop="@mipmap/biaoqing"
+        android:visibility="gone"/>
+</com.zhy.autolayout.AutoLinearLayout>

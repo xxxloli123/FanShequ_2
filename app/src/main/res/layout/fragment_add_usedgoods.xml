@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:id="@+id/main_layout">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg1"
+            android:orientation="vertical">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <EditText
+                    android:id="@+id/edt_goods_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="72px"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:hint="发布物品的名称(8个字以内)"
+                    android:maxLength="8"
+                    android:paddingLeft="20px"
+                    android:textColor="@color/text_6"
+                    android:textColorHint="@color/text_9"
+                    android:textSize="26px" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12px"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="14px"
+                    android:src="@mipmap/icon_details" />
+
+                <EditText
+                    android:id="@+id/edt_goods_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="简述一下你的商品(75个字以内)"
+                    android:lines="5"
+                    android:maxLength="75"
+                    android:paddingBottom="18px"
+                    android:paddingTop="18px"
+                    android:textColor="@color/text_6"
+                    android:textColorHint="@color/text_9"
+                    android:textSize="26px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12px"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="14px"
+                    android:src="@mipmap/icon_img_" />
+
+                <ImageView
+                    android:id="@+id/img_goods_add"
+                    android:layout_width="180px"
+                    android:layout_height="180px"
+                    android:layout_marginBottom="14px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="14px"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/btn_add_img" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12px"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="30px"
+                    android:src="@mipmap/icon_title" />
+
+                <EditText
+                    android:id="@+id/edt_goods_price"
+                    android:layout_width="0dp"
+                    android:layout_height="72px"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:hint="物品出售价格"
+                    android:inputType="number"
+                    android:paddingLeft="8px"
+                    android:textColor="@color/text_6"
+                    android:textColorHint="@color/text_9"
+                    android:textSize="26px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="40px"
+                    android:text="元"
+                    android:textColor="@color/red"
+                    android:textSize="24px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12px"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="14px"
+                    android:src="@mipmap/icon_class" />
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioGroup
+                        android:id="@+id/rg_ms_classify"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="60px">
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="24px">
+
+                            <RadioButton
+                                android:id="@+id/rb_ms_classify1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:text="衣服鞋帽"
+                                android:textColor="@drawable/comm_top_text_color_selector"
+                                android:textSize="24px" />
+
+                            <RadioButton
+                                android:id="@+id/rb_ms_classify2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:text="数码产品"
+                                android:textColor="@drawable/comm_top_text_color_selector"
+                                android:textSize="24px" />
+
+                            <RadioButton
+                                android:id="@+id/rb_ms_classify3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:text="生活用品"
+                                android:textColor="@drawable/comm_top_text_color_selector"
+                                android:textSize="24px" />
+
+                            <RadioButton
+                                android:id="@+id/rb_ms_classify4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:text="书籍刊物"
+                                android:textColor="@drawable/comm_top_text_color_selector"
+                                android:textSize="24px" />
+                        </com.zhy.autolayout.AutoLinearLayout>
+
+                        <com.zhy.autolayout.AutoLinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="14px">
+
+                            <RadioButton
+                                android:id="@+id/rb_ms_classify5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:text="家具家纺"
+                                android:textColor="@drawable/comm_top_text_color_selector"
+                                android:textSize="24px" />
+
+                            <RadioButton
+                                android:id="@+id/rb_ms_classify6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:text="家用电器"
+                                android:textColor="@drawable/comm_top_text_color_selector"
+                                android:textSize="24px" />
+
+                            <RadioButton
+                                android:id="@+id/rb_ms_classify7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:text="母婴玩具"
+                                android:textColor="@drawable/comm_top_text_color_selector"
+                                android:textSize="24px" />
+
+                            <RadioButton
+                                android:id="@+id/rb_ms_classify8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:button="@null"
+                                android:text="其他物品"
+                                android:textColor="@drawable/comm_top_text_color_selector"
+                                android:textSize="24px" />
+                        </com.zhy.autolayout.AutoLinearLayout>
+                    </RadioGroup>
+                </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12px"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="30px"
+                    android:src="@mipmap/icon_user_" />
+
+                <EditText
+                    android:id="@+id/edt_owner_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="72px"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:hint="发布人称呼（如：张先生）"
+                    android:paddingLeft="8px"
+                    android:textColor="@color/text_6"
+                    android:textColorHint="@color/text_9"
+                    android:textSize="26px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12px"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginRight="30px"
+                    android:src="@mipmap/icon_phone" />
+
+                <EditText
+                    android:id="@+id/edt_owner_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="72px"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:hint="输入联系号码"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:paddingLeft="8px"
+                    android:textColor="@color/text_6"
+                    android:textColorHint="@color/text_9"
+                    android:textSize="26px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="10px"
+                android:background="@drawable/postbtn_dianji"
+                android:padding="20px"
+                android:text="确 定 发 布"
+                android:textColor="@color/white"
+                android:textSize="30px" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

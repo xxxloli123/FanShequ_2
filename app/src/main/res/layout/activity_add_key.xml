@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_add_key"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_top" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:layout_marginTop="10px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkidentity"
+                    android:textColor="@color/red"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/addapplydoors"
+                    android:textColor="@color/text_9"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="20px"
+                    android:text="@string/applydoorsuccess"
+                    android:textColor="@color/text_9"
+                    android:textSize="14sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="9dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:background="@drawable/circle_red" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@color/red" />
+
+                <View
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:background="@drawable/circle_gray" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@color/text_9" />
+
+                <View
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:background="@drawable/circle_gray" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="30px"
+                android:orientation="horizontal"
+                android:paddingBottom="3px"
+                android:paddingTop="3px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5px"
+                    android:text="@string/choosekey"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/key_choosegarden"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15px"
+                    android:ems="5"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:background="@drawable/biankuang_shape"
+                    android:drawablePadding="5px"
+                    android:drawableRight="@mipmap/lion_xiala"
+                    android:padding="10px"
+                    android:text="@string/choosegarden"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/key_choosebuilding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:background="@drawable/biankuang_shape"
+                    android:drawablePadding="5px"
+                    android:ems="5"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:drawableRight="@mipmap/lion_xiala"
+                    android:padding="10px"
+                    android:enabled="false"
+                    android:text="@string/chooselou"
+                    android:textColor="@color/text_6"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15px"
+                android:gravity="center"
+                android:text="@string/postmessages"
+                android:textColor="@color/text_6"
+                android:textSize="37px" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:padding="20px"
+                android:text="@string/discribe"
+                android:textColor="@color/text_9"
+                android:textSize="25px" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28px"
+                android:layout_marginRight="28px"
+                android:layout_marginTop="28px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:id="@+id/img_key_add"
+                    android:layout_width="160px"
+                    android:layout_height="160px"
+                    android:background="@drawable/selector_comment_choose_bg"
+                    android:clickable="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_choose_pic" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <include layout="@layout/agree_sheets" />
+
+            <Button
+                android:id="@+id/key_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/postbtn_dianji"
+                android:paddingBottom="10px"
+                android:paddingTop="10px"
+                android:text="提 交"
+                android:textColor="@color/white"
+                android:textSize="38px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg1"
+    android:orientation="vertical"
+    tools:context="com.fanhong.cn.user_page.BasicSettingsActivity">
+
+    <include layout="@layout/activity_top" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="40px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:text="@string/notify_msg"
+            android:textColor="@color/text_6"
+            android:textSize="32px" />
+
+        <CheckBox
+            android:id="@+id/checkbox_notifyMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:button="@drawable/checkbox_switch_selector" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="40px"
+        android:background="@color/white"
+        android:onClick="onClearCache">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:text="@string/clearcache"
+            android:textColor="@color/text_6"
+            android:textSize="32px" />
+
+        <TextView
+            android:id="@+id/tv_existCache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:textColor="@color/text_6"
+            android:textSize="32px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:text="@string/logout"
+        android:layout_marginTop="40px"
+        android:onClick="onLogout"
+        android:textColor="@color/lightred"
+        android:background="@drawable/btn_single_selector"/>
+</com.zhy.autolayout.AutoLinearLayout>

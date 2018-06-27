@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@mipmap/background_information">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_marginLeft="66px"
+            android:background="@mipmap/number"
+            android:layout_width="36px"
+            android:layout_height="36px"/>
+
+        <TextView
+            android:textColor="@color/text_1"
+            android:text="test"
+            android:layout_marginLeft="22px"
+            android:id="@+id/tv_number"
+            android:textSize="30px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_status"
+            android:layout_marginRight="36px"
+            android:background="@mipmap/complete2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <View
+        android:layout_marginLeft="44px"
+        android:layout_marginRight="44px"
+        android:background="@mipmap/dotted_line"
+        android:layout_width="match_parent"
+        android:layout_height="6px"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="36px"
+        android:layout_marginRight="36px"
+        android:layout_marginLeft="36px"
+        android:layout_marginBottom="11px"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_9"
+                android:text="报修设备"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="28px"
+                android:gravity="end"
+                android:textColor="@color/text_1"
+                android:text="安全门*1"
+                android:id="@+id/tv_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginTop="12px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_9"
+                android:text="联系电话"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="28px"
+                android:gravity="end"
+                android:textColor="@color/text_1"
+                android:text="1334561535"
+                android:id="@+id/tv_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginTop="12px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_9"
+                android:text="联系地址"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="28px"
+                android:gravity="end"
+                android:textColor="@color/text_1"
+                android:text="1334561535"
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <Button
+            android:clickable="false"
+            android:id="@+id/btn_evaluate"
+            android:textSize="28px"
+            android:textColor="@color/blue2"
+            android:text="请等待"
+            android:layout_marginTop="12px"
+            android:layout_gravity="end"
+            android:background="@drawable/blue_line_frame"
+            android:layout_width="122px"
+            android:layout_height="46px" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

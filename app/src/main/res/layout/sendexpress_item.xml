@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150px"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30px"
+        android:paddingTop="10px">
+
+
+        <TextView
+            android:id="@+id/send_express_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70px"
+            android:layout_marginTop="30px"
+            android:text="北京市"
+            android:textColor="@color/text_6"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/send_express_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/send_express_city"
+            android:layout_below="@id/send_express_city"
+            android:layout_marginTop="15px"
+            android:text="湛*"
+            android:textColor="@color/text_6"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/express_status"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50px"
+            android:layout_toRightOf="@id/send_express_city"
+            android:drawableBottom="@mipmap/ilon_jiantou"
+            android:gravity="center"
+            android:text="正在运输"
+            android:textColor="@color/text_9"
+            android:textSize="20px" />
+
+        <TextView
+            android:id="@+id/get_express_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/send_express_city"
+            android:layout_toRightOf="@id/express_status"
+            android:text="重庆市"
+            android:textColor="@color/text_6"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/get_express_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/send_express_name"
+            android:layout_toRightOf="@id/express_status"
+            android:text="李*"
+            android:textColor="@color/text_6"
+            android:textSize="30px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px" />
+
+</com.zhy.autolayout.AutoLinearLayout>

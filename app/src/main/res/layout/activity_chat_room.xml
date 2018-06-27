@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fanhong.cn.community_page.ChatRoomActivity">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentTop="true"
+        android:background="@color/skyblue">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="5px"
+            android:src="@mipmap/back_white" />
+
+        <TextView
+            android:id="@+id/tv_chat_title"
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/layout_chat_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="12px"
+        >
+        <EditText
+            android:id="@+id/edt_chat_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="76px"
+            android:background="@drawable/edt_chat_input_bg"
+            android:maxLines="2"
+            />
+        <Button
+            android:id="@+id/btn_msg_send"
+            android:layout_width="146px"
+            android:layout_height="76px"
+            android:background="@drawable/chat_send_selector"
+            android:layout_marginLeft="12px"
+            android:textColor="@color/white"
+            android:textSize="30px"
+            android:layout_gravity="bottom"
+            android:text="发 送"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <ListView
+        android:id="@+id/lv_chatRoom_msg_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:transcriptMode="alwaysScroll"
+        android:background="@android:color/transparent"
+        android:paddingBottom="14px"
+        android:divider="@null"
+        android:dividerHeight="10px"
+        android:focusableInTouchMode="true"
+        android:touchscreenBlocksFocus="true"
+        android:listSelector="@android:color/transparent"
+        android:layout_below="@id/top_layout"
+        android:layout_above="@id/layout_chat_edit"/>
+</com.zhy.autolayout.AutoRelativeLayout>

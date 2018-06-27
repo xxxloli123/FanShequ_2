@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg1"
+    android:orientation="vertical"
+    tools:context="com.fanhong.cn.login_pages.AgreementSheetActivity">
+
+    <include layout="@layout/activity_top" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="8px"
+        android:textColor="@color/text_3"
+        android:textSize="32px"
+        android:text="@string/termsheet_text"
+        android:padding="20px"
+
+        />
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_3"
+                android:textSize="16.0sp"
+                android:layout_margin="50px"
+                android:onClick="ondecline"
+                android:layout_weight="1"
+                android:background="@drawable/btn_single_selector"
+                android:text="@string/decline"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_3"
+                android:textSize="16.0sp"
+                android:layout_margin="50px"
+                android:layout_weight="1"
+                android:onClick="onAgree"
+                android:background="@drawable/btn_single_selector"
+                android:text="@string/accept"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <CheckBox
+        android:id="@+id/agree_sheet_protocol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginLeft="20px"
+        android:checked="true"
+        android:text="@string/agree"
+        android:textColor="@color/text_6"
+        android:textSize="28px" />
+
+    <TextView
+        android:id="@+id/sheet_protocol"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="《用户须知》"
+        android:textColor="@drawable/textcolorchange"
+        android:textSize="28px" />
+</com.zhy.autolayout.AutoLinearLayout>

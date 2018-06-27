@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/activity_top"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/u01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px"
+                android:textColor="@color/text_3"
+                android:text="@string/userknow"
+                android:lineSpacingExtra="8px"
+                android:textSize="28px"/>
+            <Button
+                android:id="@+id/receive_xuzhi"
+                android:layout_width="250px"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/u01"
+                android:layout_margin="10px"
+                android:text="接收"
+                android:textSize="30px"
+                android:background="@color/skyblue"/>
+            <Button
+                android:id="@+id/refuse_xuzhi"
+                android:layout_width="250px"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/u01"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10px"
+                android:text="拒绝"
+                android:textSize="30px"
+                android:background="@color/gray"/>
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

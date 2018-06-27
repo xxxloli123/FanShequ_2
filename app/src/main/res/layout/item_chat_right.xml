@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:paddingLeft="20dp">
+
+    <TextView
+        android:id="@+id/tv_msg_time_right"
+        android:layout_width="wrap_content"
+        android:layout_height="30px"
+        android:layout_centerHorizontal="true"
+        android:text="2017年7月2日 10:06"
+        android:textColor="@color/text_6"
+        android:textSize="18px"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/img_chat_head_right"
+        android:layout_width="110px"
+        android:layout_height="110px"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_msg_time_right"
+        android:layout_margin="14px"
+        android:padding="5px"
+        android:src="@mipmap/ilon_yh" />
+
+    <TextView
+        android:id="@+id/tv_chat_user_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_chat_head_right"
+        android:layout_marginBottom="10px"
+        android:layout_toLeftOf="@id/img_chat_head_right"
+        android:text="小目标"
+        android:textColor="@color/text_6"
+        android:textSize="24px" />
+
+    <TextView
+        android:id="@+id/tv_chat_msg_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_chat_user_right"
+        android:layout_toLeftOf="@id/img_chat_head_right"
+        android:background="@drawable/chat_poop_right_selector"
+        android:focusableInTouchMode="true"
+        android:lineSpacingExtra="4px"
+        android:text="今天晚上吃什么？"
+        android:textColor="@color/white"
+        android:textSize="30px" />
+</com.zhy.autolayout.AutoRelativeLayout>

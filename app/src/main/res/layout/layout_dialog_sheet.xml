@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="30px"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    android:background="@color/white"
+    android:padding="15px">
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#301ab3ff"
+        android:lineSpacingExtra="3px"
+        android:padding="3px"
+        android:text="@string/userknow"
+        android:textSize="27px" />
+
+    <Button
+        android:id="@+id/read_and_agree"
+        android:layout_width="wrap_content"
+        android:layout_height="70px"
+        android:text="已阅读并同意"
+        android:textSize="30px"
+        android:background="@color/skyblue"
+        android:textColor="@color/white"
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20px"/>
+</com.zhy.autolayout.AutoLinearLayout>

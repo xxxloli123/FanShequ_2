@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg1"
+    android:orientation="vertical"
+    tools:context="com.fanhong.cn.user_page.OrderDetailsActivity">
+
+    <include layout="@layout/activity_top" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15px"
+                android:layout_marginTop="28px"
+                android:layout_marginLeft="28px"
+                android:text="@string/goodsList"
+                android:textColor="@color/text_9"
+                android:textSize="30px" />
+
+            <com.fanhong.cn.myviews.OpenListView
+                android:id="@+id/lv_order_goods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10px"
+                android:dividerHeight="0dp"
+                android:divider="@null"
+                android:layout_marginTop="10px"
+                android:maxHeight="540px" />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:paddingLeft="28px">
+
+                <TextView
+                    android:id="@+id/label_consignee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/consignee"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/tv_consignee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/label_consigneeNumber"
+                    android:layout_toRightOf="@id/label_consignee"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/label_consigneeNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/tv_consigneeNumber"
+                    android:text="@string/consigneeNumber"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/tv_consigneeNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:ems="6"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/label_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/label_consignee"
+                    android:layout_marginTop="10px"
+                    android:text="@string/confirmAddr"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/label_address"
+                    android:layout_toRightOf="@id/label_address"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/layout_payWay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_address"
+                    android:layout_marginTop="10px"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/payWay"
+                        android:textColor="@color/text_9"
+                        android:textSize="30px" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_aliPay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="15px"
+                        android:drawableRight="@mipmap/zfb"
+                        android:button="@drawable/checkbox_button_selector"
+                        android:enabled="false" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox_weiPay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/checkbox_button_selector"
+                        android:layout_marginLeft="50px"
+                        android:drawablePadding="15px"
+                        android:drawableRight="@mipmap/wx"
+                        android:enabled="false" />
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <TextView
+                    android:id="@+id/label_planDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_payWay"
+                    android:layout_marginTop="10px"
+                    android:text="@string/planDate"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/tv_planDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/label_planDate"
+                    android:layout_toRightOf="@id/label_planDate"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/label_realDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/label_planDate"
+                    android:layout_marginTop="10px"
+                    android:text="@string/realDate"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/tv_realDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/label_realDate"
+                    android:layout_toRightOf="@id/label_realDate"
+                    android:textColor="@color/text_9"
+                    android:textSize="30px" />
+
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:layout_marginTop="20px"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_totalPaid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28px"
+                    android:textColor="@color/red"
+                    android:textSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/tv_totalPaid"
+                    android:text="@string/totalPaid"
+                    android:textColor="@color/text_9"
+                    android:textSize="40px" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

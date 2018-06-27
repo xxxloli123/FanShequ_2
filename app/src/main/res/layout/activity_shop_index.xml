@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg1"
+    android:orientation="vertical"
+    tools:context=".service_page.shop.ShopIndexActivity">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentTop="true"
+        android:background="@color/skyblue">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="5px"
+            android:src="@mipmap/back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/service_store"
+            android:textColor="@color/white"
+            android:textSize="40px" />
+
+        <ImageView
+            android:id="@+id/btn_shopCar"
+            android:layout_width="55px"
+            android:layout_height="55px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:background="@drawable/btn_gwc"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tv_car_count"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignRight="@id/btn_shopCar"
+            android:layout_alignTop="@id/btn_shopCar"
+            android:background="@drawable/btn_radius_red"
+            android:gravity="center"
+            android:minWidth="15dp"
+            android:paddingRight="1px"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            android:visibility="invisible" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/top_banner" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/white"
+        android:layout_marginTop="4px"
+        android:scrollbars="none">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/layout_headers"
+                android:layout_width="match_parent"
+                android:layout_height="100px">
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:id="@+id/header_line"
+                android:layout_width="0dp"
+                android:layout_height="4px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/green" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </HorizontalScrollView>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/shop_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</com.zhy.autolayout.AutoLinearLayout>

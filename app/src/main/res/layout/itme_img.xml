@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_margin="8px"
+        android:layout_width="139px"
+        android:layout_height="139px">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="139px"
+            android:layout_height="139px"
+            android:scaleType="centerCrop" />
+
+        <ImageButton
+            android:layout_margin="8px"
+            android:layout_alignParentRight="true"
+            android:rotation="45"
+            android:background="@mipmap/add"
+            android:id="@+id/ibt_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

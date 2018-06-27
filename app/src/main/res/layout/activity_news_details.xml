@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.fanhong.cn.community_page.NewsDetailsActivity">
+
+    <include layout="@layout/activity_top" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="28px"
+                android:paddingRight="28px">
+
+                <TextView
+                    android:id="@+id/news_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55px"
+                    android:lineSpacingExtra="40px"
+                    android:text="news title"
+                    android:textColor="#333"
+                    android:textSize="40px"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/news_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40px"
+                    android:text="news time"
+                    android:textColor="#999"
+                    android:textSize="20px" />
+
+                <TextView
+                    android:id="@+id/news_detail_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40px"
+                    android:text="news place"
+                    android:textColor="#999"
+                    android:textSize="20px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="24px"
+                    android:background="@color/devider_color" />
+
+                <TextView
+                    android:id="@+id/new_detail_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40px"
+                    android:layout_marginTop="62px"
+                    android:lineSpacingExtra="40px"
+                    android:text="news content"
+                    android:textColor="#666"
+                    android:textSize="30px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+        </ScrollView>
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/news_details_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#e6e6e6">
+
+            <TextView
+                android:id="@+id/tv_bar_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:id="@+id/img_news_details_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_bar_center"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="35px"
+                android:src="@drawable/anim_progressbar" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>

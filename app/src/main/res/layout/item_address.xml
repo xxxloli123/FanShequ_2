@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10px">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10px">
+
+        <TextView
+            android:id="@+id/whose_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15px"
+            android:layout_marginTop="15px"
+            android:text="湛*"
+            android:textColor="@color/text_6"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/phone_of_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/whose_address"
+            android:layout_marginRight="60px"
+            android:text="1872567****"
+            android:textColor="@color/text_6"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/detail_of_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/whose_address"
+            android:layout_below="@id/whose_address"
+            android:layout_marginTop="25px"
+            android:text="大渡口区天安数码城2栋1803"
+            android:textColor="@color/text_6"
+            android:textSize="30px" />
+
+        <ImageView
+            android:id="@+id/iv_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ilon_mr"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/delete_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/phone_of_address"
+            android:layout_below="@id/detail_of_address"
+            android:layout_marginTop="25px"
+            android:drawableLeft="@mipmap/ilon_delete"
+            android:drawablePadding="10px"
+            android:padding="10px"
+            android:text="@string/delete"
+            android:visibility="gone"
+            android:textColor="@color/text_6"
+            android:drawableTint="@color/text_6"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/edit_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40px"
+            android:layout_toLeftOf="@id/delete_address"
+            android:layout_alignTop="@id/delete_address"
+            android:drawableLeft="@mipmap/ilon_editor"
+            android:drawablePadding="10px"
+            android:drawableTint="@color/text_6"
+            android:padding="10px"
+            android:text="@string/editor"
+            android:visibility="gone"
+            android:textColor="@color/text_6"
+            android:textSize="30px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>
