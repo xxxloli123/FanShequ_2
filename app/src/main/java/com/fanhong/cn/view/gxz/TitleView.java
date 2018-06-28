@@ -1,9 +1,12 @@
 package com.fanhong.cn.view.gxz;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.FrameLayout;
 /**
  * ================================================
@@ -32,6 +35,13 @@ public class TitleView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         gestureDetector = new GestureDetector(getContext(), new MyGestureDetector());
         setClickable(true);
+        new AlertDialog.Builder(context).setTitle("选择维修员")
+                .setSingleChoiceItems(new String[]{""},0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
     }
 
     private final class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {

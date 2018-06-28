@@ -46,6 +46,16 @@ public class RepairInfoM implements Serializable {
      */
 
     private ArrayList<String> imgUrls;
+    public boolean isManage=false;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof RepairInfoM) {
+            RepairInfoM question = (RepairInfoM) obj;
+            return this.id.equals(question.id);
+        }
+        return super.equals(obj);
+    }
 
     public String getId() {
         return id;

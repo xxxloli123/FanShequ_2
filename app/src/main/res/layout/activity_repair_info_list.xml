@@ -55,6 +55,7 @@
         android:layout_height="2px"/>
 
     <RadioGroup
+        android:id="@+id/rg"
         android:checkedButton="@id/rbn_all"
         android:orientation="horizontal"
         android:layout_width="match_parent"

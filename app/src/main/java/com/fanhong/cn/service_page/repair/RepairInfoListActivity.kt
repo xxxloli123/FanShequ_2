@@ -1,11 +1,12 @@
 package com.fanhong.cn.service_page.repair
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import com.fanhong.cn.App
 import com.fanhong.cn.R
@@ -13,17 +14,19 @@ import com.fanhong.cn.adapter.RepairInfoAdapter
 import com.fanhong.cn.moudle.RepairInfoM
 import com.fanhong.cn.tools.ToastUtil
 import com.google.gson.Gson
-import com.google.gson.JsonArray
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
-//import com.lzy.okgo.OkGo
-//import com.lzy.okgo.callback.StringCallback
-//import com.lzy.okgo.model.Response
 import kotlinx.android.synthetic.main.activity_repair_info_list.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.Serializable
+import android.view.MotionEvent
+import android.os.SystemClock
+import com.fanhong.cn.callback.StringDialogCallback
+import com.fanhong.cn.tools.LogUtil
+import com.tencent.mm.opensdk.utils.Log
+
 
 class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
 
@@ -45,23 +48,33 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
         loadData2()
     }
 
+    private var isManage: Boolean=false
+    var pId=-1
+
     private fun loadData2() {
         val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         OkGo.post<String>(App.CMD)
                 .tag(this)//
                 .params("cmd", "1041")
                 .params("uid", pref.getString(App.PrefNames.USERID, ""))
-                .execute(object : StringCallback() {
+                .execute(object : StringDialogCallback(this) {
                     override fun onSuccess(response: Response<String>) {
-                        Log.e("OkGo body",response.body().toString())
+                        LogUtil.e("OkGo body",response.body().toString())
                         try {
                             val json = JSONObject(response.body()!!.toString())
+                            if (json.getString("state") == "400"){
+                                AlertDialog.Builder(this@RepairInfoListActivity).setMessage("获取失败！ 是否重试?")
+                                        .setPositiveButton("确定") { dialog, _ ->
+                                            loadData2()
+                                        }.setNegativeButton("取消",null) .show()
+                            }
                             val arr = json.getJSONArray("data")
                             if (arr.length() == 0) return
-                            val gson = Gson()
                             for (i in 0 until arr.length()) {
-                                val ri=gson.fromJson(arr.getString(i), RepairInfoM::class.java)
-                                if (!arr.optJSONObject(i).getString("tupian").isEmpty()){
+                                val ri=Gson().fromJson(arr.getString(i), RepairInfoM::class.java)
+                                if (json.getString("state") == "201")isManage=true
+                                if (arr.optJSONObject(i).getString("tupian") != "null" &&
+                                        !arr.optJSONObject(i).getString("tupian").isEmpty()){
                                     val jsonArray= arr.optJSONObject(i).getJSONArray("tupian")
                                     ri.imgUrls= ArrayList()
                                     for (a in 0 until  jsonArray.length()){
@@ -71,7 +84,6 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                                                     .replace("\\", ""))
                                             else ri.imgUrls.add((jsonArray[a].toString())
                                                     .replace("\\", ""))
-                                            Log.e("imgUrl",ri.imgUrls.toString())
                                         }
                                     }
                                 }
@@ -83,7 +95,27 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                                 }
                             }
                             showRIlist(allRI)
+//                            if (pId==-1)showRIlist(allRI)
+//                            else when (pId) {
+//                                R.id.rbn_all -> {
+//                                    showRIlist(allRI)
+//                                }
+//
+//                                R.id.rbn_wait_handle -> {
+//                                    showRIlist(wait_handleRIs)
+//                                }
+//
+//                                R.id.rbn_handle_ing -> {
+//                                    showRIlist(handleingRIs)
+//                                }
+//
+//                                R.id.rbn_complete -> {
+//                                    showRIlist(completeRIs)
+//                                }
+//                            }
                         } catch (e: JSONException) {
+                            LogUtil.e("JSONException",e.toString())
+                            ToastUtil.showToastL("数据解析异常")
                             e.printStackTrace()
                         }
                     }
@@ -110,6 +142,7 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
 
     override fun click(v: View) {
         val intent= Intent()
+        intent.putExtra("manage",isManage)
         intent.putExtra("ri", v.getTag(R.id.repair_info)as Serializable)
         if (v.id!=R.id.btn_evaluate) {
             intent.setClass(this,RepairInfoActivity::class.java)
@@ -117,16 +150,44 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
         else {
             intent.setClass(this,RepairEvaluateActivity::class.java)
         }
-        startActivity(intent)
+        startActivityForResult(intent,2546)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data!!.getSerializableExtra("back")==null)return
+        val selected:RepairInfoM? = data.getSerializableExtra("back") as RepairInfoM
+        if (allRI.contains(selected))allRI.remove(selected)
+        if (wait_handleRIs.contains(selected))wait_handleRIs.remove(selected)
+        if (handleingRIs.contains(selected))handleingRIs.remove(selected)
+        if (completeRIs.contains(selected))completeRIs.remove(selected)
+        adapter!!.notifyDataSetChanged()
     }
 
     fun onCLicks(v: View) {
         when (v.id) {
             R.id.img_back -> finish()
-            R.id.rbn_all -> showRIlist(allRI)
-            R.id.rbn_wait_handle -> showRIlist(wait_handleRIs)
-            R.id.rbn_handle_ing -> showRIlist(handleingRIs)
-            R.id.rbn_complete -> showRIlist(completeRIs)
+            R.id.rbn_all -> {
+                pId = R.id.rbn_all
+                showRIlist(allRI)
+            }
+
+            R.id.rbn_wait_handle -> {
+                pId = R.id.rbn_wait_handle
+                showRIlist(wait_handleRIs)
+            }
+
+            R.id.rbn_handle_ing -> {
+                pId = R.id.rbn_handle_ing
+                showRIlist(handleingRIs)
+            }
+
+            R.id.rbn_complete -> {
+                pId = R.id.rbn_complete
+                showRIlist(completeRIs)
+            }
         }
     }
+
 }
+

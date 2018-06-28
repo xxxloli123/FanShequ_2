@@ -216,6 +216,7 @@
         </com.zhy.autolayout.AutoRelativeLayout>
 
         <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/arl_process_info"
             android:background="@mipmap/background_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -405,6 +406,7 @@
                         android:layout_height="88px">
 
                         <TextView
+                            android:id="@+id/tv_call"
                             android:layout_centerInParent="true"
                             android:textSize="30px"
                             android:text="电联客服"
