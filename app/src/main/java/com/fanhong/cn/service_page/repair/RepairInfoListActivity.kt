@@ -49,7 +49,6 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
     }
 
     private var isManage: Boolean=false
-    var pId=-1
 
     private fun loadData2() {
         val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -95,24 +94,6 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                                 }
                             }
                             showRIlist(allRI)
-//                            if (pId==-1)showRIlist(allRI)
-//                            else when (pId) {
-//                                R.id.rbn_all -> {
-//                                    showRIlist(allRI)
-//                                }
-//
-//                                R.id.rbn_wait_handle -> {
-//                                    showRIlist(wait_handleRIs)
-//                                }
-//
-//                                R.id.rbn_handle_ing -> {
-//                                    showRIlist(handleingRIs)
-//                                }
-//
-//                                R.id.rbn_complete -> {
-//                                    showRIlist(completeRIs)
-//                                }
-//                            }
                         } catch (e: JSONException) {
                             LogUtil.e("JSONException",e.toString())
                             ToastUtil.showToastL("数据解析异常")
@@ -155,12 +136,10 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (data!!.getSerializableExtra("back")==null)return
+        if (data==null)return
         val selected:RepairInfoM? = data.getSerializableExtra("back") as RepairInfoM
         if (allRI.contains(selected))allRI.remove(selected)
         if (wait_handleRIs.contains(selected))wait_handleRIs.remove(selected)
-        if (handleingRIs.contains(selected))handleingRIs.remove(selected)
-        if (completeRIs.contains(selected))completeRIs.remove(selected)
         adapter!!.notifyDataSetChanged()
     }
 
@@ -168,22 +147,18 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
         when (v.id) {
             R.id.img_back -> finish()
             R.id.rbn_all -> {
-                pId = R.id.rbn_all
                 showRIlist(allRI)
             }
 
             R.id.rbn_wait_handle -> {
-                pId = R.id.rbn_wait_handle
                 showRIlist(wait_handleRIs)
             }
 
             R.id.rbn_handle_ing -> {
-                pId = R.id.rbn_handle_ing
                 showRIlist(handleingRIs)
             }
 
             R.id.rbn_complete -> {
-                pId = R.id.rbn_complete
                 showRIlist(completeRIs)
             }
         }

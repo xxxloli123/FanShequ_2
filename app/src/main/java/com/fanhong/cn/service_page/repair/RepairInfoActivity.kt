@@ -114,8 +114,7 @@ class RepairInfoActivity : AppCompatActivity() {
             1->{
                 arl_handleing.visibility=View.VISIBLE
                 if (repairInfo.time1!="null"){
-                    tv_handleing_date.text=DateUtil.getDateToString(repairInfo.time1.toLong(),"MM-dd")
-                    tv_handle_time.text=DateUtil.getDateToString(repairInfo.time1.toLong(),"HH:mm")
+
                 }
                 img_handle.setImageResource(R.mipmap.dispose)
                 tv_handleing_info.text="已经为您分配维修员，维修员${repairInfo.wxboy}(${repairInfo.wxphone})" +
@@ -163,11 +162,7 @@ class RepairInfoActivity : AppCompatActivity() {
             R.id.img_back -> finish()
             R.id.arl_call -> {
                 if (isManage){
-//                    loadData()
-                    val  i=Intent()
-                    i.putExtra("back",repairInfo)
-                    setResult(25,i)
-                    finish()
+                    if (res.size==0)loadData() else selectRepairer()
                 }else{
                     val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:023 6887 2002"))
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
