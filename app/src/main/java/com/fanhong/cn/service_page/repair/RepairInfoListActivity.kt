@@ -2,7 +2,6 @@ package com.fanhong.cn.service_page.repair
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,23 +9,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.fanhong.cn.App
 import com.fanhong.cn.R
-import com.fanhong.cn.adapter.RepairInfoAdapter
-import com.fanhong.cn.moudle.RepairInfoM
+import com.fanhong.cn.service_page.repair.adapter.RepairInfoAdapter
+import com.fanhong.cn.service_page.repair.moudle.RepairInfoM
 import com.fanhong.cn.tools.ToastUtil
 import com.google.gson.Gson
 import com.lzy.okgo.OkGo
-import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
 import kotlinx.android.synthetic.main.activity_repair_info_list.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.Serializable
-import android.view.MotionEvent
-import android.os.SystemClock
-import com.fanhong.cn.callback.StringDialogCallback
+import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.tools.LogUtil
 import com.tencent.mm.opensdk.utils.Log
-
+import me.leefeng.promptlibrary.PromptDialog
 
 class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
 
@@ -58,20 +54,22 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                 .params("uid", pref.getString(App.PrefNames.USERID, ""))
                 .execute(object : StringDialogCallback(this) {
                     override fun onSuccess(response: Response<String>) {
-                        LogUtil.e("OkGo body",response.body().toString())
+                        LogUtil.e("OkGo bod333y",response.body().toString())
                         try {
                             val json = JSONObject(response.body()!!.toString())
-                            if (json.getString("state") == "400"){
-                                AlertDialog.Builder(this@RepairInfoListActivity).setMessage("获取失败！ 是否重试?")
-                                        .setPositiveButton("确定") { dialog, _ ->
-                                            loadData2()
-                                        }.setNegativeButton("取消",null) .show()
+                            if (json.getString("state") != "200"){
+                                PromptDialog(this@RepairInfoListActivity).showError("获取失败")
+                                return
                             }
+                            if (json.getString("state") == "201")isManage=true
                             val arr = json.getJSONArray("data")
                             if (arr.length() == 0) return
                             for (i in 0 until arr.length()) {
                                 val ri=Gson().fromJson(arr.getString(i), RepairInfoM::class.java)
-                                if (json.getString("state") == "201")isManage=true
+                                if (arr.optJSONObject(i).getString("wxboy")=="null") ri.wxboy=""
+                                if (!arr.getString(i).contains("wxphone")||
+                                        arr.optJSONObject(i).getString("wxphone")=="null") ri.wxphone=""
+
                                 if (arr.optJSONObject(i).getString("tupian") != "null" &&
                                         !arr.optJSONObject(i).getString("tupian").isEmpty()){
                                     val jsonArray= arr.optJSONObject(i).getJSONArray("tupian")
@@ -101,13 +99,20 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                         }
                     }
                     override fun onError(response: Response<String>) {
-
                         Log.e("OkGoError",response.message())
+                        AlertDialog.Builder(this@RepairInfoListActivity).setMessage("获取失败！ 是否重试?")
+                                .setPositiveButton("确定") { _, _ ->
+                                    loadData2()
+                                }.setNegativeButton("取消",null) .show()
                     }
                 })
     }
 
     private fun showRIlist(RI_list: ArrayList<RepairInfoM>) {
+        if (RI_list.isEmpty()){
+            rv_ri_list.visibility=View.GONE
+            return
+        }else rv_ri_list.visibility=View.VISIBLE
         if (adapter==null){
             adapter= RepairInfoAdapter(RI_list,this)
             rv_ri_list.layoutManager= LinearLayoutManager(this,
@@ -140,6 +145,7 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
         val selected:RepairInfoM? = data.getSerializableExtra("back") as RepairInfoM
         if (allRI.contains(selected))allRI.remove(selected)
         if (wait_handleRIs.contains(selected))wait_handleRIs.remove(selected)
+        handleingRIs.add(selected!!)
         adapter!!.notifyDataSetChanged()
     }
 

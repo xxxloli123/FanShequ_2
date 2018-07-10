@@ -20,18 +20,15 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RemoteViews
 import android.widget.TextView
 import com.fanhong.cn.door_page.DoorFragment
 import com.fanhong.cn.home_page.ChooseCellActivity
-import com.fanhong.cn.home_page.CommunityFragment
 import com.fanhong.cn.home_page.HomeFragment
-import com.fanhong.cn.home_page.ServiceFragment
+import com.fanhong.cn.home_page.HomeFragment2
 import com.fanhong.cn.login_pages.LoginActivity
 import com.fanhong.cn.tools.AppCacheManager
-import com.fanhong.cn.tools.DialogUtil
 import com.fanhong.cn.tools.JsonSyncUtils
 import com.fanhong.cn.tools.ToastUtil
 import com.fanhong.cn.user_page.UserFragment
@@ -66,21 +63,20 @@ class HomeActivity : AppCompatActivity() {
         val today = SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis())
         if (today != getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).getString(App.PrefNames.UPDATEIGNORE, ""))
             checkUpdate()
-
     }
 
     private fun initViews() {
-        fragments.add(HomeFragment())
-        fragments.add(ServiceFragment())
+        tv_tab_home.visibility= View.VISIBLE
+        onClicks(all_tab_home)
+        fragments.add(HomeFragment2())
         fragments.add(DoorFragment())
-        fragments.add(CommunityFragment())
         fragments.add(UserFragment())
         val pagerAdapter: FragmentPagerAdapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment = fragments[position]
             override fun getCount(): Int = fragments.size
         }
         home_viewpager.adapter = pagerAdapter
-        home_viewpager.offscreenPageLimit = 4 //设置向左和向右都缓存limit个页面
+        home_viewpager.offscreenPageLimit = 2 //设置向左和向右都缓存 limit 个页面
         home_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -91,92 +87,69 @@ class HomeActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
-                        setRadioButtonChecked(0)
-                        setFloatIconsVisible(0)
+                        if (tv_tab_home.visibility == View.GONE) return
+                        onClicks(all_tab_home)
                     }
                     1 -> {
-                        setRadioButtonChecked(1)
-                        setFloatIconsVisible(1)
+                        if (tv_tab_door.visibility == View.GONE) return
+                        onClicks(all_tab_door)
                     }
                     2 -> {
-                        setRadioButtonChecked(2)
-                        setFloatIconsVisible(2)
-                    }
-                    3 -> {
-                        if (isLogged()) {
-                            if (isChoosenCell()) {
-                                setRadioButtonChecked(3)
-                                setFloatIconsVisible(3)
-                            } else {
-                                DialogUtil.showDialog(this@HomeActivity, "chooseCell", ACTION_CHOOSE_BY_COMMUNITY)
-                                home_viewpager.currentItem = lastTab
-                            }
-                        } else {
-                            DialogUtil.showDialog(this@HomeActivity, "login", ACTION_LOGIN_BY_COMMUNITY)
-                            home_viewpager.currentItem = lastTab
-                        }
-                    }
-                    4 -> {
-                        setRadioButtonChecked(4)
-                        setFloatIconsVisible(4)
+                        if (tv_tab_my.visibility == View.GONE) return
+                        onClicks(all_tab_my)
                     }
                 }
             }
         })
-        rg_bottom.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.tab_home -> {
-                    home_viewpager.currentItem = 0
-                    setFloatIconsVisible(0)
-                }
-                R.id.tab_service -> {
-                    home_viewpager.currentItem = 1
-                    setFloatIconsVisible(1)
-                }
-                R.id.tab_door -> {
-                    home_viewpager.currentItem = 2
-                    setFloatIconsVisible(2)
-                }
-                R.id.tab_interaction -> {
-                    home_viewpager.currentItem = 3
-                    if (isLogged() && isChoosenCell()) {
-                        setFloatIconsVisible(3)
-                    }
-                }
-                R.id.tab_user -> {
-                    home_viewpager.currentItem = 4
-                    setFloatIconsVisible(4)
-                }
-            }
-        }
-
     }
 
-    fun setRadioButtonChecked(i: Int) {
-        when (i) {
-            0 -> tab_home.isChecked = true
-            1 -> tab_service.isChecked = true
-            2 -> tab_door.isChecked = true
-            3 -> tab_interaction.isChecked = true
-            4 -> tab_user.isChecked = true
-            else -> {
+    private fun setTabView(o: Int) {
+        val textViews: Array<View> = arrayOf(tv_tab_home, tv_tab_door, tv_tab_my)
+        val imgs: Array<View> = arrayOf(img_tab_home, img_tab_door, img_tab_my)
+        for (i in 0 until textViews.size) {
+            if (i == o) {
+                textViews[i].visibility = View.GONE
+                imgs[i].setPadding(0, 16, 0, 16)
+            } else {
+                textViews[i].visibility = View.VISIBLE
+                imgs[i].setPadding(0,22,0,6)
             }
-        }
-    }
-
-    private fun setFloatIconsVisible(o: Int) {
-        val icons: Array<ImageView> = arrayOf(img_tab_home, img_tab_service, img_tab_door, img_tab_interaction, img_tab_user)
-        for (i in 0 until icons.size) {
-            if (i == o)
-                icons[i].visibility = View.VISIBLE
-            else
-                icons[i].visibility = View.GONE
         }
         lastTab = o
     }
 
+    fun onClicks(v: View) {
+        when (v.id) {
+            R.id.all_tab_home -> {
+                if (tv_tab_home.visibility == View.GONE) return
+                setTabView(0)
+                home_viewpager.currentItem = 0
+                img_tab_home.setImageResource(R.mipmap.home_page_1)
+                img_tab_door.setImageResource(R.mipmap.entrance_guard)
+                img_tab_my.setImageResource(R.mipmap.mine)
+            }
+            R.id.all_tab_door -> {
+                if (tv_tab_door.visibility == View.GONE) return
+                setTabView(1)
+                home_viewpager.currentItem = 1
+                img_tab_home.setImageResource(R.mipmap.home_page)
+                img_tab_door.setImageResource(R.mipmap.entrance_guard_1)
+                img_tab_my.setImageResource(R.mipmap.mine)
+            }
+            R.id.all_tab_my -> {
+                if (tv_tab_my.visibility == View.GONE) return
+                setTabView(2)
+                home_viewpager.currentItem = 2
+
+                img_tab_home.setImageResource(R.mipmap.home_page)
+                img_tab_door.setImageResource(R.mipmap.entrance_guard)
+                img_tab_my.setImageResource(R.mipmap.mine_1)
+            }
+        }
+    }
+
     private fun isLogged() = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).getString(App.PrefNames.USERID, "-1") != "-1"
-    private fun isChoosenCell() = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).getString(App.PrefNames.GARDENID, "-1") != "-1"
+    private fun isSelectedCommunity() = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).getString(App.PrefNames.GARDENID, "-1") != "-1"
 
     private var time1 = 0L
     private var time2 = 0L
@@ -351,8 +324,6 @@ class HomeActivity : AppCompatActivity() {
             }
             ACTION_CHOOSE_BY_COMMUNITY -> {
                 if (resultCode == 51) {//51表示选择了小区
-                    setRadioButtonChecked(3)
-                    setFloatIconsVisible(3)
                 }
             }
         }

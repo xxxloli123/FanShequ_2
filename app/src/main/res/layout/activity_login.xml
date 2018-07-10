@@ -3,27 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg1"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.fanhong.cn.login_pages.LoginActivity">
 
-    <include layout="@layout/activity_top" />
+    <ImageView
+        android:id="@id/img_back"
+        android:src="@mipmap/grey_back"
+        android:padding="22px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="55px"
+        android:layout_marginLeft="55px"
+        android:layout_marginRight="55px"
         android:layout_width="match_parent"
         android:layout_height="100px"
-        android:layout_marginTop="50px"
         android:background="@color/white"
         android:gravity="center_vertical">
 
         <ImageView
+            android:padding="33px"
             android:layout_width="wrap_content"
-            android:layout_height="50px"
-            android:paddingLeft="24px"
-            android:paddingRight="24px"
-            android:src="@mipmap/ico_account" />
+            android:layout_height="wrap_content"
+            android:src="@mipmap/contact" />
 
         <EditText
+            android:maxLength="11"
             android:id="@+id/edt_username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -32,22 +45,29 @@
             android:inputType="phone"
             android:textColor="@color/text_3"
             android:textColorHint="@color/text_9"
-            android:textSize="17sp" />
+            android:textSize="33px" />
     </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginRight="55px"
+        android:layout_marginLeft="55px"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
 
     <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="55px"
+        android:layout_marginLeft="55px"
+        android:layout_marginRight="55px"
         android:layout_width="match_parent"
         android:layout_height="100px"
-        android:layout_marginTop="50px"
         android:background="@color/white"
         android:gravity="center_vertical">
 
         <ImageView
+            android:padding="33px"
             android:layout_width="wrap_content"
-            android:layout_height="50px"
-            android:paddingLeft="24px"
-            android:paddingRight="24px"
-            android:src="@mipmap/ico_password" />
+            android:layout_height="wrap_content"
+            android:src="@mipmap/lock" />
 
         <EditText
             android:id="@+id/edt_password"
@@ -59,8 +79,15 @@
             android:inputType="textPassword"
             android:textColor="@color/text_3"
             android:textColorHint="@color/text_9"
-            android:textSize="17sp" />
+            android:textSize="33px" />
     </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginBottom="22px"
+        android:layout_marginRight="55px"
+        android:layout_marginLeft="55px"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
 
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/layout_code"
@@ -98,9 +125,9 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginTop="50px"
-        android:background="@drawable/denglu_selector"
+        android:layout_height="88px"
+        android:layout_margin="55px"
+        android:background="@mipmap/button_background"
         android:onClick="onLogin"
         android:id="@+id/btn_login"
         android:text="@string/login"
@@ -108,9 +135,11 @@
         android:textSize="19.0sp" />
 
     <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_marginLeft="55px"
+        android:layout_marginRight="55px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20px">
+        >
 
         <TextView
             android:layout_width="wrap_content"

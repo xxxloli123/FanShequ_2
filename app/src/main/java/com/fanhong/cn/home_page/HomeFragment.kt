@@ -44,7 +44,9 @@ class HomeFragment : Fragment() {
 
     private var mSharedPref: SharedPreferences? = null
     private var array: JSONArray? = null
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -64,7 +66,6 @@ class HomeFragment : Fragment() {
         tv_shequ_gonggao.setOnClickListener {
             if (isLogined()) {
                 if (choosedCell()) {
-                    (activity as HomeActivity).setRadioButtonChecked(3)
                 } else {
                     DialogUtil.showDialog(activity, "chooseCell", 110)
                 }

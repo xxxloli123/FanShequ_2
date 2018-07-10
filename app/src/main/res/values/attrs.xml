@@ -22,4 +22,7 @@
     <!--    <attr name="pstsIndicatorWrap" format="boolean" />-->
     </declare-styleable>
 
+    <declare-styleable name="CTTourHeaderScrollView2">
+        <attr name="top_offset" format="dimension" />
+    </declare-styleable>
 </resources>

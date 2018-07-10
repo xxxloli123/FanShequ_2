@@ -205,12 +205,12 @@
     <string name="decline">拒绝</string>
 
     <!--个人中心-->
-    <string name="keylogin">点击头像登录</string>
+    <string name="keylogin">点击登录</string>
     <string name="usersettings">账号设置</string>
     <string name="repairInfo">维修信息</string>
     <string name="myscore">我的积分</string>
     <string name="newsnotice">消息通知</string>
-    <string name="mytradeno">我的订单</string>
+    <string name="mytradeno">订单</string>
     <string name="kehurexian">客服热线</string>
     <string name="Customerhotline">023–68872002</string>
     <string name="tongyongsz">通用设置</string>

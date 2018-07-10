@@ -73,7 +73,7 @@ class BasicSettingsActivity : AppCompatActivity() {
         if (id == "-1")
             ToastUtil.showToastL("当前未处于登录状态！")
         else AlertDialog.Builder(this).setMessage("是否确定退出此账号？")
-                .setPositiveButton("确定", { _, _ -> doLogout() })
+                .setPositiveButton("确定") { _, _ -> doLogout() }
                 .setNegativeButton("取消", null).show()
 
     }

@@ -15,12 +15,12 @@
         >
 
         <ImageView
-            android:padding="12px"
-            android:layout_marginLeft="12px"
+            android:paddingRight="33px"
+            android:paddingLeft="33px"
             android:onClick="onCLicks"
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/black_back" />
@@ -59,7 +59,7 @@
         android:checkedButton="@id/rbn_all"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="78px">
+        android:layout_height="70px">
 
         <RadioButton
             android:onClick="onCLicks"
@@ -119,10 +119,38 @@
         android:layout_width="match_parent"
         android:layout_height="1px"/>
 
-    <com.zhy.autolayout.AutoLinearLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:background="@color/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="88px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/zwdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="44px"
+                android:textSize="33px"
+                android:textColor="@color/text_6"
+                android:textStyle="bold"
+                android:text="暂无订单"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="16px"
+                android:text="可以去看看有哪些感兴趣的"
+                android:textColor="@color/text_6"
+                android:textSize="26px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_ri_list"
@@ -130,6 +158,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
 
 </com.zhy.autolayout.AutoLinearLayout>

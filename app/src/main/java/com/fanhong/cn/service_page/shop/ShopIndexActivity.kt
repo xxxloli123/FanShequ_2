@@ -27,6 +27,16 @@ class ShopIndexActivity : AppCompatActivity() {
     private val pagerAdapter: FragmentPagerAdapter = object : FragmentPagerAdapter(supportFragmentManager) {
         override fun getItem(position: Int): Fragment = fragments[position]
         override fun getCount(): Int = fragments.size
+        override fun getPageTitle(position: Int): CharSequence {
+            if (position >= 0 && position < fragments.size) {
+                when (position) {
+                    0 -> return "全部"
+                    1 -> return "智能门锁"
+                    2 -> return "精品酒水"
+                }
+            }
+            return ""
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +92,8 @@ class ShopIndexActivity : AppCompatActivity() {
     }
 
     private fun getUid(): String = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).getString(App.PrefNames.USERID, "-1")
-    private fun isCarEmpty() = null == App.db.selector(GoodsCarTable::class.java).where("c_uid", "=", getUid()).findFirst()
+    private fun isCarEmpty() = null == App.db.selector(GoodsCarTable::class.java).
+            where("c_uid", "=", getUid()).findFirst()
     private fun checkCar() {
         val existGoods = App.db.selector(GoodsCarTable::class.java).where("c_uid", "=", getUid()).findAll()
         val count = existGoods?.size ?: 0

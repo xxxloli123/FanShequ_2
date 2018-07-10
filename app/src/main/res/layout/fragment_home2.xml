@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray2"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="388px"
+        android:background="@color/grayD">
+
+        <com.youth.banner.Banner
+            app:banner_default_image="@mipmap/banner"
+            android:id="@+id/bn_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:indicator_drawable_selected="@color/blue2"
+            app:indicator_drawable_unselected="@color/white"
+            app:indicator_height="10px"
+            app:indicator_margin="6px"
+            app:indicator_width="12px"
+            app:title_height="77px"
+            app:title_textsize="22px" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/all_fillStatusBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="22px"
+                android:drawableLeft="@mipmap/positioning"
+                android:drawablePadding="12px"
+                android:fitsSystemWindows="true"
+                android:gravity="center_vertical"
+                android:text="选择小区"
+                android:textColor="@color/white"
+                android:textSize="30px" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <ScrollView
+        android:id="@+id/sv_kengdie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="33px"
+                android:background="@drawable/corners_round_white"
+                android:orientation="vertical">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18px">
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/all_repair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/door_service" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12px"
+                            android:text="物业报修"
+                            android:textColor="@color/text_9"
+                            android:textSize="22px" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/all_repair_owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/repair_service" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12px"
+                            android:text="上门维修"
+                            android:textColor="@color/text_9"
+                            android:textSize="22px" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/all_community_mall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/community_mall" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12px"
+                            android:text="社区商城"
+                            android:textColor="@color/text_9"
+                            android:textSize="22px" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/all_old_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/secondhand_shop" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12px"
+                            android:text="二手商城"
+                            android:textColor="@color/text_9"
+                            android:textSize="22px" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18px"
+                    android:layout_marginTop="18px">
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/all_investment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/investment" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12px"
+                            android:text="招商代理"
+                            android:textColor="@color/text_9"
+                            android:textSize="22px" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12px"
+                            android:text="二手市场"
+                            android:textColor="@color/text_9"
+                            android:textSize="22px"
+                            android:visibility="gone" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12px"
+                            android:textColor="@color/text_9"
+                            android:textSize="22px" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="96px"
+                android:layout_marginLeft="33px"
+                android:layout_marginRight="33px"
+                android:background="@drawable/corners_round_white"
+                android:orientation="horizontal"
+                android:padding="18px">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="18px"
+                    android:src="@mipmap/loudspeaker" />
+
+                <com.marquee.dingrui.marqueeviewlib.MarqueeView
+                    android:id="@+id/mv_announcement"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:marqueeview_is_resetLocation="false"
+                    app:marqueeview_repet_type="repet_continuous"
+                    app:marqueeview_text_color="@color/text_6"
+                    app:marqueeview_text_distance="233"
+                    app:marqueeview_text_size="12"
+                    app:marqueeview_text_speed="1" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:id="@+id/tv_announcement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="33px"
+                android:layout_marginRight="33px"
+                android:background="@drawable/corners_round_white"
+                android:drawableLeft="@mipmap/loudspeaker"
+                android:drawablePadding="18px"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:padding="18px"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="我需要静静我需要静静我需要静静我需要静静我需要静静我需要静静我需要静静我需要静静我需要静静"
+                android:textColor="@color/text_6"
+                android:textSize="22px"
+                android:visibility="gone" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="33px">
+
+                <View
+                    android:layout_width="6px"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8px"
+                    android:background="@color/blue2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动资讯"
+                    android:textColor="@color/text_6"
+                    android:textSize="36px" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <!--<com.fanhong.cn.view.MyListView-->
+            <!--android:id="@+id/lv_activities_list"-->
+            <!--android:layout_marginLeft="33px"-->
+            <!--android:layout_marginRight="33px"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_activities_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/all"
+                    android:layout_marginLeft="33px"
+                    android:layout_marginRight="33px" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </ScrollView>
+
+</com.zhy.autolayout.AutoLinearLayout>

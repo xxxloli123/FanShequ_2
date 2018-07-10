@@ -2,10 +2,7 @@ package com.fanhong.cn.service_page.shop
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -20,17 +17,21 @@ import android.widget.TextView
 import com.alipay.sdk.app.PayTask
 import com.fanhong.cn.App
 import com.fanhong.cn.R
+import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.login_pages.LoginActivity
-import com.fanhong.cn.tools.JsonSyncUtils
-import com.fanhong.cn.tools.SignUtils
-import com.fanhong.cn.tools.StringUtils
-import com.fanhong.cn.tools.ToastUtil
+import com.fanhong.cn.tools.*
 import com.fanhong.cn.user_page.shippingaddress.MyAddressActivity
+import com.lzy.okgo.OkGo
+import com.lzy.okgo.model.Response
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_order_confirm.*
 import kotlinx.android.synthetic.main.activity_top.*
+import me.leefeng.promptlibrary.PromptDialog
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import org.xutils.common.Callback
 import org.xutils.db.sqlite.WhereBuilder
 import org.xutils.http.RequestParams
@@ -52,10 +53,16 @@ class OrderConfirmActivity : AppCompatActivity() {
     private var orderTitle = ""
     private var orderDescription: String = ""
 
+    private var orderTime = 0L
+    private var orderNum=""
+    lateinit var addr:MyAddressActivity.AddressModel
+    lateinit var pref: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_confirm)
         tv_title.text = "确认订单"
+        pref = this.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         img_back.setOnClickListener { finish() }
 
         adapter = GoodsAdapter(this, goods)
@@ -157,8 +164,8 @@ class OrderConfirmActivity : AppCompatActivity() {
                         Log.e("TestLog", "request:${param.toJSONString()}\nresult:$result")
 //                        var t1 = Date(1483159625851)
                         val data = JsonSyncUtils.getJsonValue(result, "data")
-                        val orderNum = JsonSyncUtils.getJsonValue(data, "ddh")
-                        val orderTime = JsonSyncUtils.getJsonValue(data, "time").toLong()//订单生成时间
+                         orderNum = JsonSyncUtils.getJsonValue(data, "ddh")
+                         orderTime = JsonSyncUtils.getJsonValue(data, "time").toLong()//订单生成时间
                         val targetTime = orderTime + 1000 * 60 * 15//预定最后支付时间为订单生成时间15分钟后
                         val residueTime = targetTime - System.currentTimeMillis()//剩余支付时间
                         if (residueTime > 1000 * 60) {
@@ -190,6 +197,37 @@ class OrderConfirmActivity : AppCompatActivity() {
                 layout_progressBar.visibility = View.GONE
             }
         })
+        isHaveSuperior()
+    }
+
+    private fun isHaveSuperior() {
+//        1037.查询是否有上家(APP->平台)
+//        cmd:数据类型
+//        uid:当前用户的ID
+        val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        OkGo.post<String>(App.CMD)
+                .tag(this)//
+                .isMultipart(true)
+                .params("cmd","1037")
+                .params("uid",pref.getString(App.PrefNames.USERID, "-1"))
+                .execute(object : StringDialogCallback(this) {
+                    override fun onSuccess(response: Response<String>) {
+                        Log.e("OkGobody", response.body().toString())
+                        try {
+                            val json = JSONObject(response.body()!!.toString())
+                            if (json.getString("cw") == "1"){
+                                arl_recommend.visibility=View.VISIBLE
+                            }
+                        }catch (e: JSONException) {
+                            LogUtil.e("JSONException",e.toString())
+                            e.printStackTrace()
+                        }
+                    }
+
+                    override fun onError(response: Response<String>) {
+                        Log.e("OkGoError", response.message())
+                    }
+                })
 
     }
 
@@ -209,6 +247,7 @@ class OrderConfirmActivity : AppCompatActivity() {
         if (resultCode == 101 && null !== data) {
             tv_chosen_address.text = data.getStringExtra("addrName")
             addrId = data.getStringExtra("addrId")
+            addr = data.getSerializableExtra("addr") as MyAddressActivity.AddressModel
         }
     }
 
@@ -458,11 +497,123 @@ class OrderConfirmActivity : AppCompatActivity() {
     }
 
     private fun paySuccess() {
-        val dialog = AlertDialog.Builder(this)
-                .setMessage("订单支付成功！")
-                .setPositiveButton("确定", null).create()
-        dialog.setOnDismissListener { finish() }
-        dialog.show()
+        if (arl_recommend.visibility==View.VISIBLE){
+            btn_commit.text="已支付"
+            btn_commit.isEnabled=false
+            PromptDialog(this).showSuccess("支付成功 填写推荐人可得积分哟")
+        }else{
+            val dialog = AlertDialog.Builder(this)
+                    .setMessage("订单支付成功！")
+                    .setPositiveButton("确定", null).create()
+            dialog.setOnDismissListener { finish() }
+            dialog.show()
+        }
+    }
+
+    fun submitRecommend(v: View) {
+        var string=""
+        for (i in goods.indices){
+            val params = HashMap<String, String>()
+            params["ID"] = goods[i].gid
+            params["ID2"] = goods[i].count.toString()
+            if (i==0) string ="${goods[i].gid}:${goods[i].gid}" else
+                string+=",${goods[i].gid}:${goods[i].gid}"
+        }
+
+//        1031.“添加三级分销（APP->平台）
+//        cmd：数据类型
+//        uid：下订单用户ID
+//        time：下订单时间
+//        zjje：支付金额
+//        zffs：支付方式（1支付宝，2微信）
+//        user：收货人姓名
+//        dh：收货人手机号
+//        ldh：详细地址
+//        ddh：订单号
+//        qid：小区ID号
+//        goods: 商品ID和数量（ID:数量，ID2：数量）
+//        phone:代理商电话号码
+        OkGo.post<String>(App.CMD)
+                .tag(this)//
+                .params("cmd", "1031")
+                .params("uid", pref.getString(App.PrefNames.USERID, "-1"))
+                .params("time", orderTime.toString())
+                .params("zjje", total.toString())
+                .params("zffs", payWay.toString())
+                .params("user", addr.name)
+                .params("dh", addr.phone)
+                .params("ldh", addr.address)
+                .params("ddh", orderNum)
+                .params("qid", pref.getString(App.PrefNames.GARDENID, ""))
+                .params("goods", string)
+                .params("phone", edt_phone.text.toString())
+                .execute(object : StringDialogCallback(this) {
+                    override fun onSuccess(response: Response<String>) {
+                        Log.e("OkGo body",response.body().toString())
+                        try {
+                            val json = JSONObject(response.body()!!.toString())
+                            when(json.getInt("cw")){
+                                0-> {
+                                    addCommission()
+                                }
+                                1-> PromptDialog(this@OrderConfirmActivity).showError("系统错误")
+                                2-> PromptDialog(this@OrderConfirmActivity).showError("电话号码错误")
+                                3-> PromptDialog(this@OrderConfirmActivity).showError("没有这个代理商")
+                            }
+                        } catch (e: JSONException) {
+                            LogUtil.e("JSONException",e.toString())
+                            ToastUtil.showToastL("数据解析异常")
+                            e.printStackTrace()
+                        }
+                    }
+                    override fun onError(response: Response<String>) {
+                        AlertDialog.Builder(this@OrderConfirmActivity).setMessage("填写推荐人失败！ 是否重试?")
+                                .setPositiveButton("确定") { _, _ ->
+                                    submitRecommend(btn_commit)
+                                }.setNegativeButton("取消") { _, _ ->
+                                }.show()
+                        Log.e("OkGoError",response.exception.toString())
+                    }
+                })
+    }
+
+    private fun addCommission() {
+//        1033.添加佣金(APP->平台)
+//        cmd:数据类型
+//        phone:当前APP用户的电话号码
+//        ddh:当前订单号
+        OkGo.post<String>(App.CMD)
+                .tag(this)//
+                .params("cmd", "1033")
+                .params("phone", pref.getString(App.PrefNames.USERNAME, ""))
+                .params("ddh", orderNum)
+                .execute(object : StringDialogCallback(this) {
+                    override fun onSuccess(response: Response<String>) {
+                        Log.e("OkGo body",response.body().toString())
+                        try {
+                            val json = JSONObject(response.body()!!.toString())
+                            when(json.getInt("cw")){
+                                0-> {
+                                    PromptDialog(this@OrderConfirmActivity).showSuccess("填写推荐人成功")
+                                    finish()
+                                }
+                                1-> PromptDialog(this@OrderConfirmActivity).showSuccess("添加失败")
+                            }
+                        } catch (e: JSONException) {
+                            LogUtil.e("JSONException",e.toString())
+                            ToastUtil.showToastL("数据解析异常")
+                            e.printStackTrace()
+                        }
+                    }
+                    override fun onError(response: Response<String>) {
+                        AlertDialog.Builder(this@OrderConfirmActivity).setMessage("添加推荐人失败！ 是否重试?")
+                                .setPositiveButton("确定") { _, _ ->
+                                    submitRecommend(btn_commit)
+                                }.setNegativeButton("取消") { _, _ ->
+                                }.show()
+                        Log.e("OkGoError",response.exception.toString())
+                    }
+                })
     }
 
     private fun payFailure() {

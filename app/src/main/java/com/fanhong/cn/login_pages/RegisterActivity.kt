@@ -1,18 +1,23 @@
 package com.fanhong.cn.login_pages
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import com.fanhong.cn.App
 import com.fanhong.cn.R
-import com.fanhong.cn.tools.JsonSyncUtils
-import com.fanhong.cn.tools.MD5Util
-import com.fanhong.cn.tools.StringUtils
-import com.fanhong.cn.tools.ToastUtil
+import com.fanhong.cn.http.callback.StringDialogCallback
+import com.fanhong.cn.tools.*
+import com.lzy.okgo.OkGo
+import com.lzy.okgo.model.Response
+import kotlinx.android.synthetic.main.activity_order_confirm.*
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_top.*
+import me.leefeng.promptlibrary.PromptDialog
+import org.json.JSONException
+import org.json.JSONObject
 import org.xutils.common.Callback
 import org.xutils.http.RequestParams
 import org.xutils.x
@@ -28,17 +33,14 @@ class RegisterActivity : AppCompatActivity() {
     private fun initViews(type: String?) {
         when (type) {
             "register" -> {
-                tv_title.text = "用户注册"
                 btn_register_commit.text = "注册"
-                checkbox_agree.setOnCheckedChangeListener { buttonView, isChecked ->
-                    btn_register_commit.isEnabled = isChecked
-                }
-                btn_register_commit.setOnClickListener { register() }
+                btn_register_commit.setOnClickListener { register2() }
             }
             "reset" -> {
-                tv_title.text = "重置密码"
-                btn_register_commit.text = "确定"
-                layout_agreement.visibility = View.GONE
+                img_logo.visibility=View.GONE
+                btn_register_commit.text = "找回密码"
+                arl_recommend.visibility = View.GONE
+                all_nick.visibility=View.GONE
                 btn_register_commit.setOnClickListener { resetPwd() }
             }
         }
@@ -46,10 +48,87 @@ class RegisterActivity : AppCompatActivity() {
             setResult(-1)
             finish()
         }
-
-
-
         Thread(runnable).start()
+    }
+
+    private fun register2() {
+        val name = edt_username.text.toString().trim()
+        if (!StringUtils.validPhoneNum("0", name)) {
+            ToastUtil.showToastL("请输入正确的电话号码！")
+            return
+        }
+        val code = edt_code.text.toString().trim()
+        if (TextUtils.isEmpty(code)) {
+            ToastUtil.showToastL("请输入验证码！")
+            return
+        }
+        val pwd = edt_password.text.toString().trim()
+        if (TextUtils.isEmpty(pwd)) {
+            ToastUtil.showToastL("请输入密码")
+            return
+        }
+        if (edt_nick.text.toString().isEmpty()) {
+            ToastUtil.showToastL("请输入昵称")
+            return
+        }
+        val password=MD5Util.getEncryptString(pwd)
+        OkGo.post<String>(App.CMD)
+                .tag(this)//
+                .isMultipart(true)
+            //        1055：新注册（APP->平台）//比以前的多了个 用户名
+            //        cmd:数据类型
+            //        yzm：短信验证码
+            //        name：验证后得电话号码
+            //        user:用户名字
+            //        password：加密后得密码
+                .params("cmd","1055")
+                .params("yzm",code)
+                .params("name",name)
+                .params("user",edt_nick.text.toString())
+                .params("password",password)
+                .execute(object : StringDialogCallback(this) {
+                    override fun onSuccess(response: Response<String>) {
+                        Log.e("OkGo 注册", response.body().toString())
+                        try {
+                            val json = JSONObject(response.body()!!.toString())
+                            when(json.getInt("cw")){
+//                                cw：返回结果（cw=0成功，1验证码错误，2 系统错误，3 用户已存在）
+                                0->{
+                                    PromptDialog(this@RegisterActivity).showError("注册成功")
+                                    val i = Intent()
+                                    i.putExtra("username", name)
+                                    i.putExtra("password", pwd)
+                                    setResult(21, i)
+                                    finish()
+                                }
+                                1-> PromptDialog(this@RegisterActivity).showError("验证码错误")
+                                2-> PromptDialog(this@RegisterActivity).showError("系统错误")
+                                3-> PromptDialog(this@RegisterActivity).showError("用户已存在")
+                            }
+
+                            if (json.getString("cw") == "1"){
+                                PromptDialog(this@RegisterActivity).showError("系统错误")
+                            }else AlertDialog.Builder(this@RegisterActivity)
+                                    .setMessage("评价成功")
+                                    .setPositiveButton("确定") { _, _ ->
+                                        finish()
+                                    }.show()
+                        }catch (e: JSONException) {
+                            LogUtil.e("JSONException",e.toString())
+                            ToastUtil.showToastL("数据解析异常")
+                            e.printStackTrace()
+                        }
+                    }
+
+                    override fun onError(response: Response<String>) {
+                        Log.e("OkGoError", response.exception.toString())
+                        AlertDialog.Builder(this@RegisterActivity)
+                                .setMessage("连接失败！ 是否重试?")
+                                .setPositiveButton("确定") { _, _ ->
+                                    register2()
+                                }.setNegativeButton("取消",null) .show()
+                    }
+                })
     }
 
     private fun resetPwd() {

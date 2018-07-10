@@ -11,19 +11,20 @@ import android.view.View
 import android.widget.Toast
 import com.fanhong.cn.App
 import com.fanhong.cn.R
-import com.fanhong.cn.callback.StringDialogCallback
-import com.fanhong.cn.moudle.RepairInfoM
+import com.fanhong.cn.http.callback.StringDialogCallback
+import com.fanhong.cn.service_page.repair.moudle.RepairInfoM
+import com.fanhong.cn.tools.LogUtil
 import com.fanhong.cn.tools.ToastUtil
 import com.lzy.okgo.OkGo
-import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
-import com.willy.ratingbar.BaseRatingBar
 import kotlinx.android.synthetic.main.activity_repair_evaluate.*
+import me.leefeng.promptlibrary.PromptDialog
+import org.json.JSONException
 import org.json.JSONObject
 
 class RepairEvaluateActivity : AppCompatActivity() {
     lateinit var repairInfo:RepairInfoM
-    private var fraction=0
+    private var fraction=3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,12 +97,29 @@ class RepairEvaluateActivity : AppCompatActivity() {
                 .execute(object : StringDialogCallback(this) {
                     override fun onSuccess(response: Response<String>) {
                         Log.e("OkGobody", response.body().toString())
-                        val json = JSONObject(response.body()!!.toString())
-
+                        try {
+                            val json = JSONObject(response.body()!!.toString())
+                            if (json.getString("cw") == "1"){
+                                PromptDialog(this@RepairEvaluateActivity).showError("系统错误")
+                            }else AlertDialog.Builder(this@RepairEvaluateActivity)
+                                    .setMessage("评价成功")
+                                    .setPositiveButton("确定") { _, _ ->
+                                        finish()
+                                    }.show()
+                        }catch (e: JSONException) {
+                            LogUtil.e("JSONException",e.toString())
+                            ToastUtil.showToastL("数据解析异常")
+                            e.printStackTrace()
+                        }
                     }
 
                     override fun onError(response: Response<String>) {
-                        Log.e("OkGoError", response.message())
+                        Log.e("OkGoError", response.exception.toString())
+                        AlertDialog.Builder(this@RepairEvaluateActivity)
+                                .setMessage("评价失败！ 是否重试?")
+                                .setPositiveButton("确定") { _, _ ->
+                                    submit()
+                                }.setNegativeButton("取消",null) .show()
                     }
                 })
     }

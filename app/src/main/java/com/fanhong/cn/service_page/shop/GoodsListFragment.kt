@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import android.widget.TextView
 import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.tools.JsonSyncUtils
+import com.fanhong.cn.tools.LogUtil
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.fragment_shop_goods_list.*
 import org.xutils.common.Callback
@@ -49,14 +51,19 @@ class GoodsListFragment() : Fragment() {
             goods.clear()
             getData()
         }
-
     }
 
     private fun getData() {
         val param = RequestParams(App.CMD)
-        param.addBodyParameter("cmd", "1009")
-        param.addBodyParameter("page", "1")
-        param.addBodyParameter("lx", "$type")
+        if (type == 2333)
+//            1059 社区卖场(APP->平台)
+//              cmd:数据类型
+            param.addBodyParameter("cmd", "1059")
+        else {
+            param.addBodyParameter("cmd", "1009")
+            param.addBodyParameter("page", "1")
+            param.addBodyParameter("lx", "$type")
+        }
         x.http().post(param, object : Callback.CommonCallback<String> {
             override fun onCancelled(cex: Callback.CancelledException?) {
             }
@@ -69,7 +76,7 @@ class GoodsListFragment() : Fragment() {
             }
 
             override fun onSuccess(result: String) {
-//                Log.e("TestLog", result)
+                LogUtil.e("TestLog", result)
 //                if ("0" == JsonSyncUtils.getJsonValue(result, "cw")) {
 //                    val data = JsonSyncUtils.getJsonValue(result, "data")
 //                    goods += JsonSyncUtils.getGoodsList(data)
@@ -111,6 +118,8 @@ class GoodsListFragment() : Fragment() {
             holder.title?.text = data.name
             holder.content?.text = data.content
             holder.price?.text = Html.fromHtml("<font color='#ff4d4d'>￥${data.price}</font>")
+
+            holder.comment?.text=((Math.random() * 222)).toInt().toString()
             view.setOnClickListener {
                 val intent = Intent(context, GoodsDetailsActivity::class.java)
                 intent.putExtra("id", data.id)
@@ -141,6 +150,8 @@ class GoodsListFragment() : Fragment() {
             var content: TextView? = null
             @ViewInject(R.id.tv_price)
             var price: TextView? = null
+            @ViewInject(R.id.tv_comment)
+            var comment: TextView? = null
 
             init {
                 x.view().inject(this, view)

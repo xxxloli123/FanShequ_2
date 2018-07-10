@@ -205,7 +205,8 @@ class AccountSetsActivity : AppCompatActivity() {
             val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
             val username = pref.getString(App.PrefNames.USERNAME, "")
             val userId = pref.getString(App.PrefNames.USERID, "-1")
-            val file: File = FileUtil.compressImage(photo, Environment.getExternalStorageDirectory().toString() + "/Fanshequ/$username.jpg")
+            val file: File = FileUtil.compressImage(cropFile!!, Environment.getExternalStorageDirectory().toString() +
+                    "/Fanshequ/hou" + (System.currentTimeMillis().toString()) + ".jpg")
 
 //            Log.e("testLog", "file.length=${file.length()}")
             val param = RequestParams(App.HEAD_UPLOAD)
@@ -226,6 +227,7 @@ class AccountSetsActivity : AppCompatActivity() {
                         x.image().bind(img_head,file.path.toString(),option)
 //                        img_head.setImageBitmap(photo)
                         ToastUtil.showToastL("修改成功！")
+
                         val token = JsonSyncUtils.getJsonValue(result, "token")
                         val headUrl = JsonSyncUtils.getJsonValue(result, "logo")
                         val editor = pref.edit()

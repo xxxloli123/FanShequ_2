@@ -16,12 +16,12 @@
         >
 
         <ImageView
-            android:padding="12px"
-            android:layout_marginLeft="12px"
+            android:paddingRight="33px"
+            android:paddingLeft="33px"
             android:onClick="onCLicks"
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/black_back" />
@@ -77,7 +77,7 @@
                 android:textSize="30px" />
 
             <EditText
-                android:inputType="number"
+                android:inputType="phone"
                 android:layout_marginBottom="24px"
                 android:layout_marginTop="24px"
                 android:id="@+id/edt_phone"
@@ -151,7 +151,7 @@
 
                         <ImageButton
                             android:onClick="onCLicks"
-                            android:background="@mipmap/add"
+                            android:background="@mipmap/plus_sign"
                             android:id="@+id/ibt_garage_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -199,7 +199,7 @@
 
                         <ImageButton
                             android:onClick="onCLicks"
-                            android:background="@mipmap/add"
+                            android:background="@mipmap/plus_sign"
                             android:id="@+id/ibt_sidewalk_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -247,7 +247,7 @@
 
                         <ImageButton
                             android:onClick="onCLicks"
-                            android:background="@mipmap/add"
+                            android:background="@mipmap/plus_sign"
                             android:id="@+id/ibt_unit_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -259,12 +259,12 @@
                 <Button
                     android:onClick="onCLicks"
                     android:layout_marginTop="24px"
-                    android:background="@color/grass_color"
+                    android:background="@color/blue2"
                     android:textColor="@color/white"
                     android:id="@+id/btn_save"
                     android:text="保存"
                     android:layout_width="match_parent"
-                    android:layout_height="64px" />
+                    android:layout_height="88px" />
 
             </com.zhy.autolayout.AutoLinearLayout>
 
@@ -344,12 +344,12 @@
             <Button
                 android:onClick="onCLicks"
                 android:layout_marginTop="24px"
-                android:background="@color/grass_color"
+                android:background="@color/blue2"
                 android:textColor="@color/white"
                 android:id="@+id/btn_submit"
                 android:text="提交内容"
                 android:layout_width="match_parent"
-                android:layout_height="64px" />
+                android:layout_height="88px" />
 
         </com.zhy.autolayout.AutoLinearLayout>
 

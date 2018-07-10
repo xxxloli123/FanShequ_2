@@ -11,7 +11,6 @@ import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.tools.*
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_top.*
 import org.xutils.common.Callback
 import org.xutils.http.RequestParams
 import org.xutils.x
@@ -24,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tv_title.text = "用户登录"
         img_back.setOnClickListener { finish() }
 
         img_showCode.setOnClickListener {

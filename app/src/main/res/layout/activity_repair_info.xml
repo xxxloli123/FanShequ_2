@@ -17,12 +17,12 @@
         >
 
         <ImageView
-            android:padding="12px"
-            android:layout_marginLeft="12px"
+            android:paddingRight="33px"
+            android:paddingLeft="33px"
             android:onClick="onCLicks"
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/black_back" />
@@ -98,6 +98,7 @@
                 android:orientation="vertical">
 
                 <View
+                    android:layout_marginTop="33px"
                     android:layout_below="@+id/img"
                     android:layout_width="1px"
                     android:layout_height="match_parent"
@@ -224,7 +225,7 @@
             <com.zhy.autolayout.AutoRelativeLayout
                 android:id="@+id/arl"
                 android:layout_width="match_parent"
-                android:layout_height="118px"
+                android:layout_height="108px"
                 android:paddingRight="24px">
 
                 <TextView

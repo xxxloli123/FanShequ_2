@@ -1,117 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/bg1"
     android:layout_height="match_parent">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/all_fillStatusBar"
+        android:background="@color/blue2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/blue2"
+        android:gravity="end">
+
+        <ImageView
+            android:layout_marginTop="22px"
+            android:layout_marginRight="22px"
+            android:id="@+id/img_setting"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:src="@mipmap/install" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/all_account"
+        android:paddingBottom="16px"
+        android:paddingLeft="16px"
+        android:paddingRight="16px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:background="@mipmap/mine_banner">
+        android:background="@color/blue2">
+
         <ImageView
             android:id="@+id/mine_photo"
-            android:layout_width="160px"
-            android:layout_height="160px"
-            android:src="@mipmap/mine_photo"
+            android:layout_width="150px"
+            android:layout_height="150px"
+            android:src="@mipmap/portrait"
             android:padding="3px"
             android:layout_centerVertical="true"
-            android:onClick="onLogin"
-            android:layout_marginLeft="30px"/>
-        <TextView
-            android:id="@+id/user_name"
+            android:layout_marginLeft="22px"/>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:paddingBottom="6px"
+            android:gravity="bottom"
+            android:layout_marginLeft="40px"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/keylogin"
-            android:textColor="@color/white"
-            android:textSize="35px"
-            android:onClick="onLogin"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40px"/>
-    </com.zhy.autolayout.AutoLinearLayout>
+            android:layout_height="match_parent">
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/account_setting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="0dp"
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/keylogin"
+                android:textColor="@color/white"
+                android:textSize="35px"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_marginTop="22px"
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="28px"
+                android:onClick="onLogin"
+                android:layout_centerVertical="true" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/usersettings"
-            android:drawableLeft="@mipmap/zhanghaoshezhi"
-            android:paddingLeft="30px"
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            android:drawablePadding="25px"/>
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"/>
+
         <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@mipmap/ico_qj"
-            android:layout_marginRight="20px"/>
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/gray_arrow"/>
+
     </com.zhy.autolayout.AutoLinearLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/all_repair_info"
-        android:layout_marginTop="5px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/repairInfo"
-            android:drawableLeft="@mipmap/zhanghaoshezhi"
-            android:paddingLeft="30px"
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            android:drawablePadding="25px"/>
-        <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@mipmap/ico_qj"
-            android:layout_marginRight="20px"/>
-    </com.zhy.autolayout.AutoLinearLayout>
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/my_score"
-        android:layout_width="match_parent"
         android:visibility="gone"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/myscore"
-            android:drawableLeft="@mipmap/score"
-            android:paddingLeft="30px"
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            android:drawablePadding="25px"/>
-        <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@mipmap/ico_qj"
-            android:layout_marginRight="20px"/>
-    </com.zhy.autolayout.AutoLinearLayout>
-    <com.zhy.autolayout.AutoLinearLayout
+        android:background="?android:attr/selectableItemBackground"
         android:id="@+id/news_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="5px"
-        android:background="@color/white">
+        android:layout_marginTop="5px">
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -123,49 +107,120 @@
             android:paddingBottom="20px"
             android:drawablePadding="25px"/>
         <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@mipmap/ico_qj"
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/gray_arrow"
             android:layout_marginRight="20px"/>
     </com.zhy.autolayout.AutoLinearLayout>
+
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/my_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="5px"
         android:background="@color/white">
         <TextView
+            android:layout_margin="11px"
+            android:textSize="30px"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/mytradeno"
-            android:drawableLeft="@mipmap/wodedingdan"
+            android:drawableLeft="@mipmap/indent"
             android:paddingLeft="30px"
             android:paddingTop="20px"
             android:paddingBottom="20px"
             android:drawablePadding="25px"/>
         <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@mipmap/ico_qj"
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/gray_arrow"
             android:layout_marginRight="20px"/>
     </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginLeft="88px"
+        android:background="@mipmap/stub"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/all_repair_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+        <TextView
+            android:layout_margin="11px"
+            android:textSize="30px"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/repairInfo"
+            android:drawableLeft="@mipmap/warranty"
+            android:paddingLeft="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"
+            android:drawablePadding="25px"/>
+        <ImageView
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/gray_arrow"
+            android:layout_marginRight="20px"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginLeft="88px"
+        android:background="@mipmap/stub"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/all_integral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+        <TextView
+            android:layout_margin="11px"
+            android:textSize="30px"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="我的积分"
+            android:drawableLeft="@mipmap/integral"
+            android:paddingLeft="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"
+            android:drawablePadding="25px"/>
+        <ImageView
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/gray_arrow"
+            android:layout_marginRight="20px"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginLeft="88px"
+        android:background="@mipmap/stub"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"/>
+
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/customer_hotline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="7px"
         android:background="@color/white">
         <TextView
+            android:layout_margin="11px"
+            android:textSize="30px"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/kehurexian"
-            android:drawableLeft="@mipmap/kefurexian"
+            android:drawableLeft="@mipmap/service"
             android:paddingLeft="30px"
             android:paddingTop="20px"
             android:paddingBottom="20px"
@@ -177,57 +232,77 @@
             android:gravity="center_vertical"
             android:text="@string/Customerhotline"/>
         <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@mipmap/ico_qj"
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/gray_arrow"
             android:layout_marginRight="20px"/>
     </com.zhy.autolayout.AutoLinearLayout>
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/general_setup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5px"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/tongyongsz"
-            android:drawableLeft="@mipmap/tongyongshezhi"
-            android:paddingLeft="30px"
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            android:drawablePadding="25px"/>
-        <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@mipmap/ico_qj"
-            android:layout_marginRight="20px"/>
-    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginLeft="88px"
+        android:background="@mipmap/stub"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"/>
+
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/about_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="7px"
         android:background="@color/white">
         <TextView
+            android:layout_margin="11px"
+            android:textSize="30px"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/aboutour"
-            android:drawableLeft="@mipmap/guanyuwomen"
+            android:drawableLeft="@mipmap/ourselves"
             android:paddingLeft="30px"
             android:paddingTop="20px"
             android:paddingBottom="20px"
             android:drawablePadding="25px"/>
         <ImageView
-            android:layout_width="45px"
-            android:layout_height="45px"
-            android:src="@mipmap/ico_qj"
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/gray_arrow"
             android:layout_marginRight="20px"/>
     </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginLeft="88px"
+        android:background="@mipmap/stub"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/all_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+        <TextView
+            android:layout_margin="11px"
+            android:textSize="30px"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:drawableLeft="@mipmap/exit"
+            android:paddingLeft="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"
+            android:drawablePadding="25px"/>
+        <ImageView
+            android:layout_width="30px"
+            android:layout_height="30px"
+            android:src="@mipmap/gray_arrow"
+            android:layout_marginRight="20px"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginLeft="88px"
+        android:background="@color/gray2"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"/>
+
 </com.zhy.autolayout.AutoLinearLayout>

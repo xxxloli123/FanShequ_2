@@ -15,6 +15,11 @@
         <!--<item name="colorAccent">@color/colorAccent</item>-->
     </style>
 
+    <style name="AppTheme.Main" parent="AppTheme" >
+        <item name="colorPrimary">@color/skyblue</item>
+        <item name="colorPrimaryDark">@color/skyblue</item>
+    </style>
+
     <style name="home_tab_button">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@drawable/home_tab_selctor</item>
@@ -40,4 +45,10 @@
         　　
         <item name="android:indeterminateDrawable">@drawable/progress_large_white</item>
     </style>
+
+    <style name="TabRadioButtonNoText">
+        <item name="android:button">@null</item>
+        <item name="android:background">@null</item>
+    </style>
+
 </resources>

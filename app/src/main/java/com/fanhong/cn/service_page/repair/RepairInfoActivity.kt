@@ -2,29 +2,27 @@ package com.fanhong.cn.service_page.repair
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.fanhong.cn.R
-import com.fanhong.cn.moudle.RepairInfoM
+import com.fanhong.cn.service_page.repair.moudle.RepairInfoM
 import com.fanhong.cn.tools.DateUtil
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_repair_info.*
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.util.Log
 import com.fanhong.cn.App
-import com.fanhong.cn.callback.StringDialogCallback
-import com.fanhong.cn.moudle.Repairer
+import com.fanhong.cn.http.callback.StringDialogCallback
+import com.fanhong.cn.service_page.repair.moudle.Repairer
 import com.fanhong.cn.tools.LogUtil
 import com.fanhong.cn.tools.ToastUtil
 import com.google.gson.Gson
 import com.lzy.okgo.OkGo
-import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
+import me.leefeng.promptlibrary.PromptDialog
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -59,14 +57,16 @@ class RepairInfoActivity : AppCompatActivity() {
                         Log.e("OkGo body",response.body().toString())
                         try {
                             val json = JSONObject(response.body()!!.toString())
-                            val arr = json.getJSONArray("data")
-                            if (arr.length() == 0) return
-                            res= ArrayList()
-                            for (i in 0 until arr.length()) {
-                                val re=Gson().fromJson(arr.getString(i), Repairer::class.java)
-                                res.add(re)
-                            }
-                            selectRepairer()
+                            if (json.getString("cw") == "0"){
+                                val arr = json.getJSONArray("data")
+                                if (arr.length() == 0) return
+                                res= ArrayList()
+                                for (i in 0 until arr.length()) {
+                                    val re=Gson().fromJson(arr.getString(i), Repairer::class.java)
+                                    res.add(re)
+                                }
+                                selectRepairer()
+                            }else PromptDialog(this@RepairInfoActivity).showError("获取失败")
                         } catch (e: JSONException) {
                             LogUtil.e("JSONException",e.toString())
                             ToastUtil.showToastL("数据解析异常")
@@ -90,7 +90,7 @@ class RepairInfoActivity : AppCompatActivity() {
         }
         val strArray = strings.toArray(arrayOfNulls<String>(strings.size))
         AlertDialog.Builder(this@RepairInfoActivity).setTitle("选择维修员")
-                .setSingleChoiceItems(strArray,0) { dialog, which -> //which 哪一个
+                .setSingleChoiceItems(strArray,0) { _, which -> //which 哪一个
                     this@RepairInfoActivity.which=which
                 }.setPositiveButton("确定") { _, _ ->
                     dispatch(res[which].phone)
@@ -114,7 +114,8 @@ class RepairInfoActivity : AppCompatActivity() {
             1->{
                 arl_handleing.visibility=View.VISIBLE
                 if (repairInfo.time1!="null"){
-
+                    tv_handle_date.text=DateUtil.getDateToString(repairInfo.time.toLong(),"MM-dd")
+                    tv_handle_time.text=DateUtil.getDateToString(repairInfo.time.toLong(),"HH:mm")
                 }
                 img_handle.setImageResource(R.mipmap.dispose)
                 tv_handleing_info.text="已经为您分配维修员，维修员${repairInfo.wxboy}(${repairInfo.wxphone})" +
@@ -161,8 +162,8 @@ class RepairInfoActivity : AppCompatActivity() {
         when (v.id) {
             R.id.img_back -> finish()
             R.id.arl_call -> {
-                if (isManage){
-                    if (res.size==0)loadData() else selectRepairer()
+                if (isManage&&repairInfo.zt==0){
+                    loadData()
                 }else{
                     val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:023 6887 2002"))
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -195,6 +196,10 @@ class RepairInfoActivity : AppCompatActivity() {
                                 AlertDialog.Builder(this@RepairInfoActivity).setMessage("派单成功")
                                         .setPositiveButton("确定"){ _, _ ->
                                             val  i=Intent()
+                                            repairInfo.zt=1
+                                            repairInfo.time1=System.currentTimeMillis().toString()
+                                            repairInfo.wxphone=res[which].phone
+                                            repairInfo.wxboy=res[which].wxname
                                             i.putExtra("back",repairInfo)
                                             setResult(25,i)
                                             finish()

@@ -11,6 +11,7 @@ import cn.finalteam.galleryfinal.FunctionConfig
 import cn.finalteam.galleryfinal.GalleryFinal
 import cn.finalteam.galleryfinal.ThemeConfig
 import com.fanhong.cn.tools.XImageLoader
+import com.zhy.autolayout.config.AutoLayoutConifg
 //import com.lzy.okgo.OkGo
 import io.rong.imlib.RongIMClient
 import org.xutils.DbManager
@@ -29,8 +30,8 @@ class App : Application() {
         val DB_NAME = "mSettings"  //全局数据库统一名称
         val WEB_SITE = "http://m.wuyebest.com"
         val CMD = "http://m.wuyebest.com/index.php/App/index"//数据接口统一访问路径
-        val IMG = "http://m.wuyebest.com/index.php/App/index/anzhuoupload"//数据接口统一访问路径
-        val IMG2 = "http://m.wuyebest.com/index.php/App/index/iosnewgxwx"//数据接口统一访问路径
+        val IMG = "http://m.wuyebest.com/index.php/App/index/upwygxwx"//
+        val IMG2 = "http://m.wuyebest.com/index.php/App/index/iosnewgxwx"//
         val UPDATE_CHECK = "http://m.wuyebest.com/index.php/App/index/appnumber"//更新检查访问路径
         val APP_DOWNLOAD = "http://m.wuyebest.com/public/apk/FanShequ.apk"//app下载路径
         val HEAD_UPLOAD = "http://m.wuyebest.com/index.php/App/index/newupapp"//头像上传路径
@@ -122,6 +123,12 @@ val  sqpath = /*Environment.getExternalStorageDirectory().path+*/"/data/data/com
         super.onCreate()
         x.Ext.init(this)
 //        OkGo.getInstance().init(this)
+
+        //配置 默认使用的高度是设备的可用高度，也就是不包括状态栏和底部的操作栏的，
+        // 如果你希望拿设备的物理高度进行百分比化：
+//        可以在Application的onCreate方法中进行设置:
+        AutoLayoutConifg.getInstance().useDeviceSize()
+
         val theme = ThemeConfig.Builder()
                 .setTitleBarBgColor(ContextCompat.getColor(this, R.color.skyblue))
                 .setCheckSelectedColor(ContextCompat.getColor(this, R.color.skyblue))

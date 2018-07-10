@@ -154,6 +154,7 @@ class MyAddressActivity : AppCompatActivity() {
                 val i = Intent()
                 i.putExtra("addrId", addr.adrid)
                 i.putExtra("addrName", addr.address)
+                i.putExtra("addr",addr)
                 setResult(101, i)
                 finish()
             }

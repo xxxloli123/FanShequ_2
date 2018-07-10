@@ -23,14 +23,20 @@ import android.view.KeyEvent
 import android.view.View
 import com.fanhong.cn.App
 import com.fanhong.cn.R
-import com.fanhong.cn.adapter.MyRecyclerAdapter
+import com.fanhong.cn.service_page.repair.adapter.MyRecyclerAdapter
 import com.fanhong.cn.home_page.ChooseCellActivity
+import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.myviews.PhotoSelectWindow
 import com.fanhong.cn.myviews.SpinerPopWindow
 import com.fanhong.cn.tools.*
+import com.lzy.okgo.OkGo
+import com.lzy.okgo.model.Response
 import kotlinx.android.synthetic.main.activity_add_key.*
 import kotlinx.android.synthetic.main.activity_top.*
 import kotlinx.android.synthetic.main.agree_sheets.*
+import me.leefeng.promptlibrary.PromptDialog
+import org.json.JSONException
+import org.json.JSONObject
 import org.xutils.common.Callback
 import org.xutils.common.util.KeyValue
 import org.xutils.http.RequestParams
@@ -205,62 +211,116 @@ class AddKeyActivity : AppCompatActivity() ,MyRecyclerAdapter.Callback{
                 ToastUtil.showToastS("请阅读并同意用户协议")
                 return@setOnClickListener
             }
-            val dialog = AlertDialog.Builder(this).setMessage("正在提交").create()
-            dialog.setCancelable(false)
-            dialog.show()
+            submit2()
+        }
+    }
 
-            //压缩图片
-            val kvList: MutableList<KeyValue> = ArrayList()
-            kvList.add(KeyValue("cmd", "1012"))
-            kvList.add(KeyValue("uid", uid))
-            kvList.add(KeyValue("xid", cellId))
-            kvList.add(KeyValue("dizhi", buildingId))
-            var filenames = ""
-            for (i in 0 until files.size) {
-                val dir = File("${Environment.getExternalStorageDirectory()}/Fanshequ")
-                if (!dir.exists())
-                    dir.mkdir()
-                val fileName = "${System.currentTimeMillis()}${(Math.random() * 99999).toInt()}_$i.jpg"
+    private fun submit() {
+        val dialog = AlertDialog.Builder(this).setMessage("正在提交").create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        val kvList: MutableList<KeyValue> = ArrayList()
+        kvList.add(KeyValue("cmd", "1012"))
+        kvList.add(KeyValue("uid", uid))
+        kvList.add(KeyValue("xid", cellId))
+        kvList.add(KeyValue("dizhi", buildingId))
+        var filenames = ""
+        for (i in 0 until files.size) {
+            val dir = File("${Environment.getExternalStorageDirectory()}/Fanshequ")
+            if (!dir.exists())
+                dir.mkdir()
+            val fileName = "${System.currentTimeMillis()}${(Math.random() * 99999).toInt()}_$i.jpg"
 //                val file: File = FileUtil.compressImage(files[i], "${Environment.getExternalStorageDirectory()}/Fanshequ/$fileName")
-                kvList.add(KeyValue("touxiang${i + 1}", files[i]))
-                if (i != 0) filenames += ","
-                filenames += fileName
-            }
-            kvList.add(KeyValue("xinxi", filenames))
+            kvList.add(KeyValue("touxiang${i + 1}", files[i]))
+            if (i != 0) filenames += ","
+            filenames += fileName
+        }
+        kvList.add(KeyValue("xinxi", filenames))
 
-            val params = RequestParams(App.CMD)
-            params.requestBody = MultipartBody(kvList, "UTF-8")
-            params.isMultipart = true
-            x.http().post(params, object : Callback.CommonCallback<String> {
-                override fun onSuccess(result: String) {
-                    when (JsonSyncUtils.getState(result)) {
-                        200 -> {
-                            FileHelp.deleteFiles(Environment.getExternalStorageDirectory().toString() +
-                                    "/Fanshequ")
-                            AlertDialog.Builder(this@AddKeyActivity).setMessage("上传成功！").setPositiveButton("确定", null).show()
-                            finish()
-                        }
-                        400 -> {
-                            AlertDialog.Builder(this@AddKeyActivity).setMessage("提交失败！").setPositiveButton("确定", null).show()
-                            ToastUtil.showToastL("上传失败，请重试")
-                        }
+        val params = RequestParams(App.CMD)
+        params.requestBody = MultipartBody(kvList, "UTF-8")
+        params.isMultipart = true
+        x.http().post(params, object : Callback.CommonCallback<String> {
+            override fun onSuccess(result: String) {
+                when (JsonSyncUtils.getState(result)) {
+                    200 -> {
+                        FileHelp.deleteFiles(Environment.getExternalStorageDirectory().toString() +
+                                "/Fanshequ")
+                        AlertDialog.Builder(this@AddKeyActivity).setMessage("上传成功！").setPositiveButton("确定", null).show()
+                        finish()
+                    }
+                    400 -> {
+                        AlertDialog.Builder(this@AddKeyActivity).setMessage("提交失败！").setPositiveButton("确定", null).show()
+                        ToastUtil.showToastL("上传失败，请重试")
                     }
                 }
+            }
 
-                override fun onError(ex: Throwable?, isOnCallback: Boolean) {
-                    AlertDialog.Builder(this@AddKeyActivity).setMessage("提交失败！").setPositiveButton("确定", null).show()
-                    ToastUtil.showToastL("连接服务器失败，请检查网络！")
-                }
+            override fun onError(ex: Throwable?, isOnCallback: Boolean) {
+                AlertDialog.Builder(this@AddKeyActivity).setMessage("提交失败！").setPositiveButton("确定", null).show()
+                ToastUtil.showToastL("连接服务器失败，请检查网络！")
+            }
 
-                override fun onCancelled(cex: Callback.CancelledException?) {
-                    ToastUtil.showToastL("onCancelled连接服务器失败，请检查网络！")
-                }
+            override fun onCancelled(cex: Callback.CancelledException?) {
+                ToastUtil.showToastL("onCancelled连接服务器失败，请检查网络！")
+            }
 
-                override fun onFinished() {
-                    dialog.dismiss()
-                }
-            })
+            override fun onFinished() {
+                dialog.dismiss()
+            }
+        })
+    }
+
+    private fun submit2() {
+        var filenames = ""
+        val request = OkGo.post<String>(App.CMD)
+                .tag(this)//
+                .isMultipart(true)
+                .params("cmd", "1012")
+                .params("uid", uid)
+                .params("xid", cellId)
+                .params("dizhi", buildingId)
+        for (i in files.indices){
+            val dir = File("${Environment.getExternalStorageDirectory()}/Fanshequ")
+            if (!dir.exists())
+                dir.mkdir()
+            request.params("touxiang" + (i + 1), files[i])
+            val fileName = "${System.currentTimeMillis()}${(Math.random() * 99999).toInt()}_$i.jpg"
+            if (i != 0) filenames += ","
+            filenames += fileName
         }
+        request.params("xinxi", filenames)
+        request.execute(object : StringDialogCallback(this) {
+            override fun onSuccess(response: Response<String>) {
+                Log.e("OkGo", response.body().toString())
+                try {
+                    val json = JSONObject(response.body()!!.toString())
+                    if (json.getString("state") == "200"){
+                        FileHelp.deleteFiles(Environment.getExternalStorageDirectory().toString() +
+                                "/Fanshequ")
+                        AlertDialog.Builder(this@AddKeyActivity).setMessage("提交成功!")
+                                .setPositiveButton("确定") { _, _ ->
+                                    finish()
+                                } .show()
+                    }else{
+                        PromptDialog(this@AddKeyActivity).showError("提交失败!")
+                    }
+                }catch (e: JSONException) {
+                    LogUtil.e("JSONException",e.toString())
+                    ToastUtil.showToastL("数据解析异常")
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onError(response: Response<String>) {
+                Log.e("OkGoError", response.exception.toString())
+                AlertDialog.Builder(this@AddKeyActivity).setMessage("onError提交失败！ 是否重试?")
+                        .setPositiveButton("确定") { _, _ ->
+                            submit2()
+                        }.setNegativeButton("取消",null) .show()
+            }
+        })
     }
 
     private fun addImg() {

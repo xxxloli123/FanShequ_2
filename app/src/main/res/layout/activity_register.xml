@@ -4,139 +4,227 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg1"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.fanhong.cn.login_pages.RegisterActivity">
 
-    <include layout="@layout/activity_top" />
+    <ImageView
+        android:id="@id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="22px"
+        android:src="@mipmap/grey_back" />
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/logo" />
 
     <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginTop="50px"
-        android:background="@color/white"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="50px"
-            android:paddingLeft="24px"
-            android:paddingRight="24px"
-            android:src="@mipmap/ico_account" />
-
-        <EditText
-            android:id="@+id/edt_username"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="@string/login_user"
-            android:inputType="phone"
-            android:textColor="@color/text_3"
-            android:textColorHint="@color/text_9"
-            android:textSize="17sp" />
-
-        <Button
-            android:id="@+id/btn_getcode"
-            android:layout_width="200px"
-            android:layout_height="90px"
-            android:layout_marginRight="10px"
-            android:background="@drawable/btn_code_bg_selector"
-            android:onClick="onGetCode"
-            android:text="@string/getcode"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-    </com.zhy.autolayout.AutoLinearLayout>
-
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/layout_code"
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginTop="50px"
-        android:background="@color/white"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="50px"
-            android:paddingLeft="24px"
-            android:paddingRight="24px"
-            android:src="@mipmap/ico_yzm" />
-
-        <EditText
-            android:id="@+id/edt_code"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:inputType="number"
-            android:hint="@string/login_code"
-            android:textColor="@color/text_3"
-            android:textColorHint="@color/text_9"
-            android:textSize="17sp" />
-    </com.zhy.autolayout.AutoLinearLayout>
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginTop="50px"
-        android:background="@color/white"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="50px"
-            android:paddingLeft="24px"
-            android:paddingRight="24px"
-            android:src="@mipmap/ico_password" />
-
-        <EditText
-            android:id="@+id/edt_password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="@string/login_password"
-            android:digits="0123456789abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            android:inputType="textPassword"
-            android:textColor="@color/text_3"
-            android:textColorHint="@color/text_9"
-            android:textSize="17sp" />
-    </com.zhy.autolayout.AutoLinearLayout>
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/layout_agreement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-50px"
-        android:layout_marginTop="20px"
-        android:paddingLeft="20px">
+        android:layout_margin="55px"
+        android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/checkbox_agree"
-            android:layout_width="wrap_content"
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="136px"
+                android:layout_height="wrap_content"
+                android:text="手机号"
+                android:textColor="@color/text_6"
+                android:textSize="30px" />
+
+            <EditText
+                android:id="@+id/edt_username"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="输入您的手机号"
+                android:inputType="phone"
+                android:textColor="@color/text_3"
+                android:textColorHint="@color/text_9"
+                android:textSize="30px" />
+
+
+        </com.zhy.autolayout.AutoLinearLayout>
+        <View
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/all_nick"
+            android:layout_marginTop="22px"
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="136px"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textColor="@color/text_6"
+                android:textSize="30px" />
+
+            <EditText
+                android:id="@+id/edt_nick"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="输入您的昵称"
+                android:textColor="@color/text_3"
+                android:textColorHint="@color/text_9"
+                android:textSize="30px" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+        <View
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/layout_code"
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_marginTop="22px"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="136px"
+                android:layout_height="wrap_content"
+                android:text="验证码"
+                android:textColor="@color/text_6"
+                android:textSize="30px" />
+
+            <EditText
+                android:id="@+id/edt_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/login_code"
+                android:inputType="number"
+                android:textColor="@color/text_3"
+                android:textColorHint="@color/text_9"
+                android:textSize="30px" />
+
+            <Button
+                android:padding="11px"
+                android:id="@+id/btn_getcode"
+                android:layout_width="wrap_content"
+                android:layout_height="50px"
+                android:layout_marginRight="10px"
+                android:background="@drawable/corners_round_blue2"
+                android:onClick="onGetCode"
+                android:text="@string/getcode"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+        <View
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_marginTop="22px"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="136px"
+                android:layout_height="wrap_content"
+                android:text="密码"
+                android:textColor="@color/text_6"
+                android:textSize="30px" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:hint="@string/login_password"
+                android:inputType="textPassword"
+                android:textColor="@color/text_3"
+                android:textColorHint="@color/text_9"
+                android:textSize="30px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+        <View
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/agree"
+            android:layout_marginBottom="-50px"
+            android:layout_marginTop="20px"
+            android:paddingLeft="20px">
+
+            <CheckBox
+                android:id="@+id/checkbox_agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/agree"
+                android:textColor="@color/text_6"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onReadAgreement"
+                android:text="@string/user_agreement"
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <Button
+            android:id="@+id/btn_register_commit"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginTop="55px"
+            android:background="@mipmap/button_background"
+            android:textColor="@color/white"
+            android:textSize="19.0sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/all_agreement"
+        android:onClick="onReadAgreement"
+        android:layout_marginBottom="22px"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="注册即代表阅读并同意"
+            android:textSize="22px"
             android:textColor="@color/text_6"
-            android:textSize="14sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
+            android:textColor="@color/blue2"
+            android:textSize="22px"
+            android:text="帆社区用户协议"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onReadAgreement"
-            android:text="@string/user_agreement"
-            android:textColor="@color/red"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content" />
+
     </com.zhy.autolayout.AutoLinearLayout>
 
-    <Button
-        android:id="@+id/btn_register_commit"
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginTop="50px"
-        android:background="@drawable/denglu_selector"
-        android:textColor="@color/white"
-        android:textSize="19.0sp" />
 
 </com.zhy.autolayout.AutoLinearLayout>

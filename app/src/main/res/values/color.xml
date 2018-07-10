@@ -9,10 +9,11 @@
     <color name="zfbblue">#1296DB</color>
     <color name="lightblue">#80d4ff</color>
     <color name="lightblue2">#CCFFFF</color>
-    <color name="white">#ffffff</color>
+    <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="alpha_black">#50000000</color>
     <color name="red">#ff0000</color>
+    <color name="red2">#EE3938</color>
     <color name="lightred">#ff4d4d</color>
     <color name="warnred">#ff4b4b</color>
     <color name="yellow">#FFC125</color>
@@ -31,7 +32,10 @@
     <color name="text_3">#333333</color>
     <color name="text_6">#666666</color>
     <color name="text_9">#999999</color>
+    <color name="text_2">#707070</color>
     <color name="gray">#c0c0c0</color>
+    <color name="gray3">#9C9C9C</color>
+    <color name="gray4">#363636</color>
     <color name="grayD">#DDDDDD</color>
 
     <color name="radioback">#7fd4ff</color>
@@ -42,6 +46,7 @@
     <color name="blue2">#1983d1</color>
     <color name="line">#cccccc</color>
     <color name="background">#ECE7E6</color>
+    <color name="background2">#F6F6F6</color>
     <color name="gray2">#EFEFEF</color>
 
 </resources>

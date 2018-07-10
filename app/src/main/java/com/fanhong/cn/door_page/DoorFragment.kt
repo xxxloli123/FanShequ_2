@@ -2,6 +2,7 @@ package com.fanhong.cn.door_page
 
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,15 +14,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ExpandableListView
 import android.widget.ImageView
-import android.widget.Toast
 import com.fanhong.cn.App
 
 import com.fanhong.cn.R
 import com.fanhong.cn.door_page.models.Keymodel
+import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.tools.JsonSyncUtils
+import com.fanhong.cn.tools.LogUtil
 import com.fanhong.cn.tools.ToastUtil
+import com.lzy.okgo.OkGo
+import com.lzy.okgo.model.Response
 import kotlinx.android.synthetic.main.activity_top.*
 import kotlinx.android.synthetic.main.fragment_door.*
 import org.json.JSONException
@@ -61,8 +64,26 @@ class DoorFragment : Fragment() {
         top_extra.text = "添加"
         top_extra.visibility = View.VISIBLE
         top_extra.setOnClickListener { addKeys() }
-
+        all_fillStatusBar.setPadding(0,getStatusBar(),0,0)
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    /**
+     * 获取状态栏高度
+     * @return
+     */
+    fun  getStatusBar(): Int {
+        /**
+         * 获取状态栏高度
+         */
+        var statusBarHeight1 = -1
+        //获取status_bar_height资源的ID
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight1 = resources.getDimensionPixelSize(resourceId)
+        }
+        return statusBarHeight1
     }
 
     private fun openDoor(key: String) {
@@ -73,11 +94,12 @@ class DoorFragment : Fragment() {
             }
 
             override fun onSuccess(result: String?) {
+                Log.i(TAG+"openDoor", result)
                 if (JsonSyncUtils.getJsonValue(result!!, "error") == "succ") {
                     val s = JsonSyncUtils.getJsonValue(result!!, "data")
                     val uuid = JsonSyncUtils.getJsonValue(s, "cmd_uuid")
                     Log.i(TAG, s + "..." + uuid)
-                    Handler().postDelayed({ checkOpen(uuid) }, 3000)
+                    Handler().postDelayed({ checkOpen(uuid) }, 5000)
                 }
             }
 
@@ -96,12 +118,13 @@ class DoorFragment : Fragment() {
         params.addBodyParameter("cmd_uuid", uuid)
         x.http().post(params, object : Callback.CommonCallback<String> {
             override fun onSuccess(result: String) {
+                Log.i(TAG+"checkOpen", result)
                 Log.i(TAG, "reslut==>" + result)
                 if (JsonSyncUtils.getJsonValue(result, "result") == "0") {
                     handler.sendEmptyMessage(11)
                 } else {
 //                    网络延时超过3秒的则不提示了
-//                    handler.sendEmptyMessage(12);
+                    handler.sendEmptyMessage(12)
                 }
             }
 
@@ -163,6 +186,7 @@ class DoorFragment : Fragment() {
                                 imageView = view
                                 handler.sendEmptyMessage(10)
                                 openDoor(key)
+//                                openDoor2(key)
                             }
 
                             override fun nokey() {
@@ -189,6 +213,36 @@ class DoorFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun openDoor2(key: String) {
+        OkGo.post<String>(App.OPEN_URL)
+                .tag(this)//
+                .isMultipart(true)
+                .params("key", key)
+                .execute(object : StringDialogCallback(activity) {
+                    override fun onSuccess(response: Response<String>) {
+                        Log.e("OkGobody", response.body().toString())
+                        try {
+                            val json = JSONObject(response.body()!!.toString())
+                            Handler().postDelayed({ checkOpen(json.getJSONObject("data")
+                                    .getString("cmd_uuid")) }, 5000)
+                        }catch (e: JSONException) {
+                            LogUtil.e("JSONException",e.toString())
+                            ToastUtil.showToastL("数据解析异常")
+                            e.printStackTrace()
+                        }
+                    }
+
+                    override fun onError(response: Response<String>) {
+                        Log.e("OkGoError", response.exception.toString())
+                        AlertDialog.Builder(activity)
+                                .setMessage("评价失败！ 是否重试?")
+                                .setPositiveButton("确定") { _, _ ->
+
+                                }.setNegativeButton("取消",null) .show()
+                    }
+                })
     }
 
     /**

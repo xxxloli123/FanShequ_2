@@ -136,6 +136,49 @@
                         android:textColor="@color/white"
                         android:textSize="30px" />
                 </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/arl_recommend"
+                    android:layout_marginTop="66px"
+                    android:layout_marginBottom="333px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:padding="11px"
+                        android:textSize="30px"
+                        android:textColor="@color/text_1"
+                        android:text="推荐人号码 :"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:id="@+id/edt_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="88px"
+                        android:background="@drawable/shape_comment_choose_bg2"
+                        android:hint="填写推荐人可以领取积分哟"
+                        android:padding="10px"
+                        android:textColor="@color/text_6"
+                        android:textColorHint="@color/text_9"
+                        android:textSize="30px" />
+
+                    <Button
+                        android:layout_marginLeft="66px"
+                        android:onClick="submitRecommend"
+                        android:textColor="@color/white"
+                        android:background="@drawable/drawable_orange_selector"
+                        android:textSize="30px"
+                        android:text="确认"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
             </com.zhy.autolayout.AutoLinearLayout>
         </ScrollView>
 

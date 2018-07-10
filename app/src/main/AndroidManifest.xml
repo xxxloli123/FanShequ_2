@@ -41,8 +41,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/AppTheme.Main"
             android:name=".HomeActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"></activity>
         <activity android:name=".AgentwebActivity" />
         <activity android:name=".login_pages.LoginActivity" />
         <activity android:name=".login_pages.RegisterActivity" />
@@ -97,7 +98,7 @@
 
         <!-- android6.0拍照权限调取 -->
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name=".tools.MyFileProvider"
             android:authorities="applicationId.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
@@ -157,7 +158,10 @@
         <activity android:name=".service_page.repair.FillOrderActivity" />
         <activity android:name=".service_page.repair.RepairInfoActivity" />
         <activity android:name=".service_page.repair.RepairInfoListActivity" />
-        <activity android:name=".service_page.repair.RepairEvaluateActivity"></activity>
+        <activity android:name=".service_page.repair.RepairEvaluateActivity" />
+        <activity android:name=".user_page.IntegralActivity" />
+        <activity android:name=".service_page.shop.CommunityMallActivity"
+            android:theme="@style/AppTheme.Main"/>
     </application>
 
 </manifest>
