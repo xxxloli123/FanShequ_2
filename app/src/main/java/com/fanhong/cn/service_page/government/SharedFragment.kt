@@ -26,28 +26,28 @@ import java.util.*
 class SharedFragment : Fragment() {
     private val list = ArrayList<FxItemModel>()
     private var adapter: SharedAdapter? = null
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_party_shared, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_party_shared, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = SharedAdapter(activity, list)
+        adapter = SharedAdapter(activity!!, list)
         adapter?.setItemClick { id, content, imgUrl ->
-            val intent = Intent(activity, DetailsActivity::class.java)
+            val intent = Intent(activity!!, DetailsActivity::class.java)
             intent.putExtra("id", id)
             intent.putExtra("content", content)
             intent.putExtra("url", imgUrl)
             startActivity(intent)
         }
         fx_recyclerview.adapter = adapter
-        fx_recyclerview.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        fx_recyclerview.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
         refresh_fx.setOnRefreshListener {
             getDate()
 
         }
 
-        add_fx.setOnClickListener { startActivity(Intent(activity, AddFxActivity::class.java)) }
+        add_fx.setOnClickListener { startActivity(Intent(activity!!, AddFxActivity::class.java)) }
     }
 
     override fun onResume() {
@@ -74,7 +74,7 @@ class SharedFragment : Fragment() {
                                 val id = it.optInt("id", -1)
                                 FxItemModel(content, author, time, photoUrl, picUrl, id)
                             }
-                    activity.runOnUiThread { adapter?.notifyDataSetChanged() }
+                    activity!!.runOnUiThread { adapter?.notifyDataSetChanged() }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }

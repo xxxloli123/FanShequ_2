@@ -7,4 +7,22 @@
     tools:context="com.fanhong.cn.user_page.ScoreCashActivity">
 <include layout="@layout/activity_top"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:background="@color/text_6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:adjustViewBounds="true"
+                android:id="@+id/img_get"
+                android:src="@mipmap/get_integral"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+
+
 </com.zhy.autolayout.AutoLinearLayout>

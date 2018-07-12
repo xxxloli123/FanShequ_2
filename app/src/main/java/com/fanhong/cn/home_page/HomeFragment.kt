@@ -45,17 +45,17 @@ class HomeFragment : Fragment() {
     private var mSharedPref: SharedPreferences? = null
     private var array: JSONArray? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViews()
     }
 
     private fun initViews() {
-        mSharedPref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        mSharedPref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         get_location.setOnClickListener {
             startActivityForResult(Intent(activity, ChooseCellActivity::class.java), 110)
         }
@@ -67,10 +67,10 @@ class HomeFragment : Fragment() {
             if (isLogined()) {
                 if (choosedCell()) {
                 } else {
-                    DialogUtil.showDialog(activity, "chooseCell", 110)
+                    DialogUtil.showDialog(activity!!, "chooseCell", 110)
                 }
             } else {
-                DialogUtil.showDialog(activity, "login", 100)
+                DialogUtil.showDialog(activity!!, "login", 100)
             }
         }
         tv_wuye_star.setOnClickListener {
@@ -81,10 +81,10 @@ class HomeFragment : Fragment() {
                     i.putExtra("name", mSharedPref!!.getString(App.PrefNames.GARDENNAME, ""))
                     startActivity(i)
                 } else {
-                    DialogUtil.showDialog(activity, "chooseCell", HomeActivity.ACTION_CHOOSE_BY_COMMUNITY)
+                    DialogUtil.showDialog(activity!!, "chooseCell", HomeActivity.ACTION_CHOOSE_BY_COMMUNITY)
                 }
             } else {
-                DialogUtil.showDialog(activity, "login", HomeActivity.ACTION_LOGIN_BY_COMMUNITY)
+                DialogUtil.showDialog(activity!!, "login", HomeActivity.ACTION_LOGIN_BY_COMMUNITY)
             }
         }
         tv_zhaoshang_daili.setOnClickListener {

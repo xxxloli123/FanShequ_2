@@ -187,12 +187,7 @@ class RepairInfoActivity : AppCompatActivity() {
                         Log.e("OkGo body",response.body().toString())
                         try {
                             val json = JSONObject(response.body()!!.toString())
-                            if (json.getString("state") == "400"){
-                                AlertDialog.Builder(this@RepairInfoActivity).setMessage("派单失败！ 是否重试?")
-                                        .setPositiveButton("确定") { _, _ ->
-                                            dispatch(res[which].phone)
-                                        }.setNegativeButton("取消",null) .show()
-                            }else{
+                            if (json.getString("state") == "200"){
                                 AlertDialog.Builder(this@RepairInfoActivity).setMessage("派单成功")
                                         .setPositiveButton("确定"){ _, _ ->
                                             val  i=Intent()
@@ -205,6 +200,11 @@ class RepairInfoActivity : AppCompatActivity() {
                                             finish()
                                         }
                                         .show()
+                            }else{
+                                AlertDialog.Builder(this@RepairInfoActivity).setMessage("派单失败！ 是否重试?")
+                                        .setPositiveButton("确定") { _, _ ->
+                                            dispatch(res[which].phone)
+                                        }.setNegativeButton("取消",null) .show()
                             }
                         } catch (e: JSONException) {
                             LogUtil.e("JSONException",e.toString())

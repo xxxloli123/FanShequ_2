@@ -86,7 +86,7 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
             51 -> { //选择小区的回调
                 val gardenName = data!!.getStringExtra("gardenName")
                 tv_position.text = gardenName
-                pref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+                pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
             }
         }
     }
@@ -112,13 +112,13 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
         return pref.getString(App.PrefNames.USERID, "-1") != "-1"
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_home2, container, false)
+        return inflater.inflate(R.layout.fragment_home2, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        pref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         if (!pref.getString(App.PrefNames.GARDENNAME, "").isEmpty())
         tv_position.text=pref.getString(App.PrefNames.GARDENNAME, "")
         all_repair.setOnClickListener(this)
@@ -136,6 +136,16 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
         } }
         loadData()
         all_fillStatusBar.setPadding(0,getStatusBar(),0,0)
+    }
+
+    private fun test() {
+        val banner=Banner()
+        banner.sj="200184654"
+        banner.title="dsafa"
+        banners.add(banner)
+        banners.add(banner)
+        banners.add(banner)
+        showActivities()
     }
 
     /**

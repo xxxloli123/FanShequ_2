@@ -105,14 +105,6 @@ class RegisterActivity : AppCompatActivity() {
                                 2-> PromptDialog(this@RegisterActivity).showError("系统错误")
                                 3-> PromptDialog(this@RegisterActivity).showError("用户已存在")
                             }
-
-                            if (json.getString("cw") == "1"){
-                                PromptDialog(this@RegisterActivity).showError("系统错误")
-                            }else AlertDialog.Builder(this@RegisterActivity)
-                                    .setMessage("评价成功")
-                                    .setPositiveButton("确定") { _, _ ->
-                                        finish()
-                                    }.show()
                         }catch (e: JSONException) {
                             LogUtil.e("JSONException",e.toString())
                             ToastUtil.showToastL("数据解析异常")

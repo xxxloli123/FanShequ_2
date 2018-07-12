@@ -46,15 +46,15 @@ class DoorFragment : Fragment() {
 
     private var imageView: ImageView? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_door, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_door, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        mSharedPref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mSharedPref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         tv_title.text = "门禁钥匙"
         img_back.setImageResource(R.mipmap.refresh)
-        var size = (activity.windowManager.defaultDisplay.width.toFloat()) / 720
+        var size = (activity!!.windowManager.defaultDisplay.width.toFloat()) / 720
         var params = img_back.layoutParams
         params.height = (53 * size).toInt()
         params.width = (53 * size).toInt()
@@ -180,7 +180,7 @@ class DoorFragment : Fragment() {
 //                                    datamap!!.put(it.optString("xq"), childList)
                                     groupList!!.add(it.optString("xq"))
                                 }
-                        adapter = MyExpandableAdapter(activity, groupList!!, datamap!!)
+                        adapter = MyExpandableAdapter(activity!!, groupList!!, datamap!!)
                         adapter!!.setOpenClick(object : MyExpandableAdapter.OpenClick {
                             override fun opendoor(key: String, view: ImageView) {
                                 imageView = view

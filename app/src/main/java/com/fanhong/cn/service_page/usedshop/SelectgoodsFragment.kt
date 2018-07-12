@@ -33,19 +33,19 @@ class SelectgoodsFragment : Fragment() {
     var adapter: UsedgoodsAdapter? = null
     var list: MutableList<UsedgoodsModel>? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater!!.inflate(R.layout.fragment_select_usedgoods, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         list = ArrayList()
-        adapter = UsedgoodsAdapter(activity, list!!)
+        adapter = UsedgoodsAdapter(activity!!, list!!)
         adapter!!.setCallSeller(object : UsedgoodsAdapter.CallSeller {
             override fun onCall(phone: String) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CALL_PHONE), 100)
+                    if (ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.CALL_PHONE), 100)
                         var msg = handler.obtainMessage(15, phone)
                         handler.sendMessage(msg)
                         return

@@ -49,13 +49,13 @@ class AddgoodsFragment : Fragment() {
 
     private var file: File? = null  //拍照剪切前的图片文件
     private var cropFile: File? = null  //剪切后的图片文件
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_add_usedgoods, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var mSharedPref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        var mSharedPref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         var uid = mSharedPref.getString(App.PrefNames.USERID, "-1")
         file = File(Environment.getExternalStorageDirectory().toString() + "/" + getPhotoFileName())
         if (!file!!.parentFile.exists()) {
@@ -68,13 +68,13 @@ class AddgoodsFragment : Fragment() {
         }
         img_goods_add.setOnClickListener {
             hideSoftinputyer(img_goods_add)
-            var ppw = PhotoSelectWindow(activity)
+            var ppw = PhotoSelectWindow(activity!!)
             ppw.setOnTakePhoto(View.OnClickListener {
                 ppw.dismiss()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-                    val checkCamera = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
-                    val checkSD = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    val checkCamera = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.CAMERA)
+                    val checkSD = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     if (checkCamera != PackageManager.PERMISSION_GRANTED || checkSD != PackageManager.PERMISSION_GRANTED) {
                         requestPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_TAKE_PHOTO)
                         return@OnClickListener
@@ -86,7 +86,7 @@ class AddgoodsFragment : Fragment() {
                 ppw.dismiss()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-                    if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_TAKE_PHOTO)
                         return@OnClickListener
                     }
@@ -130,7 +130,7 @@ class AddgoodsFragment : Fragment() {
                     if (state == "200") {
                         ToastUtil.showToastS("上传成功！")
                         clearData()
-                        (activity as UsedShopActivity).setCheck(0)
+                        (activity!! as UsedShopActivity).setCheck(0)
                     } else {
                         ToastUtil.showToastS("提交失败,请重试~")
                     }
@@ -151,7 +151,7 @@ class AddgoodsFragment : Fragment() {
     private fun useCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            FileProvider.getUriForFile(activity, "applicationId.fileprovider", file)
+            FileProvider.getUriForFile(activity!!, "applicationId.fileprovider", file!!)
         else Uri.fromFile(file)
 
         //添加权限
@@ -168,7 +168,7 @@ class AddgoodsFragment : Fragment() {
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
 //        intent.type = "image/*"
         if (Build.VERSION.SDK_INT >= 24) {
-            val uri = FileProvider.getUriForFile(activity, "applicationId.fileprovider", file)
+            val uri = FileProvider.getUriForFile(activity!!, "applicationId.fileprovider", file!!)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -201,7 +201,7 @@ class AddgoodsFragment : Fragment() {
             intent.putExtra("noFaceDetection", false)//去除默认的人脸识别，否则和剪裁匡重叠
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                val url = GetImagePath.getPath(activity, uri)
+                val url = GetImagePath.getPath(activity!!, uri)
                 intent.setDataAndType(Uri.fromFile(File(url)), "image/*")
             } else {
                 intent.setDataAndType(uri, "image/*")
@@ -244,7 +244,7 @@ class AddgoodsFragment : Fragment() {
             TAKE_PHOTO -> {
                 var uri = Uri.fromFile(file)
                 if (Build.VERSION.SDK_INT >= 24) {
-                    uri = FileProvider.getUriForFile(activity, "applicationId.fileprovider", file)
+                    uri = FileProvider.getUriForFile(activity!!, "applicationId.fileprovider", file!!)
                 }
                 startPhotoZoom(uri)
             }
@@ -252,8 +252,8 @@ class AddgoodsFragment : Fragment() {
 //                startPhotoZoom(data?.data as Uri)
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        val imgUri = File(GetImagePath.getPath(activity, data!!.data))
-                        val uri = FileProvider.getUriForFile(activity, "applicationId.fileprovider", imgUri)
+                        val imgUri = File(GetImagePath.getPath(activity!!, data!!.data))
+                        val uri = FileProvider.getUriForFile(activity!!, "applicationId.fileprovider", imgUri)
                         startPhotoZoom(uri)
                     } else
                         startPhotoZoom(data!!.data)
@@ -289,7 +289,7 @@ class AddgoodsFragment : Fragment() {
 
     //隐藏软键盘的方法
     private fun hideSoftinputyer(view: View) {
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         Log.i("windowToken", view.windowToken.toString())
         imm.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }

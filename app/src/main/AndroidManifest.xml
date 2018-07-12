@@ -41,9 +41,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/AppTheme.Main"
             android:name=".HomeActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Main" />
         <activity android:name=".AgentwebActivity" />
         <activity android:name=".login_pages.LoginActivity" />
         <activity android:name=".login_pages.RegisterActivity" />
@@ -160,8 +160,11 @@
         <activity android:name=".service_page.repair.RepairInfoListActivity" />
         <activity android:name=".service_page.repair.RepairEvaluateActivity" />
         <activity android:name=".user_page.IntegralActivity" />
-        <activity android:name=".service_page.shop.CommunityMallActivity"
-            android:theme="@style/AppTheme.Main"/>
+        <activity
+            android:name=".service_page.shop.CommunityMallActivity"
+            android:theme="@style/AppTheme.Main" />
+        <activity android:name=".service_page.TestActivity" />
+        <activity android:name=".user_page.IntegralExchangeActivity"></activity>
     </application>
 
 </manifest>

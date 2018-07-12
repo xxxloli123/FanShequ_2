@@ -35,12 +35,12 @@ import org.xutils.x
  */
 class UserFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_user, container, false)
+        return inflater.inflate(R.layout.fragment_user, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         addClickListeners()
         all_fillStatusBar.setPadding(0,getStatusBar(),0,0)
         super.onViewCreated(view, savedInstanceState)
@@ -73,33 +73,33 @@ class UserFragment : Fragment() {
         when (v.id) {
             R.id.all_account -> {//账号设置
                 if (isLogged()) {
-                    val intent = Intent(activity, AccountSetsActivity::class.java)
+                    val intent = Intent(activity!!, AccountSetsActivity::class.java)
                     startActivity(intent)
                 } else{
-                    val i = Intent(activity, LoginActivity::class.java)
+                    val i = Intent(activity!!, LoginActivity::class.java)
                     startActivityForResult(i, HomeActivity.ACTION_LOGIN)
                 }
             }
             R.id.all_repair_info -> {//
                 if (isLogged()) {
-                    val intent = Intent(activity, RepairInfoListActivity::class.java)
+                    val intent = Intent(activity!!, RepairInfoListActivity::class.java)
                     startActivity(intent)
                 } else ToastUtil.showToastL("请登录！")
             }
             R.id.all_integral -> {//我的积分
                 if (isLogged()) {
-                    val intent = Intent(activity, ScoreActivity::class.java)
+                    val intent = Intent(activity!!, ScoreActivity::class.java)
                     startActivity(intent)
                 } else ToastUtil.showToastL("请登录！")
             }
             R.id.news_notice -> {//消息通知
-                val intent = Intent(activity, MessagesActivity::class.java)
+                val intent = Intent(activity!!, MessagesActivity::class.java)
                 startActivity(intent)
             }
             R.id.my_order -> {//我的订单
                 if (isLogged()) {
-                    val intent = Intent(activity, OrderListActivity::class.java)
-//                    val intent = Intent(activity, EvaluateActivity::class.java)
+                    val intent = Intent(activity!!, OrderListActivity::class.java)
+//                    val intent = Intent(activity!!, EvaluateActivity::class.java)
                     startActivity(intent)
                 } else ToastUtil.showToastL("请登录！")
             }
@@ -107,10 +107,10 @@ class UserFragment : Fragment() {
                 val phoneNumber = tv_hotline.text.toString().trim()
                 //判断Android版本是否大于23
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    val checkCallPhonePermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE)
+                    val checkCallPhonePermission = ContextCompat.checkSelfPermission(activity!!, Manifest.permission.CALL_PHONE)
 
                     if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CALL_PHONE),
+                        ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.CALL_PHONE),
                                 11)
                         return@OnClickListener
                     }
@@ -118,10 +118,10 @@ class UserFragment : Fragment() {
                 callDialog(phoneNumber)
             }
             R.id.img_setting -> {//通用设置
-                startActivity(Intent(activity, BasicSettingsActivity::class.java))
+                startActivity(Intent(activity!!, BasicSettingsActivity::class.java))
             }
             R.id.about_us -> {//关于我们
-                startActivity(Intent(activity, AboutActivity::class.java))
+                startActivity(Intent(activity!!, AboutActivity::class.java))
             }
             R.id.all_logout-> {//
                 onLogout()
@@ -130,12 +130,12 @@ class UserFragment : Fragment() {
     }
 
     private fun isLogged(): Boolean {
-        val pref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         return pref.getString(App.PrefNames.USERID, "-1") != "-1"
     }
 
     private fun callDialog(phoneNumber: String) {
-        AlertDialog.Builder(activity).setTitle("拨打电话")
+        AlertDialog.Builder(activity!!).setTitle("拨打电话")
                 .setMessage(phoneNumber + "\n是否立即拨打？")
                 .setPositiveButton("确认", DialogInterface.OnClickListener { _, _ ->
                     val intent = Intent(Intent.ACTION_CALL)
@@ -172,7 +172,7 @@ class UserFragment : Fragment() {
     }
 
     private fun refreshUser() {
-        val pref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         val userId = pref.getString(App.PrefNames.USERID, "-1")
         if (userId != "-1") {
             mine_photo.isEnabled = false
@@ -221,18 +221,19 @@ class UserFragment : Fragment() {
     }
 
     private fun onLogout() {
-        val pref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         val id = pref.getString(App.PrefNames.USERID,"-1")
         if (id == "-1")
             ToastUtil.showToastL("当前未处于登录状态！")
-        else AlertDialog.Builder(activity).setMessage("是否确定退出此账号？")
+        else AlertDialog.Builder(activity!!).setMessage("是否确定退出此账号？")
                 .setPositiveButton("确定") { _, _ -> doLogout() }
                 .setNegativeButton("取消", null).show()
     }
 
     @SuppressLint("ApplySharedPref")
     private fun doLogout() {
-        val editor = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
+        tv_phone.text=""
+        val editor = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
         editor.putString(App.PrefNames.USERID, "-1")
         editor.putString(App.PrefNames.USERNAME, null)
         editor.putString(App.PrefNames.PASSOWRD, null)

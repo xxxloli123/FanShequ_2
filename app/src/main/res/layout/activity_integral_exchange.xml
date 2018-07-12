@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".user_page.IntegralExchangeActivity">
+    <include layout="@layout/activity_top"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginRight="22px"
+        android:layout_marginTop="66px"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="88px">
+        <TextView
+            android:textSize="26px"
+            android:textColor="@color/text_6"
+            android:text="提现到银行卡"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edt_parameter"
+            android:drawableBottom="@color/line"
+            android:layout_marginLeft="22px"
+            android:textColor="@color/text_6"
+            android:textSize="26px"
+            android:hint="银行卡号"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:onClick="exchange"
+            android:text="提现"
+            android:textSize="26px"
+            android:textColor="@color/text_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

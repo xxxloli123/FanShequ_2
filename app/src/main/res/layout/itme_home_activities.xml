@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/img_show"
-        android:src="@mipmap/advertising"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:background="@color/white"
-        android:id="@+id/tv_time"
-        android:paddingTop="22px"
-        android:paddingRight="22px"
-        android:paddingLeft="22px"
-        android:text="20012"
-        android:textColor="@color/gray3"
-        android:textSize="22px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
+    <com.zhy.autolayout.AutoLinearLayout
         android:background="@drawable/corners_round_bottom_white"
-        android:padding="22px"
-        android:id="@+id/tv_content"
-        android:textSize="28px"
-        android:textColor="@color/text_9"
-        android:text="内容"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:adjustViewBounds="true"
+            android:id="@+id/img_show"
+            android:src="@mipmap/advertising"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="@color/white"
+            android:id="@+id/tv_time"
+            android:paddingTop="22px"
+            android:paddingRight="22px"
+            android:paddingLeft="22px"
+            android:text="20012"
+            android:textColor="@color/gray3"
+            android:textSize="22px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:padding="22px"
+            android:id="@+id/tv_content"
+            android:textSize="28px"
+            android:textColor="@color/text_9"
+            android:text="内容"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
 
     <View
-        android:layout_width="wrap_content"
-        android:layout_height="6px"/>
+        android:layout_width="match_parent"
+        android:layout_height="8px"/>
 </com.zhy.autolayout.AutoLinearLayout>

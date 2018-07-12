@@ -35,8 +35,8 @@ class ScoreActivity : AppCompatActivity() {
         img_back.setOnClickListener { finish() }
         tv_score.text = "0"
         loadData()
-        score_get.setOnClickListener { startActivity(Intent(this, ShopIndexActivity::class.java)) }
-        score_cash.setOnClickListener { startActivity(Intent(this, ScoreCashActivity::class.java)) }
+        score_get.setOnClickListener { startActivity(Intent(this, ScoreCashActivity::class.java)) }
+        score_cash.setOnClickListener { startActivity(Intent(this, IntegralExchangeActivity::class.java)) }
     }
 
     private fun loadData() {

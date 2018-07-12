@@ -36,12 +36,12 @@ class CommunityFragment : Fragment() {
     private var adapterComm: CommunityNewsAdapter? = null
     private var adapterNews: CommunityNewsAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        pref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
-        return inflater?.inflate(R.layout.fragment_community, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        return inflater.inflate(R.layout.fragment_community, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         anim = img_news_bar.drawable as AnimationDrawable
 
@@ -50,8 +50,8 @@ class CommunityFragment : Fragment() {
             startActivity(Intent(activity, ChatRoomActivity::class.java))
         }
 
-        adapterComm = CommunityNewsAdapter(activity, listComm)
-        adapterNews = CommunityNewsAdapter(activity, listNews)
+        adapterComm = CommunityNewsAdapter(activity!!, listComm)
+        adapterNews = CommunityNewsAdapter(activity!!, listNews)
         lv_community_news.adapter = adapterComm
         lv_nearby_news.adapter = adapterNews
         lv_community_news.setOnItemClickListener { _, _, position, _ ->
@@ -132,7 +132,7 @@ class CommunityFragment : Fragment() {
             }
 
             override fun onFinished() {
-                activity.runOnUiThread {
+                activity!!.runOnUiThread {
                     adapterComm?.notifyDataSetChanged()
                     adapterNews?.notifyDataSetChanged()
                 }

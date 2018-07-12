@@ -37,13 +37,13 @@ class GoodsListFragment() : Fragment() {
 
     private var adapter: GoodsAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_shop_goods_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_shop_goods_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = GoodsAdapter(activity, goods)
+        adapter = GoodsAdapter(activity!!, goods)
         lv_goods_list.adapter = adapter
         goods.clear()
         getData()
@@ -87,7 +87,7 @@ class GoodsListFragment() : Fragment() {
                     200 -> {
                         val data = JsonSyncUtils.getJsonValue(result, "data")
                         goods += JsonSyncUtils.getGoodsList(data)
-                        activity.runOnUiThread { adapter?.notifyDataSetChanged() }
+                        activity!!.runOnUiThread { adapter?.notifyDataSetChanged() }
                         progressBar.visibility = View.GONE
                     }
                     400 -> {

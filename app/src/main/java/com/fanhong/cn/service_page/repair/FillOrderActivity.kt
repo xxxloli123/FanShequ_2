@@ -33,8 +33,6 @@ import com.lzy.okgo.model.Response
 import com.lzy.okgo.request.PostRequest
 import kotlinx.android.synthetic.main.activity_fill_order.*
 import me.leefeng.promptlibrary.PromptDialog
-import org.json.JSONException
-import org.json.JSONObject
 import org.xutils.common.Callback
 import org.xutils.common.util.KeyValue
 import org.xutils.http.RequestParams
@@ -327,7 +325,7 @@ class FillOrderActivity : AppCompatActivity(), MyRecyclerAdapter.Callback {
         file = File(Environment.getExternalStorageDirectory().toString() +
                 "/Fanshequ/Camera" + (Date(System.currentTimeMillis()).toString()) + ".jpg")
         val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            FileProvider.getUriForFile(this, "applicationId.fileprovider", file)
+            FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
         else Uri.fromFile(file)
 
         //添加权限
@@ -346,7 +344,7 @@ class FillOrderActivity : AppCompatActivity(), MyRecyclerAdapter.Callback {
             file = File(Environment.getExternalStorageDirectory().toString() +
                     "/Fanshequ/Photo" + (Date(System.currentTimeMillis()).toString()) + ".jpg")
 //            file= createTempDir()
-            val uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file)
+            val uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -369,7 +367,7 @@ class FillOrderActivity : AppCompatActivity(), MyRecyclerAdapter.Callback {
             TAKE_PHOTO -> {
                 var uri = Uri.fromFile(file)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file)
+                    uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
                 }
                 startPhotoZoom(uri)
             }

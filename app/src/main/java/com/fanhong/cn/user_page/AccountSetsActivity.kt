@@ -123,7 +123,7 @@ class AccountSetsActivity : AppCompatActivity() {
     private fun useCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            FileProvider.getUriForFile(this, "applicationId.fileprovider", file)
+            FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
         else Uri.fromFile(file)
 
         //添加权限
@@ -139,7 +139,7 @@ class AccountSetsActivity : AppCompatActivity() {
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "image/*"
         if (Build.VERSION.SDK_INT >= 24) {
-            val uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file)
+            val uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -266,7 +266,7 @@ class AccountSetsActivity : AppCompatActivity() {
             TAKE_PHOTO -> {
                 var uri = Uri.fromFile(file)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file)
+                    uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
                 }
                 startPhotoZoom(uri)
             }

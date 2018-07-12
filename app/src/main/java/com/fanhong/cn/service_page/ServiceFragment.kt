@@ -76,12 +76,12 @@ class ServiceFragment : Fragment() {
 
     private var adapter: MyServiceAdapter? = null
     private var mSharedPref: SharedPreferences? = null
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_service, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_service, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        mSharedPref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mSharedPref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         img_back.visibility = View.GONE
         tv_title.text = "社区服务"
         initViews()
@@ -89,7 +89,7 @@ class ServiceFragment : Fragment() {
     }
 
     fun initViews() {
-        adapter = MyServiceAdapter(activity, mImageViewArray1, mTextviewArray1)
+        adapter = MyServiceAdapter(activity!!, mImageViewArray1, mTextviewArray1)
         adapter!!.setItemClick(object : MyServiceAdapter.ItemClick {
             override fun itemclick(position: Int) {
                 //便民服务的点击事件
@@ -98,15 +98,15 @@ class ServiceFragment : Fragment() {
 
         })
         recycle1.adapter = adapter
-        recycle1.layoutManager = GridLayoutManager(activity, 4, OrientationHelper.VERTICAL, false)
+        recycle1.layoutManager = GridLayoutManager(activity!!, 4, OrientationHelper.VERTICAL, false)
 
-        adapter = MyServiceAdapter(activity, mImageViewArray2, mTextviewArray2)
+        adapter = MyServiceAdapter(activity!!, mImageViewArray2, mTextviewArray2)
         adapter!!.setItemClick(object : MyServiceAdapter.ItemClick {
             override fun itemclick(position: Int) {
                 //衣食住行的点击事件
-                var url = activity.getString(mUrlArray2[position])
-                var title = activity.getString(mTextviewArray2[position])
-                var intent = Intent(activity, AgentwebActivity::class.java)
+                var url = activity!!.getString(mUrlArray2[position])
+                var title = activity!!.getString(mTextviewArray2[position])
+                var intent = Intent(activity!!, AgentwebActivity::class.java)
                 intent.putExtra("url", url)
                 intent.putExtra("title", title)
                 startActivity(intent)
@@ -114,15 +114,15 @@ class ServiceFragment : Fragment() {
 
         })
         recycle2.adapter = adapter
-        recycle2.layoutManager = GridLayoutManager(activity, 4)
+        recycle2.layoutManager = GridLayoutManager(activity!!, 4)
 
-        adapter = MyServiceAdapter(activity, mImageViewArray3, mTextviewArray3)
+        adapter = MyServiceAdapter(activity!!, mImageViewArray3, mTextviewArray3)
         adapter!!.setItemClick(object : MyServiceAdapter.ItemClick {
             override fun itemclick(position: Int) {
                 //教育医疗的点击事件
-                var url = activity.getString(mUrlArray3[position])
-                var title = activity.getString(mTextviewArray3[position])
-                var intent = Intent(activity, AgentwebActivity::class.java)
+                var url = activity!!.getString(mUrlArray3[position])
+                var title = activity!!.getString(mTextviewArray3[position])
+                var intent = Intent(activity!!, AgentwebActivity::class.java)
                 intent.putExtra("url", url)
                 intent.putExtra("title", title)
                 startActivity(intent)
@@ -130,29 +130,29 @@ class ServiceFragment : Fragment() {
 
         })
         recycle3.adapter = adapter
-        recycle3.layoutManager = GridLayoutManager(activity, 4)
+        recycle3.layoutManager = GridLayoutManager(activity!!, 4)
     }
 
     private fun convenientService(position: Int) {
         when (position) {
-            0 -> startActivity(Intent(activity, ShopIndexActivity::class.java))
-            1 -> startActivity(Intent(activity, UsedShopActivity::class.java))
-            2 -> {startActivity(Intent(activity,VerificationActivity::class.java))
+            0 -> startActivity(Intent(activity!!, ShopIndexActivity::class.java))
+            1 -> startActivity(Intent(activity!!, UsedShopActivity::class.java))
+            2 -> {startActivity(Intent(activity!!,VerificationActivity::class.java))
             }
             3 -> {
                 if (isLogined()) {
                     var uid = mSharedPref!!.getString(App.PrefNames.USERID, "-1")
                     checkJoined(uid)
                 } else {
-                    startActivity(Intent(activity, ZSIntroductionActivity::class.java))
+                    startActivity(Intent(activity!!, ZSIntroductionActivity::class.java))
                 }
             }
             4 -> {
                 if (isLogined()) {
-                    startActivity(Intent(activity, RepairActivity::class.java))
-                } else AlertDialog.Builder(activity).setTitle("你还没有登录哦").setMessage("是否立即登录？").setPositiveButton("确认", { _, _ ->
-                    startActivity(Intent(activity, LoginActivity::class.java))
-                }).setNegativeButton("取消", null).show()
+                    startActivity(Intent(activity!!, RepairActivity::class.java))
+                } else AlertDialog.Builder(activity!!).setTitle("你还没有登录哦").setMessage("是否立即登录？").setPositiveButton("确认") { _, _ ->
+                    startActivity(Intent(activity!!, LoginActivity::class.java))
+                }.setNegativeButton("取消", null).show()
             }
             5 -> {
                 if (isLogined()) {
@@ -162,7 +162,7 @@ class ServiceFragment : Fragment() {
                     x.http().post(param, object : Callback.CommonCallback<String> {
                         override fun onSuccess(result: String) {
                             if (JsonSyncUtils.getJsonValue(result, "cw") == "0") {
-                                startActivity(Intent(activity, GovernMainActivity::class.java))
+                                startActivity(Intent(activity!!, GovernMainActivity::class.java))
                             } else ToastUtil.showToastL("暂无进入权限...")
                         }
 
@@ -175,9 +175,9 @@ class ServiceFragment : Fragment() {
                         override fun onFinished() {
                         }
                     })
-                } else AlertDialog.Builder(activity).setTitle("你还没有登录哦").setMessage("是否立即登录？").setPositiveButton("确认", { _, _ ->
-                    startActivity(Intent(activity, LoginActivity::class.java))
-                }).setNegativeButton("取消", null).show()
+                } else AlertDialog.Builder(activity!!).setTitle("你还没有登录哦").setMessage("是否立即登录？").setPositiveButton("确认") { _, _ ->
+                    startActivity(Intent(activity!!, LoginActivity::class.java))
+                }.setNegativeButton("取消", null).show()
             }
         }
     }
@@ -201,8 +201,8 @@ class ServiceFragment : Fragment() {
             override fun onSuccess(result: String?) {
                 var data = JsonSyncUtils.getJsonValue(result!!, "data").toInt()
                 when (data) {
-                    0 -> startActivity(Intent(activity, ZSIntroductionActivity::class.java))
-                    1 -> startActivity(Intent(activity, HaveJoinedActivity::class.java))
+                    0 -> startActivity(Intent(activity!!, ZSIntroductionActivity::class.java))
+                    1 -> startActivity(Intent(activity!!, HaveJoinedActivity::class.java))
                     else -> ToastUtil.showToastS("登录状态异常")
                 }
             }

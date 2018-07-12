@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.fanhong.cn.R
 import com.fanhong.cn.home_page.models.Banner
-import com.fanhong.cn.tools.DateUtil
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.itme_home_activities.view.*
-import kotlinx.android.synthetic.main.itme_repair_info.view.*
 
 open class ActivitiesAdapter(banners: ArrayList<Banner>, private val mCallback: Callback)
     : RecyclerView.Adapter<ActivitiesAdapter.MyHolder>() ,View.OnClickListener{

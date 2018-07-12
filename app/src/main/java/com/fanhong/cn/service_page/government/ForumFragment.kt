@@ -37,17 +37,17 @@ import java.util.*
 class ForumFragment : Fragment() {
     var list: MutableList<LtItemModel> = ArrayList()
     private var adapter: LtAdapter? = null
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_party_forum, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lt_get_more.visibility = View.VISIBLE
-        adapter = LtAdapter(activity, list)
+        adapter = LtAdapter(activity!!, list)
         lt_recyclerview.adapter = adapter
-        lt_recyclerview.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-val pref = activity.getSharedPreferences(App.PREFERENCES_NAME,Context.MODE_PRIVATE)
+        lt_recyclerview.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+val pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME,Context.MODE_PRIVATE)
         lt_get_more.setOnClickListener {
             val param = RequestParams(App.CMD)
             param.addBodyParameter("cmd", "117")
@@ -89,7 +89,7 @@ val pref = activity.getSharedPreferences(App.PREFERENCES_NAME,Context.MODE_PRIVA
         }
         lt_submit.setOnClickListener {
             if (TextUtils.isEmpty(lt_edit.text.toString().trim({ it <= ' ' }))) {
-                Toast.makeText(activity, "请输入发表内容！", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity!!, "请输入发表内容！", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val param = RequestParams(App.CMD)
@@ -187,16 +187,16 @@ val pref = activity.getSharedPreferences(App.PREFERENCES_NAME,Context.MODE_PRIVA
 
     //隐藏软键盘的方法
     private fun hideSoftinputyer(view: View) {
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     private fun isSoftShowing(): Boolean {
         //获取当前屏幕内容的高度
-        val screenHeight = activity.window.decorView.height
+        val screenHeight = activity!!.window.decorView.height
         //获取View可见区域的bottom
         val rect = Rect()
-        activity.window.decorView.getWindowVisibleDisplayFrame(rect)
+        activity!!.window.decorView.getWindowVisibleDisplayFrame(rect)
 
         return screenHeight - rect.bottom != 0
     }

@@ -194,7 +194,7 @@ class HomeActivity : AppCompatActivity() {
                     layout.addView(tv2)
                     AlertDialog.Builder(this@HomeActivity)
                             .setTitle("发现新版本：v$targetName").setView(layout)
-                            .setPositiveButton("立即更新", { _, _ ->
+                            .setPositiveButton("立即更新") { _, _ ->
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                     val checkCallPhonePermission = ContextCompat.checkSelfPermission(this@HomeActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                                     if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
@@ -205,13 +205,13 @@ class HomeActivity : AppCompatActivity() {
                                     }
                                 }
                                 startUpdating(targetName)
-                            })
-                            .setNegativeButton("暂不更新", { _, _ ->
+                            }
+                            .setNegativeButton("暂不更新") { _, _ ->
                                 val editor = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
                                 val date = SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis())
                                 editor.putString(App.PrefNames.UPDATEIGNORE, date)
                                 editor.apply()
-                            })
+                            }
                             .show()
                 }
             }

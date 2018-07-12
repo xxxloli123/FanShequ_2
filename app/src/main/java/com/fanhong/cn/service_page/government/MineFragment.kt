@@ -22,13 +22,13 @@ import org.xutils.x
  */
 class MineFragment : Fragment() {
     var pref: SharedPreferences? = null
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_party_mine, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pref = activity.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         val head = pref?.getString(App.PrefNames.HEADIMG, "")
         val option = ImageOptions.Builder().setIgnoreGif(false).setCircular(true).setFailureDrawableId(R.mipmap.default_photo).build()
         x.image().bind(user_picture, head, option)
@@ -36,9 +36,9 @@ class MineFragment : Fragment() {
         user_phone.text = pref?.getString(App.PrefNames.USERNAME, "") ?: ""
         getScore(pref?.getString(App.PrefNames.USERID, "-1") ?: "-1")
 
-        user_message.setOnClickListener { startActivity(Intent(activity, PersonalMessageActivity::class.java)) }
-//        party_person_info.setOnClickListener { startActivity(Intent(activity, GovMemberInfoActivity::class.java)) }//已隐藏
-        dues_message.setOnClickListener { startActivity(Intent(activity, GovDuesActivity::class.java)) }
+        user_message.setOnClickListener { startActivity(Intent(activity!!, PersonalMessageActivity::class.java)) }
+//        party_person_info.setOnClickListener { startActivity(Intent(activity!!, GovMemberInfoActivity::class.java)) }//已隐藏
+        dues_message.setOnClickListener { startActivity(Intent(activity!!, GovDuesActivity::class.java)) }
     }
 
     private fun getScore(uid: String) {
