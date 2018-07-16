@@ -223,7 +223,7 @@ class RegisterActivity : AppCompatActivity() {
         })
     }
 
-    private val runnable = Runnable({
+    private val runnable = Runnable {
         var count: Int = ((System.currentTimeMillis() - App.lastCodeMsgTime) / 1000).toInt()
         runOnUiThread { btn_getcode.isEnabled = false }
         while (count < 30) {
@@ -235,7 +235,7 @@ class RegisterActivity : AppCompatActivity() {
             btn_getcode.text = "获取验证码"
             btn_getcode.isEnabled = true
         }
-    })
+    }
 
     fun onGetCode(v: View) {
         val phoneNo = edt_username.text.toString().trim()

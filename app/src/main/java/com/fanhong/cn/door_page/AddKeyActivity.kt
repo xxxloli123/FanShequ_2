@@ -11,6 +11,7 @@ import android.net.Uri.fromFile
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
@@ -35,6 +36,12 @@ import kotlinx.android.synthetic.main.activity_add_key.*
 import kotlinx.android.synthetic.main.activity_top.*
 import kotlinx.android.synthetic.main.agree_sheets.*
 import me.leefeng.promptlibrary.PromptDialog
+import org.devio.takephoto.app.TakePhotoActivity
+import org.devio.takephoto.compress.CompressConfig
+import org.devio.takephoto.model.CropOptions
+import org.devio.takephoto.model.TImage
+import org.devio.takephoto.model.TResult
+import org.devio.takephoto.model.TakePhotoOptions
 import org.json.JSONException
 import org.json.JSONObject
 import org.xutils.common.Callback
@@ -46,40 +53,20 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 
-class AddKeyActivity : AppCompatActivity() ,MyRecyclerAdapter.Callback{
+class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
 
     var cellId: String? = null
     var lastCellId: String? = null
-    var cellIdList: MutableList<String>? = ArrayList()
-    var cellList: MutableList<String>? = ArrayList()
     var buildingId: String? = null
     var buildingIdList: MutableList<String>? = ArrayList()
     var buildingList: MutableList<String>? = ArrayList()
 
-    private var selectedPaths: MutableList<String> = ArrayList()
-    private var selectedFiles: MutableList<File> = ArrayList()
-
     var mSharedPref: SharedPreferences? = null
     var uid: String? = null
     var ssp: SpinerPopWindow<String>? = null
+    private var imgs = ArrayList<TImage>()
 
-    private var file: File? = null
-    private var files = ArrayList<File>()
-    private var cropFile: File? = null
-    private var cancel: Callback.Cancelable? = null
-    private var adapter: MyRecyclerAdapter? =null
-
-    private val REQUEST_PERMISSION = 21
-    private val START_GALLERYFINAL = 23
-
-    companion object {
-        private val REQUEST_TAKE_PHOTO = 11
-        private val REQUEST_CHOOSE_PIC = 12
-        private val TAKE_PHOTO = 21
-        private val CHOOSE_PIC = 22
-        private val CUT_PICTURE = 23
-        private val SET_NICK = 24
-    }
+    private var adapter: MyRecyclerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,39 +91,6 @@ class AddKeyActivity : AppCompatActivity() ,MyRecyclerAdapter.Callback{
         }
         tv_title.text = getString(R.string.applykey)
         key_choosegarden.setOnClickListener {
-            //            var params = RequestParams(App.CMD)
-//            params.addBodyParameter("cmd", "29")
-//            x.http().post(params, object : Callback.CommonCallback<String> {
-//                override fun onFinished() {
-//                }
-//
-//                override fun onSuccess(result: String) {
-//                    if (JsonSyncUtils.getJsonValue(result, "cw") == "0") {
-//                        val data = JsonSyncUtils.getJsonValue(result, "data")
-//                        cellList = JsonSyncUtils.getStringList(data, "name")
-//                        cellIdList = JsonSyncUtils.getStringList(data,"id")
-//
-//                        ssp = SpinerPopWindow(this@AddKeyActivity, cellList!!, ""){ parent, view, position, id ->
-//                            key_choosegarden.text = cellList!![position]
-//                            cellId = cellIdList!![position]
-//                            if(lastCellId != cellId){
-//                                key_choosebuilding.text = "选择楼栋"
-//                                buildingId = ""
-//                                lastCellId = cellId
-//                            }
-//                            ssp!!.dismiss()
-//                        }
-//                        ssp?.width = key_choosegarden.width
-//                        ssp?.showAsDropDown(key_choosegarden)
-//                    }
-//                }
-//
-//                override fun onCancelled(cex: Callback.CancelledException?) {
-//                }
-//
-//                override fun onError(ex: Throwable?, isOnCallback: Boolean) {
-//                }
-//            })
             startActivityForResult(Intent(this, ChooseCellActivity::class.java), 101)
         }
         key_choosebuilding.setOnClickListener {
@@ -173,15 +127,6 @@ class AddKeyActivity : AppCompatActivity() ,MyRecyclerAdapter.Callback{
             })
         }
         img_key_add.setOnClickListener {
-//            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
-//                // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-//                val checkCamera = ContextCompat.checkSelfPermission(this@AddKeyActivity, Manifest.permission.CAMERA)
-//                val checkSD = ContextCompat.checkSelfPermission(this@AddKeyActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                if (checkCamera != PackageManager.PERMISSION_GRANTED || checkSD != PackageManager.PERMISSION_GRANTED) {
-//                    requestPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_PERMISSION)
-//                    return@setOnClickListener
-//                }
-//            }
             addImg()
         }
         sheet_protocol.setOnClickListener {
@@ -199,11 +144,7 @@ class AddKeyActivity : AppCompatActivity() ,MyRecyclerAdapter.Callback{
                 ToastUtil.showToastS("请选择楼栋")
                 return@setOnClickListener
             }
-//            if (selectedFiles.size == 0) {
-//                ToastUtil.showToastS("请至少上传一张人脸图片")
-//                return@setOnClickListener
-//            }
-            if (files.size == 0) {
+            if (imgs.size == 0) {
                 ToastUtil.showToastS("请至少上传一张人脸图片")
                 return@setOnClickListener
             }
@@ -215,104 +156,35 @@ class AddKeyActivity : AppCompatActivity() ,MyRecyclerAdapter.Callback{
         }
     }
 
-    private fun submit() {
-        val dialog = AlertDialog.Builder(this).setMessage("正在提交").create()
-        dialog.setCancelable(false)
-        dialog.show()
-
-        val kvList: MutableList<KeyValue> = ArrayList()
-        kvList.add(KeyValue("cmd", "1012"))
-        kvList.add(KeyValue("uid", uid))
-        kvList.add(KeyValue("xid", cellId))
-        kvList.add(KeyValue("dizhi", buildingId))
-        var filenames = ""
-        for (i in 0 until files.size) {
-            val dir = File("${Environment.getExternalStorageDirectory()}/Fanshequ")
-            if (!dir.exists())
-                dir.mkdir()
-            val fileName = "${System.currentTimeMillis()}${(Math.random() * 99999).toInt()}_$i.jpg"
-//                val file: File = FileUtil.compressImage(files[i], "${Environment.getExternalStorageDirectory()}/Fanshequ/$fileName")
-            kvList.add(KeyValue("touxiang${i + 1}", files[i]))
-            if (i != 0) filenames += ","
-            filenames += fileName
-        }
-        kvList.add(KeyValue("xinxi", filenames))
-
-        val params = RequestParams(App.CMD)
-        params.requestBody = MultipartBody(kvList, "UTF-8")
-        params.isMultipart = true
-        x.http().post(params, object : Callback.CommonCallback<String> {
-            override fun onSuccess(result: String) {
-                when (JsonSyncUtils.getState(result)) {
-                    200 -> {
-                        FileHelp.deleteFiles(Environment.getExternalStorageDirectory().toString() +
-                                "/Fanshequ")
-                        AlertDialog.Builder(this@AddKeyActivity).setMessage("上传成功！").setPositiveButton("确定", null).show()
-                        finish()
-                    }
-                    400 -> {
-                        AlertDialog.Builder(this@AddKeyActivity).setMessage("提交失败！").setPositiveButton("确定", null).show()
-                        ToastUtil.showToastL("上传失败，请重试")
-                    }
-                }
-            }
-
-            override fun onError(ex: Throwable?, isOnCallback: Boolean) {
-                AlertDialog.Builder(this@AddKeyActivity).setMessage("提交失败！").setPositiveButton("确定", null).show()
-                ToastUtil.showToastL("连接服务器失败，请检查网络！")
-            }
-
-            override fun onCancelled(cex: Callback.CancelledException?) {
-                ToastUtil.showToastL("onCancelled连接服务器失败，请检查网络！")
-            }
-
-            override fun onFinished() {
-                dialog.dismiss()
-            }
-        })
-    }
-
     private fun submit2() {
         var filenames = ""
         val request = OkGo.post<String>(App.CMD)
                 .tag(this)//
                 .isMultipart(true)
+                            //        cmd：数据类型
+                            //        uid：用户id
+                            //        xid：小区id
+                            //        dizhi：楼栋id
+                            //        xinxi：图片信息
+                            //        rltp：人脸图片
                 .params("cmd", "1012")
                 .params("uid", uid)
                 .params("xid", cellId)
                 .params("dizhi", buildingId)
-        for (i in files.indices){
-            val dir = File("${Environment.getExternalStorageDirectory()}/Fanshequ")
-            if (!dir.exists())
-                dir.mkdir()
-            request.params("touxiang" + (i + 1), files[i])
-            val fileName = "${System.currentTimeMillis()}${(Math.random() * 99999).toInt()}_$i.jpg"
-            if (i != 0) filenames += ","
-            filenames += fileName
+        for (i in imgs.indices){
+            request.params("touxiang" + (i + 1), File(imgs[i].compressPath))
+            filenames += if(i==0){File(imgs[i].compressPath).name}else{","+File(imgs[i].compressPath).name}
         }
         request.params("xinxi", filenames)
         request.execute(object : StringDialogCallback(this) {
             override fun onSuccess(response: Response<String>) {
-                Log.e("OkGo", response.body().toString())
-                try {
-                    val json = JSONObject(response.body()!!.toString())
-                    if (json.getString("state") == "200"){
-                        FileHelp.deleteFiles(Environment.getExternalStorageDirectory().toString() +
-                                "/Fanshequ")
-                        AlertDialog.Builder(this@AddKeyActivity).setMessage("提交成功!")
-                                .setPositiveButton("确定") { _, _ ->
-                                    finish()
-                                } .show()
-                    }else{
-                        PromptDialog(this@AddKeyActivity).showError("提交失败!")
-                    }
-                }catch (e: JSONException) {
-                    LogUtil.e("JSONException",e.toString())
-                    ToastUtil.showToastL("数据解析异常")
-                    e.printStackTrace()
-                }
+                Log.e("OkGo 1012", response.body().toString())
+                if (response.body().toString().contains("\"cw\":\"1\"")
+                        || response.body().toString().contains("\"state\":\"200\"")) {
+                    PromptDialog(this@AddKeyActivity).showSuccess("提交成功", true)
+                    Handler().postDelayed({ finish() }, 1500)
+                } else PromptDialog(this@AddKeyActivity).showError("系统错误")
             }
-
             override fun onError(response: Response<String>) {
                 Log.e("OkGoError", response.exception.toString())
                 AlertDialog.Builder(this@AddKeyActivity).setMessage("onError提交失败！ 是否重试?")
@@ -327,70 +199,71 @@ class AddKeyActivity : AppCompatActivity() ,MyRecyclerAdapter.Callback{
         val popupWindow = PhotoSelectWindow(this@AddKeyActivity)
         popupWindow.setOnTakePhoto(View.OnClickListener {
             popupWindow.dismiss()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-                val checkCamera = ContextCompat.checkSelfPermission(this@AddKeyActivity, Manifest.permission.CAMERA)
-                val checkSD = ContextCompat.checkSelfPermission(this@AddKeyActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                if (checkCamera != PackageManager.PERMISSION_GRANTED || checkSD != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_TAKE_PHOTO)
-                    return@OnClickListener
-                }
-            }
-            useCamera()
+            selectPhoto(true)
         }).setOnChoosePic(View.OnClickListener {
             popupWindow.dismiss()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
-                if (ContextCompat.checkSelfPermission(this@AddKeyActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_TAKE_PHOTO)
-                    return@OnClickListener
-                }
-            }
-            choosePhoto()
+            selectPhoto(false)
         })
         popupWindow.showAtLocation(layout_add_key, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 0)
-
     }
 
-    private fun useCamera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        file=File(Environment.getExternalStorageDirectory().toString() +
-                "/Fanshequ/Camera"+(Date(System.currentTimeMillis()).toString())+".jpg")
-        val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
-        else Uri.fromFile(file)
-
-        //添加权限
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)//将拍取的照片保存到指定URI
-        startActivityForResult(intent, TAKE_PHOTO)
-    }
-
-    private fun choosePhoto() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        intent.type = "image/*"
-        if (Build.VERSION.SDK_INT >= 24) {
-            file=File(Environment.getExternalStorageDirectory().toString() +
-                    "/Fanshequ/Photo"+(Date(System.currentTimeMillis()).toString())+".jpg")
-//            file= createTempDir()
-            val uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    private fun selectPhoto(b: Boolean) {
+        val builder = CropOptions.Builder()
+        //是否takePhoto剪裁
+        builder.setWithOwnCrop(true)
+        //压缩图片
+        val config = CompressConfig.Builder().setMaxSize(233 * 1020)
+                .setMaxPixel(0)
+                .enableReserveRaw(false)
+                .create()
+        takePhoto.onEnableCompress(config, true)//true 是否显示进度条
+        //b true拍照
+        if (b) {
+            val file = File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg")
+            if (!file.parentFile.exists()) {
+                file.parentFile.mkdirs()
+            }
+            val imageUri = Uri.fromFile(file)
+            takePhoto.onPickFromCaptureWithCrop(imageUri, builder.create())
+        } else {
+            val builder1 = TakePhotoOptions.Builder()
+            builder1.setWithOwnGallery(true)
+            takePhoto.setTakePhotoOptions(builder1.create())
+            takePhoto.onPickMultipleWithCrop(3 - imgs.size, builder.create())
         }
-        startActivityForResult(intent, CHOOSE_PIC)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
-                                            grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            REQUEST_TAKE_PHOTO -> useCamera()
-            REQUEST_CHOOSE_PIC -> choosePhoto()
+    override fun takeFail(result: TResult?, msg: String?) {
+        ToastUtil.showToastL("选择图片失败")
+        super.takeFail(result, msg)
+    }
+
+    override fun takeSuccess(result: TResult?) {
+        imgs.addAll(result!!.images)
+        super.takeSuccess(result)
+        showImg()
+    }
+
+    private fun showImg() {
+        if (adapter == null) {
+            adapter = MyRecyclerAdapter(imgs, this)
+            rv_img.layoutManager = LinearLayoutManager(this,
+                    LinearLayoutManager.HORIZONTAL, false)
+            rv_img.adapter = adapter
+        } else adapter!!.notifyDataSetChanged()
+    }
+
+    override fun click(v: View) {
+        imgs.removeAt(v.tag.toString().toInt())
+        adapter!!.notifyDataSetChanged()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            goBack()
+            return true
         }
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -404,109 +277,6 @@ class AddKeyActivity : AppCompatActivity() ,MyRecyclerAdapter.Callback{
                 lastCellId = cellId
             }
         }
-
-        when (requestCode) {
-            TAKE_PHOTO -> {
-                var uri = Uri.fromFile(file)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", file!!)
-                }
-                startPhotoZoom(uri)
-            }
-            CHOOSE_PIC -> {
-                try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        val imgUri = File(GetImagePath.getPath(this, data!!.data))
-                        val uri = FileProvider.getUriForFile(this, "applicationId.fileprovider", imgUri)
-                        startPhotoZoom(uri)
-                    } else
-                        startPhotoZoom(data!!.data)
-                } catch (e: NullPointerException) {
-                    e.printStackTrace() // 用户点击取消操作
-                }
-
-            }
-            CUT_PICTURE -> if (data != null) setPicToView(data)
-        }
-    }
-
-    /**
-     * 裁剪图片方法实现
-     * @param uri
-     */
-    private fun startPhotoZoom(uri: Uri) {
-        cropFile = File(Environment.getExternalStorageDirectory().
-                toString() + "/Fanshequ/cropImage.jpg")
-        if (!cropFile!!.parentFile.exists()) {
-            cropFile!!.parentFile.mkdirs()
-            try {
-                cropFile!!.createNewFile()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-        }
-        val outputUri = fromFile(cropFile)
-        val intent = Intent("com.android.camera.action.CROP")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri)
-            intent.setDataAndType(uri, "image/*")
-            intent.putExtra("noFaceDetection", false)//去除默认的人脸识别，否则和剪裁匡重叠
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                val url = GetImagePath.getPath(this, uri)
-                intent.setDataAndType(Uri.fromFile(File(url)), "image/*")
-            } else {
-                intent.setDataAndType(uri, "image/*")
-            }
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri)
-        }
-//        intent.putExtra("crop", "true")
-        intent.putExtra("return-data", true)
-
-        startActivityForResult(intent, CUT_PICTURE)
-
-    }
-
-    /**
-     * 保存裁剪之后的图片数据
-     * @param picdata
-     */
-    private fun setPicToView(picdata: Intent) {
-        val extras = picdata.extras
-        if (extras != null) {
-            // 取得SDCard图片路径做显示
-//            val photo:Bitmap = extras.getParcelable<Bitmap>("data")
-//            val file: File = FileHelp.saveBitmapFile(photo)
-//            showFiles.add(file)
-            val file:File = FileUtil.compressImage(cropFile!!, Environment.getExternalStorageDirectory().toString() +
-                    "/Fanshequ/hou"+(System.currentTimeMillis()).toString()+".jpg")
-            files.add(file)
-            showImg()
-        }
-    }
-
-    private fun showImg() {
-        if (adapter==null){
-            adapter= MyRecyclerAdapter(files,this)
-            rv_img.layoutManager= LinearLayoutManager(this,
-                    LinearLayoutManager.HORIZONTAL,false)
-            rv_img.adapter=adapter
-        }else adapter!!.notifyDataSetChanged()
-    }
-
-    override fun click(v: View) {
-        files.removeAt(v.tag.toString().toInt())
-        adapter!!.notifyDataSetChanged()
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            goBack()
-            return true
-        }
-        return super.onKeyDown(keyCode, event)
     }
 
     private var time1 = 0L

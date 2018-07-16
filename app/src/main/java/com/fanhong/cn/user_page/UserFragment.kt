@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.fanhong.cn.App
 import com.fanhong.cn.HomeActivity
 import com.fanhong.cn.R
@@ -182,42 +183,15 @@ class UserFragment : Fragment() {
             user_name.isEnabled = true
         }
         val headImg = pref.getString(App.PrefNames.HEADIMG, "")
+        Glide.with(context)
+                .load(headImg)
+                .into(mine_photo)
         var nickName = pref.getString(App.PrefNames.NICKNAME, "")
-        val option = ImageOptions.Builder().setCircular(true)
-                .setLoadingDrawableId(R.mipmap.mine_photo)
-                .setFailureDrawableId(R.mipmap.mine_photo)
-                .setUseMemCache(true).build()
-        refreshHead(headImg, option, 1)
+
         if (null == nickName || nickName == "")
             nickName = pref.getString(App.PrefNames.USERNAME, getString(R.string.keylogin))
         else tv_phone.text=pref.getString(App.PrefNames.USERNAME, getString(R.string.keylogin))
         user_name.text = nickName
-    }
-
-    private fun refreshHead(headImg: String, option: ImageOptions, times: Int) {
-        if (times <= 5)
-            x.image().bind(mine_photo, headImg, option, object : Callback.CommonCallback<Drawable> {
-                var isSuccess=false
-                override fun onSuccess(result: Drawable?) {
-//                    Log.e("testLog","time=$times:onSuccess")
-                    isSuccess=true
-                }
-
-                override fun onCancelled(cex: Callback.CancelledException?) {
-//                    Log.e("testLog","time=$times:onCancelled")
-                }
-
-                override fun onFinished() {
-                    if (!isSuccess)
-                        refreshHead(headImg, option, times + 1)
-//                    Log.e("testLog","time=$times:onFinished")
-                }
-
-                override fun onError(ex: Throwable?, isOnCallback: Boolean) {
-//                    Log.e("testLog","time=$times:onError")
-                }
-            })
-
     }
 
     private fun onLogout() {

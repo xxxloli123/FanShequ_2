@@ -30,7 +30,7 @@ android {
     }
     signingConfigs {
         config {
-            storeFile file('D:/Android/pro/FanShequ_2/FanShequ_2/FanShequ_2/fanhong.jks')
+            storeFile file('D:/Android/pro/FanShequ_2/FanShequ_2/FanShequ_2/fanhong2.jks')
             storePassword '100200'
             keyAlias 'fhkj'
             keyPassword '100200'
@@ -125,4 +125,9 @@ dependencies {
     implementation('com.github.bumptech.glide:glide:4.7.1') {
         exclude group: 'com.android.support'
     }
+    implementation ('com.github.crazycodeboy:TakePhoto:v4.1.0'){
+        exclude group: 'com.android.support'
+    }
+    compile 'com.android.support:support-dynamic-animation:25.3.0'
+
 }

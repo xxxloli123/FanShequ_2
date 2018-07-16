@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -23,13 +24,13 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class RepairEvaluateActivity : AppCompatActivity() {
-    lateinit var repairInfo:RepairInfoM
-    private var fraction=3
+    lateinit var repairInfo: RepairInfoM
+    private var fraction = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repair_evaluate)
-        tv_title.text="维修评价"
+        tv_title.text = "维修评价"
         if (intent.getSerializableExtra("ri") != null) {
             repairInfo = intent.getSerializableExtra("ri") as RepairInfoM
             initView()
@@ -41,24 +42,24 @@ class RepairEvaluateActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        tv_name.text=repairInfo.wxboy
-        val sb=((Math.random() * 222)).toInt()
-        tv_order_amount.text="已接业务：${sb}单"
+        tv_name.text = repairInfo.wxboy
+        val sb = ((Math.random() * 222)).toInt()
+        tv_order_amount.text = "已接业务：${sb}单"
         simpleRatingBar.setOnRatingChangeListener { p0, p1 ->
-            fraction=p1.toInt()
-            if (p1<1.5){
-                tv_satisfaction.text="  不满意"
+            fraction = p1.toInt()
+            if (p1 < 1.5) {
+                tv_satisfaction.text = "  不满意"
                 tv_satisfaction.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(
-                        R.mipmap.crying),null,null,null)
-            }else if (p1<3.5){
-                tv_satisfaction.text="  一般"
+                        R.mipmap.crying), null, null, null)
+            } else if (p1 < 3.5) {
+                tv_satisfaction.text = "  一般"
                 tv_satisfaction.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(
-                        R.mipmap.beam),null,null,null)
-            }else {
-            tv_satisfaction.text="   比较满意"
-            tv_satisfaction.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(
-                    R.mipmap.smiling),null,null,null)
-        }
+                        R.mipmap.beam), null, null, null)
+            } else {
+                tv_satisfaction.text = "   比较满意"
+                tv_satisfaction.setCompoundDrawablesWithIntrinsicBounds(resources.getDrawable(
+                        R.mipmap.smiling), null, null, null)
+            }
         }
     }
 
@@ -90,36 +91,26 @@ class RepairEvaluateActivity : AppCompatActivity() {
         OkGo.post<String>(App.CMD)
                 .tag(this)//
                 .isMultipart(true)
-                .params("cmd","1045")
-                .params("id",repairInfo.id)
-                .params("fs",fraction.toString())
-                .params("pl",edt_content.text.toString())
+                .params("cmd", "1045")
+                .params("id", repairInfo.id)
+                .params("fs", fraction.toString())
+                .params("pl", edt_content.text.toString())
                 .execute(object : StringDialogCallback(this) {
                     override fun onSuccess(response: Response<String>) {
-                        Log.e("OkGobody", response.body().toString())
-                        try {
-                            val json = JSONObject(response.body()!!.toString())
-                            if (json.getString("cw") == "1"){
-                                PromptDialog(this@RepairEvaluateActivity).showError("系统错误")
-                            }else AlertDialog.Builder(this@RepairEvaluateActivity)
-                                    .setMessage("评价成功")
-                                    .setPositiveButton("确定") { _, _ ->
-                                        finish()
-                                    }.show()
-                        }catch (e: JSONException) {
-                            LogUtil.e("JSONException",e.toString())
-                            ToastUtil.showToastL("数据解析异常")
-                            e.printStackTrace()
-                        }
+                        Log.e("OkGo 1045", response.body().toString())
+                        if (response.body().toString().contains("\"cw\":\"1\"")
+                                || response.body().toString().contains("\"state\":\"200\"")) {
+                            PromptDialog(this@RepairEvaluateActivity).showSuccess("提交成功", true)
+                            Handler().postDelayed({ finish() }, 1500)
+                        } else PromptDialog(this@RepairEvaluateActivity).showError("提交失败")
                     }
-
                     override fun onError(response: Response<String>) {
                         Log.e("OkGoError", response.exception.toString())
                         AlertDialog.Builder(this@RepairEvaluateActivity)
                                 .setMessage("评价失败！ 是否重试?")
                                 .setPositiveButton("确定") { _, _ ->
                                     submit()
-                                }.setNegativeButton("取消",null) .show()
+                                }.setNegativeButton("取消", null).show()
                     }
                 })
     }
