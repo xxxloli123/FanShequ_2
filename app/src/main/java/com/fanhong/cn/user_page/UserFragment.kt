@@ -178,14 +178,15 @@ class UserFragment : Fragment() {
         if (userId != "-1") {
             mine_photo.isEnabled = false
             user_name.isEnabled = false
+            val headImg = pref.getString(App.PrefNames.HEADIMG, "")
+            Glide.with(this)
+                    .load(headImg)
+                    .into(mine_photo)
         } else {
             mine_photo.isEnabled = true
             user_name.isEnabled = true
         }
-        val headImg = pref.getString(App.PrefNames.HEADIMG, "")
-        Glide.with(context)
-                .load(headImg)
-                .into(mine_photo)
+
         var nickName = pref.getString(App.PrefNames.NICKNAME, "")
 
         if (null == nickName || nickName == "")

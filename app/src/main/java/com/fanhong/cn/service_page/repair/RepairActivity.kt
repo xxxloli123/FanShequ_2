@@ -15,9 +15,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.Toast
-import cn.finalteam.galleryfinal.FunctionConfig
-import cn.finalteam.galleryfinal.GalleryFinal
-import cn.finalteam.galleryfinal.model.PhotoInfo
 import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.home_page.ChooseCellActivity
@@ -252,44 +249,44 @@ class RepairActivity : AppCompatActivity() {
     }
 
     private fun openPicture(camera: Int) {
-        val cfg = FunctionConfig.Builder()
-                .setMutiSelectMaxSize(3/* - chosenSize*/)
-                .setSelected(picPaths)
-                .setEnableCamera(camera == 0)//如果有相机权限则允许使用相机
-                .build()
-        GalleryFinal.openGalleryMuti(103, cfg, object : GalleryFinal.OnHanlderResultCallback {
-//            HanlderSuccess 处理成功
-            override fun onHanlderSuccess(reqeustCode: Int, resultList: List<PhotoInfo>) {
-                if (reqeustCode == 103) {
-                    picPaths.clear()
-                    if (resultList.isNotEmpty()) {
-                        layout_chosen.visibility = View.VISIBLE
-                        for (i in resultList) {
-                            picPaths.add(i.photoPath)
-                            when (resultList.indexOf(i)) {
-                                0 -> {
-                                    img_1.setImageURI(Uri.fromFile(File(i.photoPath)))
-                                    img_2.visibility = View.GONE
-                                    img_3.visibility = View.GONE
-                                }
-                                1 -> {
-                                    img_2.setImageURI(Uri.fromFile(File(i.photoPath)))
-                                    img_2.visibility = View.VISIBLE
-                                }
-                                2 -> {
-                                    img_3.setImageURI(Uri.fromFile(File(i.photoPath)))
-                                    img_3.visibility = View.VISIBLE
-                                }
-                            }
-                        }
-                    } else
-                        layout_chosen!!.visibility = View.GONE
-                }
-            }
-
-            override fun onHanlderFailure(requestCode: Int, errorMsg: String) {
-
-            }
-        })
+//        val cfg = FunctionConfig.Builder()
+//                .setMutiSelectMaxSize(3/* - chosenSize*/)
+//                .setSelected(picPaths)
+//                .setEnableCamera(camera == 0)//如果有相机权限则允许使用相机
+//                .build()
+//        GalleryFinal.openGalleryMuti(103, cfg, object : GalleryFinal.OnHanlderResultCallback {
+////            HanlderSuccess 处理成功
+//            override fun onHanlderSuccess(reqeustCode: Int, resultList: List<PhotoInfo>) {
+//                if (reqeustCode == 103) {
+//                    picPaths.clear()
+//                    if (resultList.isNotEmpty()) {
+//                        layout_chosen.visibility = View.VISIBLE
+//                        for (i in resultList) {
+//                            picPaths.add(i.photoPath)
+//                            when (resultList.indexOf(i)) {
+//                                0 -> {
+//                                    img_1.setImageURI(Uri.fromFile(File(i.photoPath)))
+//                                    img_2.visibility = View.GONE
+//                                    img_3.visibility = View.GONE
+//                                }
+//                                1 -> {
+//                                    img_2.setImageURI(Uri.fromFile(File(i.photoPath)))
+//                                    img_2.visibility = View.VISIBLE
+//                                }
+//                                2 -> {
+//                                    img_3.setImageURI(Uri.fromFile(File(i.photoPath)))
+//                                    img_3.visibility = View.VISIBLE
+//                                }
+//                            }
+//                        }
+//                    } else
+//                        layout_chosen!!.visibility = View.GONE
+//                }
+//            }
+//
+//            override fun onHanlderFailure(requestCode: Int, errorMsg: String) {
+//
+//            }
+//        })
     }
 }

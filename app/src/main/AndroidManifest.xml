@@ -164,7 +164,9 @@
             android:name=".service_page.shop.CommunityMallActivity"
             android:theme="@style/AppTheme.Main" />
         <activity android:name=".service_page.TestActivity" />
-        <activity android:name=".user_page.IntegralExchangeActivity"></activity>
+        <activity android:name=".user_page.IntegralExchangeActivity" />
+        <activity android:name=".service_page.questionnaire.QuestionnaireActivity"
+            android:theme="@style/MyTheme"/>
     </application>
 
 </manifest>

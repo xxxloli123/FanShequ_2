@@ -11,9 +11,9 @@ android {
         applicationId "com.fanhong.cn"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 24
+        versionCode 25
         multiDexEnabled true
-        versionName '1.5'
+        versionName '1.6'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -92,7 +92,7 @@ dependencies {
     compile 'cn.jiguang.sdk:jpush:3.1.1'
     compile 'cn.jiguang.sdk:jcore:1.1.9'
     //图片选择器
-    compile 'cn.finalteam:galleryfinal:1.4.8.7'
+    //    compile 'cn.finalteam:galleryfinal:1.4.8.7'
     //agentweb
     compile 'com.just.agentweb:agentweb:1.0.3'
     //高德定位
@@ -106,7 +106,7 @@ dependencies {
     //微信支付
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //支付宝
-    implementation files('libs/alipaySdk-20170725.jar')
+    //    implementation files('libs/alipaySdk-20170725.jar')
     //    compile 'com.github.crazycodeboy:TakePhoto:v4.1.0'
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -120,14 +120,15 @@ dependencies {
     //最新版本
     compile 'com.github.385841539:MarqueeView:1.0.0'
     implementation 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    implementation 'com.jakewharton:butterknife:8.8.1'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation('com.github.bumptech.glide:glide:4.7.1') {
         exclude group: 'com.android.support'
     }
-    implementation ('com.github.crazycodeboy:TakePhoto:v4.1.0'){
+    implementation('com.github.crazycodeboy:TakePhoto:v4.1.0') {
         exclude group: 'com.android.support'
     }
     compile 'com.android.support:support-dynamic-animation:25.3.0'
-
+    implementation('com.github.vondear.RxTool:RxFeature:v2.0.4') {
+        exclude group: 'com.android.support'
+    }
 }

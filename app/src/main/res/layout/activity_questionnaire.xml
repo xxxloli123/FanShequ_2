@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".service_page.questionnaire.QuestionnaireActivity">
+    <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentTop="true"
+        android:background="@color/blue2">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="5px"
+            android:src="@mipmap/back_white" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="问卷调查"
+            android:textColor="@color/white"
+            android:textSize="40px" />
+
+        <TextView
+            android:id="@+id/top_extra"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:padding="10px"
+            android:text="extra"
+            android:textColor="@color/white"
+            android:textSize="36px"
+            android:visibility="gone" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:visibility="gone"
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:padding="22px"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_questionnaire_list"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <TextView
+                    android:textSize="33px"
+                    android:textColor="@color/text_6"
+                    android:layout_marginTop="33px"
+                    android:text="请留下你的宝贵意见"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:gravity="top"
+                    android:layout_marginTop="24px"
+                    android:id="@+id/edt_opinion"
+                    android:layout_width="match_parent"
+                    android:layout_height="250px"
+                    android:background="@drawable/shape_comment_choose_bg2"
+                    android:hint="我们会认真阅读您的建议"
+                    android:padding="12px"
+                    android:textColor="@color/text_6"
+                    android:textColorHint="@color/text_9"
+                    android:textSize="28px" />
+
+                <Button
+                    android:onClick="submit"
+                    android:text="提交"
+                    android:id="@+id/btn_register_commit"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:layout_margin="44px"
+                    android:background="@mipmap/button_background"
+                    android:textColor="@color/white"
+                    android:textSize="19.0sp" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </ScrollView>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="122px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:adjustViewBounds="true"
+                android:src="@drawable/pj"
+                android:layout_width="333px"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="66px"
+                android:text="您已参与过本次问卷调查了"
+                android:textColor="@color/text_6"
+                android:textSize="26px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+</com.zhy.autolayout.AutoLinearLayout>

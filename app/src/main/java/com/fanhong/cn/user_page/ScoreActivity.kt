@@ -34,20 +34,17 @@ class ScoreActivity : AppCompatActivity() {
         tv_title.text = "积分"
         img_back.setOnClickListener { finish() }
         tv_score.text = "0"
-        loadData()
+        initScore()
         score_get.setOnClickListener { startActivity(Intent(this, ScoreCashActivity::class.java)) }
         score_cash.setOnClickListener { startActivity(Intent(this, IntegralExchangeActivity::class.java)) }
     }
 
     private fun loadData() {
-//        1035.查询积分(APP->平台)
-//        cmd:数据类型
-//        phone:当前APP用户电话号码
         val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         OkGo.post<String>(App.CMD)
                 .tag(this)//
-                .params("cmd", "1035")
-                .params("phone", pref.getString(App.PrefNames.USERNAME, ""))
+                .params("cmd", "1020")
+                .params("uid", pref.getString(App.PrefNames.USERID, "-1"))
                 .execute(object : StringDialogCallback(this) {
                     override fun onSuccess(response: Response<String>) {
                         Log.e("OkGo body",response.body().toString())

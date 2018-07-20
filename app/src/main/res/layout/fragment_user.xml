@@ -71,7 +71,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="28px"
-                android:onClick="onLogin"
                 android:layout_centerVertical="true" />
 
         </com.zhy.autolayout.AutoLinearLayout>

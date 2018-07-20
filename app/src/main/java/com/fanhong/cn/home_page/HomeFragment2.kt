@@ -20,6 +20,7 @@ import com.fanhong.cn.home_page.fenxiao.HaveJoinedActivity
 import com.fanhong.cn.home_page.fenxiao.ZSIntroductionActivity
 import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.login_pages.LoginActivity
+import com.fanhong.cn.service_page.questionnaire.QuestionnaireActivity
 import com.fanhong.cn.service_page.repair.FillOrderActivity
 import com.fanhong.cn.service_page.shop.CommunityMallActivity
 import com.fanhong.cn.service_page.usedshop.UsedShopActivity
@@ -60,6 +61,14 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
             }
             R.id.all_repair -> {
                 if (isLogged()) startActivity(Intent(activity, FillOrderActivity::class.java))
+                else notLogin()
+            }
+            R.id.all_questionnaire -> {
+                if (isLogged()){
+                    if (pref.getString(App.PrefNames.GARDENID, "")!="-1"){
+                        startActivity(Intent(activity, QuestionnaireActivity::class.java))
+                    }else ToastUtil.showToastL("你还没有选择小区")
+                }
                 else notLogin()
             }
             R.id.all_repair_owner -> {
@@ -125,6 +134,7 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
         all_repair_owner.setOnClickListener(this)
         tv_position.setOnClickListener(this)
         all_community_mall.setOnClickListener(this)
+        all_questionnaire.setOnClickListener(this)
         all_old_goods.setOnClickListener{
             startActivity(Intent(activity,UsedShopActivity::class.java))
         }

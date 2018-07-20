@@ -14,9 +14,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import cn.finalteam.galleryfinal.FunctionConfig
-import cn.finalteam.galleryfinal.GalleryFinal
-import cn.finalteam.galleryfinal.model.PhotoInfo
 import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.tools.FileUtil
@@ -70,54 +67,54 @@ class EvaluateActivity : AppCompatActivity() {
             openPicture()
         }
 
-        img_eva1.setOnClickListener {
-            GalleryFinal.openEdit(25, selectedPaths[0], object : GalleryFinal.OnHanlderResultCallback {
-                override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
-                    if (null != resultList) {
-                        val path = resultList[0].photoPath
-                        selectedPaths[0] = path
-                        val file = File(path)
-                        selectedFiles[0] = file
-                        img_eva1.setImageURI(Uri.fromFile(file))
-                    }
-                }
-
-                override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
-                }
-            })
-        }
-        img_eva2.setOnClickListener {
-            GalleryFinal.openEdit(25, selectedPaths[1], object : GalleryFinal.OnHanlderResultCallback {
-                override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
-                    if (null != resultList) {
-                        val path = resultList[0].photoPath
-                        selectedPaths[1] = path
-                        val file = File(path)
-                        selectedFiles[1] = file
-                        img_eva2.setImageURI(Uri.fromFile(file))
-                    }
-                }
-
-                override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
-                }
-            })
-        }
-        img_eva3.setOnClickListener {
-            GalleryFinal.openEdit(25, selectedPaths[2], object : GalleryFinal.OnHanlderResultCallback {
-                override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
-                    if (null != resultList) {
-                        val path = resultList[0].photoPath
-                        selectedPaths[2] = path
-                        val file = File(path)
-                        selectedFiles[2] = file
-                        img_eva3.setImageURI(Uri.fromFile(file))
-                    }
-                }
-
-                override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
-                }
-            })
-        }
+//        img_eva1.setOnClickListener {
+//            GalleryFinal.openEdit(25, selectedPaths[0], object : GalleryFinal.OnHanlderResultCallback {
+//                override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
+//                    if (null != resultList) {
+//                        val path = resultList[0].photoPath
+//                        selectedPaths[0] = path
+//                        val file = File(path)
+//                        selectedFiles[0] = file
+//                        img_eva1.setImageURI(Uri.fromFile(file))
+//                    }
+//                }
+//
+//                override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
+//                }
+//            })
+//        }
+//        img_eva2.setOnClickListener {
+//            GalleryFinal.openEdit(25, selectedPaths[1], object : GalleryFinal.OnHanlderResultCallback {
+//                override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
+//                    if (null != resultList) {
+//                        val path = resultList[0].photoPath
+//                        selectedPaths[1] = path
+//                        val file = File(path)
+//                        selectedFiles[1] = file
+//                        img_eva2.setImageURI(Uri.fromFile(file))
+//                    }
+//                }
+//
+//                override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
+//                }
+//            })
+//        }
+//        img_eva3.setOnClickListener {
+//            GalleryFinal.openEdit(25, selectedPaths[2], object : GalleryFinal.OnHanlderResultCallback {
+//                override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
+//                    if (null != resultList) {
+//                        val path = resultList[0].photoPath
+//                        selectedPaths[2] = path
+//                        val file = File(path)
+//                        selectedFiles[2] = file
+//                        img_eva3.setImageURI(Uri.fromFile(file))
+//                    }
+//                }
+//
+//                override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
+//                }
+//            })
+//        }
 
         layout_progress.setOnClickListener { }
     }
@@ -132,52 +129,52 @@ class EvaluateActivity : AppCompatActivity() {
     private fun openPicture() {
 //        val selected: ArrayList<String> = selectedPaths as ArrayList<String>
 //        selectedPaths to selected
-        val funCfg = FunctionConfig.Builder()
-                .setMutiSelectMaxSize(3/* - chosenSize*/)
-                .setSelected(selectedPaths as ArrayList<String>)
-                .setEnableCamera(true)
-                .build()
-        GalleryFinal.openGalleryMuti(START_GALLERYFINAL, funCfg, object : GalleryFinal.OnHanlderResultCallback {
-            override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
-                if (reqeustCode == START_GALLERYFINAL) {
-                    if (null != resultList) {
-                        selectedPaths.clear()
-                        selectedFiles.clear()
-                        for (i in 0 until resultList.size) {
-                            val picPath = resultList[i].photoPath
-                            val picId = resultList[i].photoId
-//                            Log.e("testLog", "photoId = $picId \nphotoPath = $picPath")
-                            selectedPaths.add(picPath)
-                            val file = File(picPath)
-                            selectedFiles.add(file)
-                            when (i) {
-                                0 -> {
-                                    img_eva1.setImageURI(Uri.fromFile(file))
-                                    img_eva2.visibility = View.GONE
-                                    img_eva3.visibility = View.GONE
-                                }
-                                1 -> {
-                                    img_eva2.setImageURI(Uri.fromFile(file))
-                                    img_eva2.visibility = View.VISIBLE
-                                }
-                                2 -> {
-                                    img_eva3.setImageURI(Uri.fromFile(file))
-                                    img_eva3.visibility = View.VISIBLE
-                                }
-                            }
-
-                        }
-                        if (selectedPaths.size > 0)
-                            layout_chosen.visibility = View.VISIBLE
-                        else
-                            layout_chosen.visibility = View.GONE
-                    }
-                }
-            }
-
-            override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
-            }
-        })
+//        val funCfg = FunctionConfig.Builder()
+//                .setMutiSelectMaxSize(3/* - chosenSize*/)
+//                .setSelected(selectedPaths as ArrayList<String>)
+//                .setEnableCamera(true)
+//                .build()
+//        GalleryFinal.openGalleryMuti(START_GALLERYFINAL, funCfg, object : GalleryFinal.OnHanlderResultCallback {
+//            override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
+//                if (reqeustCode == START_GALLERYFINAL) {
+//                    if (null != resultList) {
+//                        selectedPaths.clear()
+//                        selectedFiles.clear()
+//                        for (i in 0 until resultList.size) {
+//                            val picPath = resultList[i].photoPath
+//                            val picId = resultList[i].photoId
+////                            Log.e("testLog", "photoId = $picId \nphotoPath = $picPath")
+//                            selectedPaths.add(picPath)
+//                            val file = File(picPath)
+//                            selectedFiles.add(file)
+//                            when (i) {
+//                                0 -> {
+//                                    img_eva1.setImageURI(Uri.fromFile(file))
+//                                    img_eva2.visibility = View.GONE
+//                                    img_eva3.visibility = View.GONE
+//                                }
+//                                1 -> {
+//                                    img_eva2.setImageURI(Uri.fromFile(file))
+//                                    img_eva2.visibility = View.VISIBLE
+//                                }
+//                                2 -> {
+//                                    img_eva3.setImageURI(Uri.fromFile(file))
+//                                    img_eva3.visibility = View.VISIBLE
+//                                }
+//                            }
+//
+//                        }
+//                        if (selectedPaths.size > 0)
+//                            layout_chosen.visibility = View.VISIBLE
+//                        else
+//                            layout_chosen.visibility = View.GONE
+//                    }
+//                }
+//            }
+//
+//            override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
+//            }
+//        })
     }
 
     private var cancel: Callback.Cancelable? = null

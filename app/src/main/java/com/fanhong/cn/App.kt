@@ -6,11 +6,7 @@ import android.content.Context
 import android.os.Environment
 import android.support.v4.content.ContextCompat
 import android.util.Log
-import cn.finalteam.galleryfinal.CoreConfig
-import cn.finalteam.galleryfinal.FunctionConfig
-import cn.finalteam.galleryfinal.GalleryFinal
-import cn.finalteam.galleryfinal.ThemeConfig
-import com.fanhong.cn.tools.XImageLoader
+import com.vondear.rxtool.RxTool
 import com.zhy.autolayout.config.AutoLayoutConifg
 //import com.lzy.okgo.OkGo
 import io.rong.imlib.RongIMClient
@@ -105,10 +101,22 @@ val  sqpath = /*Environment.getExternalStorageDirectory().path+*/"/data/data/com
         /**
          * 微信
          */
+
+        // 开放平台登录https://open.weixin.qq.com的开发者中心获取APPID
+//                    #define MXWechatAPPID       @"wxea49e10e35c4b1ea"
+////                    开放平台登录https://open.weixin.qq.com的开发者中心获取 AppSecret。
+//                    #define MXWechatAPPSecret   @"80891e400e0c3619df730ebef548a9e3"
+//// 微信支付商户号
+//                    #define MXWechatMCHID       @"1488497082"
+//// 安全校验码（MD5）密钥，商户平台登录账户和密码登录http://pay.weixin.qq.com
+//// 平台设置的“API密钥”，为了安全，请设置为以数字和字母组成的32字符串。
+//                    #define MXWechatPartnerKey  @"qiangxu15123073170QIANGXU1234567"
         //appid 微信分配的app应用ID
         val WX_APPID = "wxea49e10e35c4b1ea"
         //商户号——微信分配的公众账号ID
         val WX_MCH_ID = "1488497082"
+//        WX_PRIVATE_KEY
+        val WX_PRIVATE_KEY = "qiangxu15123073170QIANGXU1234567"
         //支付回调广播
         val WX_ACTION_RESULT = "com.fanhong.cn.wxapi.PAY_RESULT"
         //服务器回调接口
@@ -122,32 +130,32 @@ val  sqpath = /*Environment.getExternalStorageDirectory().path+*/"/data/data/com
     override fun onCreate() {
         super.onCreate()
         x.Ext.init(this)
-//        OkGo.getInstance().init(this)
 
+        RxTool.init(this)
         //配置 默认使用的高度是设备的可用高度，也就是不包括状态栏和底部的操作栏的，
         // 如果你希望拿设备的物理高度进行百分比化：
 //        可以在Application的onCreate方法中进行设置:
         AutoLayoutConifg.getInstance().useDeviceSize()
 
-        val theme = ThemeConfig.Builder()
-                .setTitleBarBgColor(ContextCompat.getColor(this, R.color.skyblue))
-                .setCheckSelectedColor(ContextCompat.getColor(this, R.color.skyblue))
-                .setCropControlColor(ContextCompat.getColor(this, R.color.skyblue))
-                .setIconCamera(R.mipmap.camera)
-                .build()
-        val functionCfg = FunctionConfig.Builder()
-                .setEnableCamera(true)
-                .setEnableEdit(true)
-                .setEnableCrop(true)
-                .setEnableRotate(true)
-                .setCropSquare(true)
-                .setEnablePreview(true)
-                .build()
-        val imgLoader = XImageLoader()
-        val coreCfg = CoreConfig.Builder(this, imgLoader, theme)
-                .setFunctionConfig(functionCfg)
-                .build()
-        GalleryFinal.init(coreCfg)
+//        val theme = ThemeConfig.Builder()
+//                .setTitleBarBgColor(ContextCompat.getColor(this, R.color.skyblue))
+//                .setCheckSelectedColor(ContextCompat.getColor(this, R.color.skyblue))
+//                .setCropControlColor(ContextCompat.getColor(this, R.color.skyblue))
+//                .setIconCamera(R.mipmap.camera)
+//                .build()
+//        val functionCfg = FunctionConfig.Builder()
+//                .setEnableCamera(true)
+//                .setEnableEdit(true)
+//                .setEnableCrop(true)
+//                .setEnableRotate(true)
+//                .setCropSquare(true)
+//                .setEnablePreview(true)
+//                .build()
+//        val imgLoader = XImageLoader()
+//        val coreCfg = CoreConfig.Builder(this, imgLoader, theme)
+//                .setFunctionConfig(functionCfg)
+//                .build()
+//        GalleryFinal.init(coreCfg)
 
         /**
          * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIMClient 的进程和 Push 进程执行了 init。

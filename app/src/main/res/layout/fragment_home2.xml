@@ -196,6 +196,7 @@
                     </com.zhy.autolayout.AutoLinearLayout>
 
                     <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/all_questionnaire"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -204,16 +205,16 @@
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/questionnaire" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
-                            android:text="二手市场"
+                            android:text="问卷调查"
                             android:textColor="@color/text_9"
-                            android:textSize="22px"
-                            android:visibility="gone" />
+                            android:textSize="22px" />
 
                     </com.zhy.autolayout.AutoLinearLayout>
 

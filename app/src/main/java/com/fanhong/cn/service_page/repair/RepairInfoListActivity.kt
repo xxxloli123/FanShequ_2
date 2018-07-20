@@ -57,41 +57,38 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                         LogUtil.e("OkGo bod333y",response.body().toString())
                         try {
                             val json = JSONObject(response.body()!!.toString())
-                            if (json.getString("state") != "200"){
-                                PromptDialog(this@RepairInfoListActivity).showError("获取失败")
-                                return
-                            }
-                            if (json.getString("state") == "201")isManage=true
-                            val arr = json.getJSONArray("data")
-                            if (arr.length() == 0) return
-                            for (i in 0 until arr.length()) {
-                                val ri=Gson().fromJson(arr.getString(i), RepairInfoM::class.java)
-                                if (arr.optJSONObject(i).getString("wxboy")=="null") ri.wxboy=""
-                                if (!arr.getString(i).contains("wxphone")||
-                                        arr.optJSONObject(i).getString("wxphone")=="null") ri.wxphone=""
+                            if (json.getString("state") == "200"||json.getString("state") == "201"){
+                                if (json.getString("state") == "201")isManage=true
+                                val arr = json.getJSONArray("data")
+                                if (arr.length() == 0) return
+                                for (i in 0 until arr.length()) {
+                                    val ri=Gson().fromJson(arr.getString(i), RepairInfoM::class.java)
+                                    if (arr.optJSONObject(i).getString("wxboy")=="null") ri.wxboy=""
+                                    if (!arr.getString(i).contains("wxphone")||
+                                            arr.optJSONObject(i).getString("wxphone")=="null") ri.wxphone=""
 
-                                if (arr.optJSONObject(i).getString("tupian") != "null" &&
-                                        !arr.optJSONObject(i).getString("tupian").isEmpty()){
-                                    val jsonArray= arr.optJSONObject(i).getJSONArray("tupian")
-                                    ri.imgUrls= ArrayList()
-                                    for (a in 0 until  jsonArray.length()){
-                                        if (!jsonArray[a].toString().isEmpty()){
-                                            if (jsonArray[a].toString().contains("hou"))
-                                                ri.imgUrls.add((jsonArray[a].toString()+".jpg")
-                                                    .replace("\\", ""))
-                                            else ri.imgUrls.add((jsonArray[a].toString())
-                                                    .replace("\\", ""))
+                                    if (arr.optJSONObject(i).getString("tupian") != "null" &&
+                                            !arr.optJSONObject(i).getString("tupian").isEmpty()){
+                                        val jsonArray= arr.optJSONObject(i).getJSONArray("tupian")
+                                        ri.imgUrls= ArrayList()
+                                        for (a in 0 until  jsonArray.length()){
+                                            if (!jsonArray[a].toString().isEmpty()){
+                                                ri.imgUrls.add((jsonArray[a].toString())
+                                                        .replace("\\", ""))
+                                            }
                                         }
                                     }
+                                    allRI.add(ri)
+                                    when (ri.zt){
+                                        0 -> wait_handleRIs.add(ri)
+                                        1 -> handleingRIs.add(ri)
+                                        2 -> completeRIs.add(ri)
+                                    }
                                 }
-                                allRI.add(ri)
-                                when (ri.zt){
-                                    0 -> wait_handleRIs.add(ri)
-                                    1 -> handleingRIs.add(ri)
-                                    2 -> completeRIs.add(ri)
-                                }
-                            }
-                            showRIlist(allRI)
+                                showRIlist(allRI)
+
+                            }else PromptDialog(this@RepairInfoListActivity).showError("获取失败")
+
                         } catch (e: JSONException) {
                             LogUtil.e("JSONException",e.toString())
                             ToastUtil.showToastL("数据解析异常")
@@ -111,8 +108,12 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
     private fun showRIlist(RI_list: ArrayList<RepairInfoM>) {
         if (RI_list.isEmpty()){
             rv_ri_list.visibility=View.GONE
+            all_no_data.visibility=View.VISIBLE
             return
-        }else rv_ri_list.visibility=View.VISIBLE
+        }else{
+            all_no_data.visibility=View.GONE
+            rv_ri_list.visibility=View.VISIBLE
+        }
         if (adapter==null){
             adapter= RepairInfoAdapter(RI_list,this)
             rv_ri_list.layoutManager= LinearLayoutManager(this,

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="22px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_serial"
+            android:text="1、"
+            android:textColor="@color/text_6"
+            android:textSize="33px"
+            android:layout_width="55px"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:paddingRight="22px"
+            android:lineSpacingExtra="6px"
+            android:text="蕉迟但到"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.willy.ratingbar.ScaleRatingBar
+        android:layout_marginTop="6px"
+        android:layout_marginBottom="6px"
+        android:layout_marginLeft="55px"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/simpleRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srb_numStars="5"
+        app:srb_drawableEmpty="@mipmap/uncheck"
+        app:srb_drawableFilled="@mipmap/stars"
+        app:srb_minimumStars="0"
+        app:srb_rating="2.5"
+        app:srb_starWidth="33px"
+        app:srb_starHeight="33px"
+        app:srb_starPadding="11px"
+        app:srb_stepSize="0.5"
+        app:srb_isIndicator="false"
+        app:srb_clickable="true"
+        app:srb_scrollable="true"
+        app:srb_clearRatingEnabled="true">
+    </com.willy.ratingbar.ScaleRatingBar>
+
+</com.zhy.autolayout.AutoLinearLayout>

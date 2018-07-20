@@ -13,9 +13,6 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
-import cn.finalteam.galleryfinal.FunctionConfig
-import cn.finalteam.galleryfinal.GalleryFinal
-import cn.finalteam.galleryfinal.model.PhotoInfo
 import com.fanhong.cn.App
 import com.fanhong.cn.BuildConfig
 import com.fanhong.cn.R
@@ -114,15 +111,15 @@ class AddFxActivity : AppCompatActivity() {
     }
 
     private fun choosePhoto(){
-        val cfg = FunctionConfig.Builder().setEnableCamera(true).build()
-        GalleryFinal.openGallerySingle(112, cfg, object : GalleryFinal.OnHanlderResultCallback {
-            override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
-                url1 = resultList?.get(0)?.photoPath
-                add_pic1.setImageURI(Uri.fromFile(File(url1)))
-            }
-
-            override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
-            }
-        })
+//        val cfg = FunctionConfig.Builder().setEnableCamera(true).build()
+//        GalleryFinal.openGallerySingle(112, cfg, object : GalleryFinal.OnHanlderResultCallback {
+//            override fun onHanlderSuccess(reqeustCode: Int, resultList: MutableList<PhotoInfo>?) {
+//                url1 = resultList?.get(0)?.photoPath
+//                add_pic1.setImageURI(Uri.fromFile(File(url1)))
+//            }
+//
+//            override fun onHanlderFailure(requestCode: Int, errorMsg: String?) {
+//            }
+//        })
     }
 }

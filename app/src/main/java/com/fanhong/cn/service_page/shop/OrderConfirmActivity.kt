@@ -23,8 +23,9 @@ import com.fanhong.cn.tools.*
 import com.fanhong.cn.user_page.shippingaddress.MyAddressActivity
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
-import com.tencent.mm.opensdk.modelpay.PayReq
-import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import com.vondear.rxfeature.module.wechat.pay.WechatModel
+import com.vondear.rxfeature.module.wechat.pay.WechatPayTools
+import com.vondear.rxtool.interfaces.OnSuccessAndErrorListener
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_order_confirm.*
 import kotlinx.android.synthetic.main.activity_top.*
@@ -42,6 +43,7 @@ import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.xml.transform.Result
 
 class OrderConfirmActivity : AppCompatActivity() {
     private val goods: MutableList<GoodsCarTable> = ArrayList()
@@ -85,7 +87,9 @@ class OrderConfirmActivity : AppCompatActivity() {
                 tv_price.text = "￥$total"
                 goods.clear()
                 goods += App.db.selector(GoodsCarTable::class.java).where("c_uid", "=", getUid()).and("c_select", "=", true).findAll()
-                orderTitle = "${goods[0].name}...等${goods.map { it.count }.sum()}件商品"
+
+                val firstGood=if(goods[0].name.length>7)goods[0].name.substring(0,8) else goods[0].name
+                orderTitle = "$firstGood...等${goods.map { it.count }.sum()}件商品"
                 for (i in goods)
                     orderDescription += "${i.name}×${i.count} "
                 adapter?.notifyDataSetChanged()
@@ -146,7 +150,7 @@ class OrderConfirmActivity : AppCompatActivity() {
             ToastUtil.showToastL("请选择收货地址！")
             return
         }
-        btn_commit.isEnabled = false
+//        btn_commit.isEnabled = false
         val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         val uid = pref.getString(App.PrefNames.USERID, "-1")
         val param = RequestParams(App.CMD)
@@ -172,8 +176,9 @@ class OrderConfirmActivity : AppCompatActivity() {
                             //仅在剩余支付时间大于一分钟的情况下才进行支付
                             when (payWay) {
                                 1 -> aliPay(orderNum, residueTime)
-                                2 -> WXPay(orderNum, targetTime)
+                                2 -> WXPay2(orderNum, targetTime)
                             }
+                            btn_commit.isEnabled=false
                         } else {
                             ToastUtil.showToastL("订单已超时！请重新下单！")
                         }
@@ -197,38 +202,41 @@ class OrderConfirmActivity : AppCompatActivity() {
                 layout_progressBar.visibility = View.GONE
             }
         })
-        isHaveSuperior()
     }
 
-    private fun isHaveSuperior() {
-//        1037.查询是否有上家(APP->平台)
-//        cmd:数据类型
-//        uid:当前用户的ID
-        val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
-        OkGo.post<String>(App.CMD)
-                .tag(this)//
-                .isMultipart(true)
-                .params("cmd","1037")
-                .params("uid",pref.getString(App.PrefNames.USERID, "-1"))
-                .execute(object : StringDialogCallback(this) {
-                    override fun onSuccess(response: Response<String>) {
-                        Log.e("OkGobody", response.body().toString())
-                        try {
-                            val json = JSONObject(response.body()!!.toString())
-                            if (json.getString("cw") == "1"){
-                                arl_recommend.visibility=View.VISIBLE
-                            }
-                        }catch (e: JSONException) {
-                            LogUtil.e("JSONException",e.toString())
-                            e.printStackTrace()
-                        }
+    private fun WXPay2(orderNum: String, targetTime: Long) {
+//        WechatPayTools.wechatPayUnifyOrder(mContext,
+//        WX_APP_ID, //微信分配的APP_ID
+//        WX_PARTNER_ID, //微信分配的 PARTNER_ID (商户ID)
+//        WX_PRIVATE_KEY, //微信分配的 PRIVATE_KEY (私钥)
+//        new WechatModel(order_id, //订单ID (唯一)
+//                        money, //价格
+//                        name, //商品名称
+//                        detail), //商品描述详情
+//        new onRequestListener() {
+//            @Override
+//            public void onSuccess(String s) {}
+//
+//            @Override
+//            public void onError(String s) {}
+//    });
+
+        WechatPayTools2.wechatPayUnifyOrder(this,
+                App.PayConfig.WX_APPID,
+                App.PayConfig.WX_MCH_ID,
+                App.PayConfig.WX_PRIVATE_KEY,
+                WechatModel(orderNum,"${(total*10*10).toInt()}","没有卵用","帆社区-社区商品购买"),
+                object :OnSuccessAndErrorListener{
+                    override fun onSuccess(p0: String?) {
+                        ToastUtil.showToastL(p0!!)
                     }
 
-                    override fun onError(response: Response<String>) {
-                        Log.e("OkGoError", response.message())
+                    override fun onError(p0: String?) {
+                        ToastUtil.showToastL(p0!!)
                     }
-                })
 
+                }
+                )
     }
 
     private fun isLoged(): Boolean = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).getString(App.PrefNames.USERID, "-1") != "-1"
@@ -285,6 +293,7 @@ class OrderConfirmActivity : AppCompatActivity() {
         x.http().post(param, object : Callback.CommonCallback<String> {
             override fun onSuccess(result: String) {
                 if (JsonSyncUtils.getJsonValue(result, "cw") == "0") {
+                    LogUtil.e("Cmd77",result)
                     App.PayConfig.alipay_RSA_PRIVATE = JsonSyncUtils.getJsonValue(result, "data")
                     if (!StringUtils.isEmpty(App.PayConfig.alipay_RSA_PRIVATE)) {
                         val orderInfo = getOrderInfo(orderNum, residueTime)//获取支付宝订单信息
@@ -297,6 +306,7 @@ class OrderConfirmActivity : AppCompatActivity() {
                              */
                             val resultInfo = payResult["result"]// 同步返回需要验证的信息
                             val resultStatus = payResult["resultStatus"]
+                            LogUtil.e("payResult",payResult.toString())
 
                             val msg = Message()
                             msg.obj = resultInfo
@@ -307,7 +317,7 @@ class OrderConfirmActivity : AppCompatActivity() {
                         Thread(runnable).start()
                     }
                 } else {
-                    ToastUtil.showToastL("启动支付失败！")
+                    ToastUtil.showToastL("启动支付失败！=0")
                     btn_commit.isEnabled = true
                 }
             }
@@ -429,50 +439,6 @@ class OrderConfirmActivity : AppCompatActivity() {
         return "sign=" + encodedSign
     }
 
-    private fun WXPay(orderNum: String, orderTime: Long) {
-        val sdf = SimpleDateFormat("yyyyMMddHHmmss")
-        val api = WXAPIFactory.createWXAPI(this, App.PayConfig.WX_APPID)
-        val param = RequestParams(App.PayConfig.WX_getOrderUrl)
-        param.addBodyParameter("body", orderTitle)
-        param.addBodyParameter("total_fee", total.toString())
-//        param.addBodyParameter("total_fee","0.01")
-        param.addBodyParameter("ddh", orderNum)
-        param.addBodyParameter("times", sdf.format(Date(orderTime)))
-        x.http().post(param, object : Callback.CommonCallback<String> {
-            override fun onSuccess(result: String) {
-                Log.e("TestLog", "WX request = ${param.toJSONString()}\n\tresult = $result")
-                if (JsonSyncUtils.getJsonValue(result, "result_code") == "SUCCESS") {
-                    val req = PayReq()
-                    req.appId = App.PayConfig.WX_APPID
-                    req.partnerId = App.PayConfig.WX_MCH_ID
-                    req.prepayId = JsonSyncUtils.getJsonValue(result, "prepay_id")
-                    req.nonceStr = JsonSyncUtils.getJsonValue(result, "nonce_str")
-                    req.timeStamp = JsonSyncUtils.getJsonValue(result, "timestamp")
-                    req.packageValue = "Sign=WXPay"
-                    req.sign = JsonSyncUtils.getJsonValue(result, "xsign")
-                    val r1 = api.registerApp(App.PayConfig.WX_APPID)
-//                    ToastUtil.showToastL("正在调起微信支付...")
-                    val r = api.sendReq(req)
-//                    Log.e("TestLog","registerResult = $r1 , sendReqResult = $r")
-//                    btn_commit.isEnabled = true
-                } else {
-                    ToastUtil.showToastL("启动支付失败！")
-                    btn_commit.isEnabled = true
-                }
-            }
-
-            override fun onError(ex: Throwable?, isOnCallback: Boolean) {
-                btn_commit.isEnabled = true
-            }
-
-            override fun onCancelled(cex: Callback.CancelledException?) {
-                btn_commit.isEnabled = true
-            }
-
-            override fun onFinished() {
-            }
-        })
-    }
 
     private var wxReciver: BroadcastReceiver = WXPayReciver()
 
@@ -497,17 +463,45 @@ class OrderConfirmActivity : AppCompatActivity() {
     }
 
     private fun paySuccess() {
-        if (arl_recommend.visibility==View.VISIBLE){
-            btn_commit.text="已支付"
-            btn_commit.isEnabled=false
-            PromptDialog(this).showSuccess("支付成功 填写推荐人可得积分哟")
-        }else{
-            val dialog = AlertDialog.Builder(this)
-                    .setMessage("订单支付成功！")
-                    .setPositiveButton("确定", null).create()
-            dialog.setOnDismissListener { finish() }
-            dialog.show()
-        }
+        isHaveSuperior()
+    }
+    private fun isHaveSuperior() {
+//        1037.查询是否有上家(APP->平台)
+//        cmd:数据类型
+//        uid:当前用户的ID
+        val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        OkGo.post<String>(App.CMD)
+                .tag(this)//
+                .isMultipart(true)
+                .params("cmd","1037")
+                .params("uid",pref.getString(App.PrefNames.USERID, "-1"))
+                .execute(object : StringDialogCallback(this) {
+                    override fun onSuccess(response: Response<String>) {
+                        Log.e("OkGo body", response.body().toString())
+                        try {
+                            val json = JSONObject(response.body()!!.toString())
+                            if (json.getString("cw") == "1"){
+                                arl_recommend.visibility=View.VISIBLE
+                                btn_commit.text="已支付"
+                                btn_commit.isEnabled=false
+                                PromptDialog(this@OrderConfirmActivity).showSuccess("支付成功 填写推荐人可得积分哟")
+                            }else{
+                                val dialog = AlertDialog.Builder(this@OrderConfirmActivity)
+                                        .setMessage("订单支付成功！")
+                                        .setPositiveButton("确定", null).create()
+                                dialog.setOnDismissListener { finish() }
+                                dialog.show()
+                            }
+                        }catch (e: JSONException) {
+                            LogUtil.e("JSONException",e.toString())
+                            e.printStackTrace()
+                        }
+                    }
+
+                    override fun onError(response: Response<String>) {
+                        Log.e("OkGoError", response.message())
+                    }
+                })
     }
 
     fun submitRecommend(v: View) {

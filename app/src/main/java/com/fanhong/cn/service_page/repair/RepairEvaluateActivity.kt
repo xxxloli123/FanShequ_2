@@ -98,7 +98,7 @@ class RepairEvaluateActivity : AppCompatActivity() {
                 .execute(object : StringDialogCallback(this) {
                     override fun onSuccess(response: Response<String>) {
                         Log.e("OkGo 1045", response.body().toString())
-                        if (response.body().toString().contains("\"cw\":\"1\"")
+                        if (response.body().toString().contains("\"cw\":\"0\"")
                                 || response.body().toString().contains("\"state\":\"200\"")) {
                             PromptDialog(this@RepairEvaluateActivity).showSuccess("提交成功", true)
                             Handler().postDelayed({ finish() }, 1500)

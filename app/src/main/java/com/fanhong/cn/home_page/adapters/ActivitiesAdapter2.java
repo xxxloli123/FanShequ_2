@@ -14,9 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by Administrator on 2017/9/15.
  */
@@ -65,15 +62,13 @@ public class ActivitiesAdapter2 extends BaseAdapter {
     }
 
     class ViewHolder {
-        @BindView(R.id.img_show)
+
         ImageView imgShow;
-        @BindView(R.id.tv_time)
         TextView tvTime;
-        @BindView(R.id.tv_content)
         TextView tvContent;
 
         ViewHolder(View view) {
-            ButterKnife.bind(this, view);
+
         }
     }
 }

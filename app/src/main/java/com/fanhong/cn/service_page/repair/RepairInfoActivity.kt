@@ -32,7 +32,7 @@ class RepairInfoActivity : AppCompatActivity() {
 
     private var isManage: Boolean=false
     private var res= ArrayList<Repairer>()
-    private var which=2333
+    private var which=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
