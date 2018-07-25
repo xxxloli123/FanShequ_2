@@ -25,6 +25,7 @@ import com.fanhong.cn.R
 import com.fanhong.cn.login_pages.LoginActivity
 import com.fanhong.cn.service_page.repair.RepairInfoListActivity
 import com.fanhong.cn.tools.ToastUtil
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.xutils.common.Callback
 import org.xutils.image.ImageOptions
@@ -179,8 +180,10 @@ class UserFragment : Fragment() {
             mine_photo.isEnabled = false
             user_name.isEnabled = false
             val headImg = pref.getString(App.PrefNames.HEADIMG, "")
-            Glide.with(this)
+            if (!headImg.isEmpty())
+                Picasso.with(activity)
                     .load(headImg)
+                    .error(R.mipmap.head_portrait)
                     .into(mine_photo)
         } else {
             mine_photo.isEnabled = true
@@ -208,6 +211,7 @@ class UserFragment : Fragment() {
     @SuppressLint("ApplySharedPref")
     private fun doLogout() {
         tv_phone.text=""
+        mine_photo.setImageResource(R.mipmap.portrait)
         val editor = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
         editor.putString(App.PrefNames.USERID, "-1")
         editor.putString(App.PrefNames.USERNAME, null)

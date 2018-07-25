@@ -51,4 +51,9 @@
         <item name="android:background">@null</item>
     </style>
 
+    //继承兼容包的Button样式，就会有悬浮效果了
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
+        <item name="android:button">@null</item>
+    </style>
+
 </resources>

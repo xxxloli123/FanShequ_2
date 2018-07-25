@@ -13,7 +13,6 @@ import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.tools.*
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
-import kotlinx.android.synthetic.main.activity_order_confirm.*
 import kotlinx.android.synthetic.main.activity_register.*
 import me.leefeng.promptlibrary.PromptDialog
 import org.json.JSONException
@@ -39,7 +38,6 @@ class RegisterActivity : AppCompatActivity() {
             "reset" -> {
                 img_logo.visibility=View.GONE
                 btn_register_commit.text = "找回密码"
-                arl_recommend.visibility = View.GONE
                 all_nick.visibility=View.GONE
                 btn_register_commit.setOnClickListener { resetPwd() }
             }

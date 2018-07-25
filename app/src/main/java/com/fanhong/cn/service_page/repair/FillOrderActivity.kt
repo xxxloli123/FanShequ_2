@@ -138,7 +138,7 @@ class FillOrderActivity : TakePhotoActivity(), MyRecyclerAdapter.Callback {
                             //        1053：业主报修（app->平台）
                             //        cmd:数据类型
                             //        uid:用户ID
-                            //        qid:小区id   33
+                            //        qid:小区 id   33
                             //        menpai:门牌号（文本框 用户填写）
                             //        concent:维修内容
                             //        tupian1,tupian2,tupian3:用户上传图片

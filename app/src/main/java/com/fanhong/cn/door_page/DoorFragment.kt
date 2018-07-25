@@ -25,6 +25,7 @@ import com.fanhong.cn.tools.LogUtil
 import com.fanhong.cn.tools.ToastUtil
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
+import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_top.*
 import kotlinx.android.synthetic.main.fragment_door.*
 import org.json.JSONException
@@ -145,8 +146,10 @@ class DoorFragment : Fragment() {
      */
     private fun getKeys() {
         if (!isLogined()) {
+            door_expandable_list.visibility=View.GONE
             return
         }
+        door_expandable_list.visibility=View.VISIBLE
         groupList = ArrayList()
         datamap = HashMap()
         var params = RequestParams(App.CMD)
@@ -250,7 +253,9 @@ class DoorFragment : Fragment() {
      */
     private fun addKeys() {
 //        ToastUtil.showToastL("refresh clicked")
-        startActivity(Intent(activity, AddKeyActivity::class.java))
+        if (isLogined())startActivity(Intent(activity, AddKeyActivity::class.java))
+        else         ToastUtil.showToastS("请先登录")
+//        startActivity(Intent(activity, AddKeyActivity::class.java))
     }
 
     /**
@@ -260,6 +265,8 @@ class DoorFragment : Fragment() {
 //        ToastUtil.showToastL("add clicked")
         this.onResume()
     }
+
+
 
     override fun onResume() {
         super.onResume()

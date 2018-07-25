@@ -124,6 +124,7 @@
                     android:textSize="30px" />
 
                 <TextView
+                    android:onClick="selectBuilding"
                     android:id="@+id/key_choosebuilding"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,7 +136,6 @@
                     android:ellipsize="end"
                     android:drawableRight="@mipmap/lion_xiala"
                     android:padding="10px"
-                    android:enabled="false"
                     android:text="@string/chooselou"
                     android:textColor="@color/text_6"
                     android:textSize="30px" />

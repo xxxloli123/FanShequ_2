@@ -20,10 +20,12 @@ import com.fanhong.cn.home_page.fenxiao.HaveJoinedActivity
 import com.fanhong.cn.home_page.fenxiao.ZSIntroductionActivity
 import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.login_pages.LoginActivity
+import com.fanhong.cn.service_page.express.ExpressHomeActivity
 import com.fanhong.cn.service_page.questionnaire.QuestionnaireActivity
 import com.fanhong.cn.service_page.repair.FillOrderActivity
 import com.fanhong.cn.service_page.shop.CommunityMallActivity
 import com.fanhong.cn.service_page.usedshop.UsedShopActivity
+import com.fanhong.cn.service_page.verification.VerificationActivity
 import com.fanhong.cn.tools.JsonSyncUtils
 import com.fanhong.cn.tools.LogUtil
 import com.fanhong.cn.tools.ToastUtil
@@ -146,6 +148,13 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
         } }
         loadData()
         all_fillStatusBar.setPadding(0,getStatusBar(),0,0)
+
+        all_express_delivery.setOnClickListener {
+            startActivity(Intent(activity, ExpressHomeActivity::class.java))
+        }
+        all_year_examine.setOnClickListener {
+            startActivity(Intent(activity, VerificationActivity::class.java))
+        }
     }
 
     private fun test() {

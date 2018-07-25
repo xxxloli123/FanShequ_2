@@ -11,9 +11,9 @@ android {
         applicationId "com.fanhong.cn"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 25
+        versionCode 29
         multiDexEnabled true
-        versionName '1.6'
+        versionName '1.6.7'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -130,5 +130,9 @@ dependencies {
     compile 'com.android.support:support-dynamic-animation:25.3.0'
     implementation('com.github.vondear.RxTool:RxFeature:v2.0.4') {
         exclude group: 'com.android.support'
+    }
+    implementation('com.allenliu.versionchecklib:library:2.0.5') {
+        exclude group: 'com.android.support'
+        exclude group: 'com.squareup.okhttp3'
     }
 }

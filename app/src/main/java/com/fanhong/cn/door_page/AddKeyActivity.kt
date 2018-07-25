@@ -22,6 +22,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.service_page.repair.adapter.MyRecyclerAdapter
@@ -32,6 +33,8 @@ import com.fanhong.cn.myviews.SpinerPopWindow
 import com.fanhong.cn.tools.*
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
+import com.vondear.rxtool.view.RxToast
+import com.vondear.rxui.view.dialog.RxDialogShapeLoading
 import kotlinx.android.synthetic.main.activity_add_key.*
 import kotlinx.android.synthetic.main.activity_top.*
 import kotlinx.android.synthetic.main.agree_sheets.*
@@ -71,8 +74,6 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_key)
-        FileHelp.deleteFiles(Environment.getExternalStorageDirectory().toString() +
-                "/Fanshequ")
         mSharedPref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         uid = mSharedPref?.getString(App.PrefNames.USERID, "-1")
         var gardenName = mSharedPref!!.getString(App.PrefNames.GARDENNAME, "")
@@ -80,9 +81,48 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
             key_choosegarden.text = gardenName
             cellId = mSharedPref!!.getString(App.PrefNames.GARDENID, "")
             lastCellId = cellId
-            key_choosebuilding.isEnabled = true
         }
         initViews()
+    }
+
+    fun selectBuilding(v:View){
+        //没选择小区
+        if (cellId==null)return
+
+        val rxDialogShapeLoading = RxDialogShapeLoading(this)
+        rxDialogShapeLoading.show()
+        var params = RequestParams(App.CMD)
+        params.addBodyParameter("cmd", "1001")
+        params.addBodyParameter("xid", cellId)
+        x.http().post(params, object : Callback.CommonCallback<String> {
+            override fun onFinished() {
+            }
+
+            override fun onSuccess(result: String) {
+                LogUtil.e("1001",result)
+                if (JsonSyncUtils.getJsonValue(result!!, "state") == "200") {
+                    var data = JsonSyncUtils.getJsonValue(result!!, "data")
+                    buildingList = JsonSyncUtils.getStringList(data!!, "bname")
+                    buildingIdList = JsonSyncUtils.getStringList(data!!, "id")
+
+                    ssp = SpinerPopWindow(this@AddKeyActivity, buildingList!!, "") { parent, view, position, id ->
+                        key_choosebuilding.text = buildingList!![position]
+                        buildingId = buildingIdList!![position]
+                        ssp!!.dismiss()
+                    }
+                    ssp?.width = key_choosebuilding.width
+                    rxDialogShapeLoading.cancel()
+                    ssp?.showAsDropDown(key_choosebuilding)
+                }else rxDialogShapeLoading.cancel(RxDialogShapeLoading.RxCancelType.error,"请求数据失败")
+            }
+
+            override fun onCancelled(cex: Callback.CancelledException?) {
+            }
+
+            override fun onError(ex: Throwable?, isOnCallback: Boolean) {
+                rxDialogShapeLoading.cancel(RxDialogShapeLoading.RxCancelType.error,"请求数据失败")
+            }
+        })
     }
 
     private fun initViews() {
@@ -93,39 +133,7 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
         key_choosegarden.setOnClickListener {
             startActivityForResult(Intent(this, ChooseCellActivity::class.java), 101)
         }
-        key_choosebuilding.setOnClickListener {
-            var params = RequestParams(App.CMD)
-            params.addBodyParameter("cmd", "1001")
-            params.addBodyParameter("xid", cellId)
-            x.http().post(params, object : Callback.CommonCallback<String> {
-                override fun onFinished() {
-                }
 
-                override fun onSuccess(result: String) {
-                    if (JsonSyncUtils.getJsonValue(result!!, "state") == "200") {
-                        var data = JsonSyncUtils.getJsonValue(result!!, "data")
-                        buildingList = JsonSyncUtils.getStringList(data!!, "bname")
-                        buildingIdList = JsonSyncUtils.getStringList(data!!, "id")
-
-                        ssp = SpinerPopWindow(this@AddKeyActivity, buildingList!!, "") { parent, view, position, id ->
-                            key_choosebuilding.text = buildingList!![position]
-                            buildingId = buildingIdList!![position]
-                            ssp!!.dismiss()
-                        }
-                        ssp?.width = key_choosebuilding.width
-                        ssp?.showAsDropDown(key_choosebuilding)
-                    }
-                }
-
-
-                override fun onCancelled(cex: Callback.CancelledException?) {
-                }
-
-                override fun onError(ex: Throwable?, isOnCallback: Boolean) {
-                }
-
-            })
-        }
         img_key_add.setOnClickListener {
             addImg()
         }

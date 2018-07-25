@@ -118,11 +118,11 @@
                 android:textColorHint="@color/text_9"
                 android:textSize="30px" />
 
-            <Button
+            <TextView
                 android:padding="11px"
                 android:id="@+id/btn_getcode"
                 android:layout_width="wrap_content"
-                android:layout_height="50px"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="10px"
                 android:background="@drawable/corners_round_blue2"
                 android:onClick="onGetCode"

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background2"
     tools:context=".service_page.shop.CommunityMallActivity">
 
     <com.zhy.autolayout.AutoRelativeLayout
@@ -121,18 +122,18 @@
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/ctl_title"
         android:layout_width="match_parent"
-        android:layout_height="66px"
-        android:layout_marginLeft="22px"
-        android:layout_marginTop="11px"
-        app:tl_divider_color="@color/white"
-        app:tl_divider_width="22px"
+        android:layout_height="33dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="8dp"
+        app:tl_divider_color="@color/background2"
+        app:tl_divider_width="11dp"
         app:tl_iconVisible="false"
         app:tl_indicator_color="@color/blue2"
         app:tl_tab_space_equal="false"
         app:tl_textBold="SELECT"
         app:tl_textSelectColor="@color/blue2"
         app:tl_textUnselectColor="@color/text_6"
-        app:tl_textsize="33px" />
+        app:tl_textsize="16dp" />
 
     <View
         android:layout_width="match_parent"

@@ -34,7 +34,7 @@
             android:padding="22px"
             android:id="@+id/tv_content"
             android:textSize="28px"
-            android:textColor="@color/text_9"
+            android:textColor="@color/text_6"
             android:text="内容"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

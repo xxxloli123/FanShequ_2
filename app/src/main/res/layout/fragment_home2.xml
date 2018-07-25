@@ -22,8 +22,8 @@
             app:indicator_height="10px"
             app:indicator_margin="6px"
             app:indicator_width="12px"
-            app:title_height="77px"
-            app:title_textsize="22px" />
+            app:title_height="36dp"
+            app:title_textsize="13dp" />
 
         <com.zhy.autolayout.AutoLinearLayout
             android:id="@+id/all_fillStatusBar"
@@ -90,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
                             android:text="物业报修"
-                            android:textColor="@color/text_9"
+                            android:textColor="@color/text_6"
                             android:textSize="22px" />
 
                     </com.zhy.autolayout.AutoLinearLayout>
@@ -112,8 +112,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
-                            android:text="上门维修"
-                            android:textColor="@color/text_9"
+                            android:text="业主报修"
+                            android:textColor="@color/text_6"
                             android:textSize="22px" />
 
                     </com.zhy.autolayout.AutoLinearLayout>
@@ -136,7 +136,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
                             android:text="社区商城"
-                            android:textColor="@color/text_9"
+                            android:textColor="@color/text_6"
                             android:textSize="22px" />
 
                     </com.zhy.autolayout.AutoLinearLayout>
@@ -158,8 +158,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
-                            android:text="二手商城"
-                            android:textColor="@color/text_9"
+                            android:text="二手卖场"
+                            android:textColor="@color/text_6"
                             android:textSize="22px" />
 
                     </com.zhy.autolayout.AutoLinearLayout>
@@ -190,7 +190,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
                             android:text="招商代理"
-                            android:textColor="@color/text_9"
+                            android:textColor="@color/text_6"
                             android:textSize="22px" />
 
                     </com.zhy.autolayout.AutoLinearLayout>
@@ -212,13 +212,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
-                            android:text="问卷调查"
-                            android:textColor="@color/text_9"
+                            android:text="物业评价"
+                            android:textColor="@color/text_6"
                             android:textSize="22px" />
 
                     </com.zhy.autolayout.AutoLinearLayout>
 
                     <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/all_express_delivery"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -227,21 +228,41 @@
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/kd" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
-                            android:textColor="@color/text_9"
+                            android:text="代发快递"
+                            android:textColor="@color/text_6"
                             android:textSize="22px" />
 
                     </com.zhy.autolayout.AutoLinearLayout>
 
-                    <View
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/all_year_examine"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/ns" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12px"
+                            android:text="代办年审"
+                            android:textColor="@color/text_6"
+                            android:textSize="22px" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
 
                 </com.zhy.autolayout.AutoLinearLayout>
 

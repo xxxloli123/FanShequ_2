@@ -42,7 +42,7 @@
             android:id="@+id/mine_photo"
             android:layout_width="150px"
             android:layout_height="150px"
-            android:src="@mipmap/portrait"
+            android:src="@mipmap/head_portrait"
             android:padding="3px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="22px"/>
@@ -83,7 +83,7 @@
         <ImageView
             android:layout_width="30px"
             android:layout_height="30px"
-            android:src="@mipmap/gray_arrow"/>
+            android:src="@mipmap/white_arrow"/>
 
     </com.zhy.autolayout.AutoLinearLayout>
 
