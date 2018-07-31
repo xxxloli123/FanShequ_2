@@ -34,7 +34,6 @@ import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.tools.JsonSyncUtils
 import com.fanhong.cn.tools.StringUtils
-import kotlinx.android.synthetic.main.activity_top.*
 import kotlinx.android.synthetic.main.activity_verification.*
 import kotlinx.android.synthetic.main.agree_sheets.*
 import org.xutils.common.Callback

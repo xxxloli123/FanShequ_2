@@ -35,11 +35,11 @@ open class QuestionnaireAdapter(questions: ArrayList<Question>, private val mCal
 
     override fun getItemCount(): Int =qs.size
 
-    override fun onBindViewHolder(holder: MyHolder?, position: Int) {
+    override fun onBindViewHolder(holder: MyHolder, position: Int) {
         holder!!.bind(position,qs[position], this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_questionnaire, parent, false)
         mContext=parent.context
         return MyHolder(view)

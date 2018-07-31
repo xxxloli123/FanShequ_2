@@ -118,17 +118,17 @@
                 android:textColorHint="@color/text_9"
                 android:textSize="30px" />
 
-            <TextView
-                android:padding="11px"
+            <Button
                 android:id="@+id/btn_getcode"
+                android:theme="@style/AppTheme.Button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="33dp"
                 android:layout_marginRight="10px"
                 android:background="@drawable/corners_round_blue2"
                 android:onClick="onGetCode"
                 android:text="@string/getcode"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
         </com.zhy.autolayout.AutoLinearLayout>
         <View
             android:background="@color/line"

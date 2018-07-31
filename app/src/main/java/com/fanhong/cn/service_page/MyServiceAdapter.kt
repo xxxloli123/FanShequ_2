@@ -27,7 +27,7 @@ class MyServiceAdapter(val context:Context, private val images:IntArray, val tex
         this.itemClick = itemClick
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         var view = LayoutInflater.from(context).inflate(R.layout.item_of_service,parent,false)
         view.setPadding(5,5,5,5)
         var holder = MyViewHolder(view)
@@ -38,7 +38,7 @@ class MyServiceAdapter(val context:Context, private val images:IntArray, val tex
         return images.size
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder!!.imageView!!.setImageResource(images[position])
         holder!!.textView!!.text = context.getString(texts[position])
         holder!!.imageView!!.setOnClickListener {

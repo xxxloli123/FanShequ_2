@@ -45,7 +45,7 @@ class SharedAdapter(private val context: Context, private val list: List<SharedF
             NO_PICTURE
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View
         var holder: RecyclerView.ViewHolder? = null
         when (viewType) {
@@ -60,7 +60,7 @@ class SharedAdapter(private val context: Context, private val list: List<SharedF
             else -> {
             }
         }
-        return holder
+        return holder!!
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

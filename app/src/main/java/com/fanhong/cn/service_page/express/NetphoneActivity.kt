@@ -145,7 +145,7 @@ class NetphoneActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int = list.size
 
-        override fun onBindViewHolder(holder: viewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: viewHolder, position: Int) {
             val model = list[position]
             holder?.name?.text = model.name
             holder?.phone?.text = model.phone
@@ -153,7 +153,7 @@ class NetphoneActivity : AppCompatActivity() {
             holder?.phone?.setOnClickListener { callPhone?.callout(holder.phone.text.toString()) }
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): viewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
             val view = inflater.inflate(R.layout.telphone_item, parent, false)
             return viewHolder(view)
         }

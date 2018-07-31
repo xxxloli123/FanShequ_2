@@ -218,7 +218,7 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
         if (bannerIMGs.isEmpty()||banners.isEmpty())OkGo.post<String>(App.CMD)
                 .tag(this)//
                 .params("cmd", "1057")
-                .execute(object : StringDialogCallback(activity) {
+                .execute(object : StringDialogCallback(activity!!) {
                     override fun onSuccess(response: Response<String>) {
                         Log.e("OkGo body",response.body().toString())
                         try {

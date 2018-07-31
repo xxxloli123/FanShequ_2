@@ -19,6 +19,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.fanhong.cn.App
 import com.fanhong.cn.R
+import com.fanhong.cn.home_page.ChooseCellActivity
 import com.fanhong.cn.service_page.repair.adapter.MyRecyclerAdapter
 import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.myviews.PhotoSelectWindow
@@ -69,6 +70,9 @@ class FillOrderActivity : TakePhotoActivity(), MyRecyclerAdapter.Callback {
     fun onCLicks(v: View) {
         when (v.id) {
             R.id.img_back -> finish()
+            R.id.edt_community_name -> {
+                startActivityForResult(Intent(this@FillOrderActivity, ChooseCellActivity::class.java), 110)
+            }
             R.id.edt_repair_article -> {
                 edt_repair_article.visibility = View.GONE
                 all_select.visibility = View.VISIBLE
@@ -107,6 +111,16 @@ class FillOrderActivity : TakePhotoActivity(), MyRecyclerAdapter.Callback {
 
             R.id.img_add -> if (imgs.size < 4) addImg() else ToastUtil.showToastL("图片只能上传三张")
             R.id.btn_submit -> submit2()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (resultCode) {
+            51 -> { //选择小区的回调
+                val gardenName = data!!.getStringExtra("gardenName")
+                edt_community_name.text = gardenName
+            }
         }
     }
 

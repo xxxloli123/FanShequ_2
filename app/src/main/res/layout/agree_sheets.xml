@@ -4,7 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <CheckBox
+    <android.support.v7.widget.AppCompatCheckBox
+        android:theme="@style/MyCheckBox"
         android:id="@+id/agree_sheet_protocol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

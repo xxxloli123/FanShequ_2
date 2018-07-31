@@ -48,6 +48,7 @@
 
     </com.zhy.autolayout.AutoRelativeLayout>
 
+
     <ScrollView
         android:id="@+id/sv_kengdie"
         android:layout_width="match_parent"
@@ -58,7 +59,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -175,14 +175,14 @@
                     <com.zhy.autolayout.AutoLinearLayout
                         android:id="@+id/all_investment"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:src="@mipmap/investment" />
 
                         <TextView
@@ -198,17 +198,18 @@
                     <com.zhy.autolayout.AutoLinearLayout
                         android:id="@+id/all_questionnaire"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <ImageView
+                            android:layout_weight="1"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:src="@mipmap/questionnaire" />
 
-                        <TextView
+                            <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12px"
@@ -313,7 +314,7 @@
                 android:padding="18px"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="我需要静静我需要静静我需要静静我需要静静我需要静静我需要静静我需要静静我需要静静我需要静静"
+                android:text=""
                 android:textColor="@color/text_6"
                 android:textSize="22px"
                 android:visibility="gone" />
@@ -324,9 +325,9 @@
                 android:layout_margin="33px">
 
                 <View
+                    android:layout_marginRight="3dp"
                     android:layout_width="6px"
                     android:layout_height="match_parent"
-                    android:layout_margin="8px"
                     android:background="@color/blue2" />
 
                 <TextView

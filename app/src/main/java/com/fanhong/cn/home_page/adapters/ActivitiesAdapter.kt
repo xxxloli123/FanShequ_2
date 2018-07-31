@@ -38,11 +38,11 @@ open class ActivitiesAdapter(banners: ArrayList<Banner>, private val mCallback: 
 
     override fun getItemCount(): Int =bas.size
 
-    override fun onBindViewHolder(holder: MyHolder?, position: Int) {
+    override fun onBindViewHolder(holder: MyHolder, position: Int) {
         holder!!.bind(bas[position],this,mContext)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val view = LayoutInflater.from(parent!!.context).inflate(R.layout.itme_home_activities, parent, false)
         mContext=parent.context
         return MyHolder(view)

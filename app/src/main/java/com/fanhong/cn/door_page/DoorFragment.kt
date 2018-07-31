@@ -25,7 +25,6 @@ import com.fanhong.cn.tools.LogUtil
 import com.fanhong.cn.tools.ToastUtil
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
-import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_top.*
 import kotlinx.android.synthetic.main.fragment_door.*
 import org.json.JSONException
@@ -141,6 +140,8 @@ class DoorFragment : Fragment() {
         })
     }
 
+    private lateinit var m: Keymodel
+
     /**
      * 展示钥匙
      */
@@ -176,6 +177,7 @@ class DoorFragment : Fragment() {
                                             .forEach {
                                                 var model = Keymodel(it.optString("bname"),
                                                         it.optString("key"),
+                                                        false,
                                                         it.optInt("sh"))
                                                 childList.add(model)
                                             }
@@ -185,10 +187,11 @@ class DoorFragment : Fragment() {
                                 }
                         adapter = MyExpandableAdapter(activity!!, groupList!!, datamap!!)
                         adapter!!.setOpenClick(object : MyExpandableAdapter.OpenClick {
-                            override fun opendoor(key: String, view: ImageView) {
+                            override fun opendoor(key: String, view: ImageView, model: Keymodel) {
                                 imageView = view
                                 handler.sendEmptyMessage(10)
                                 openDoor(key)
+                                m=model
 //                                openDoor2(key)
                             }
 
@@ -223,7 +226,7 @@ class DoorFragment : Fragment() {
                 .tag(this)//
                 .isMultipart(true)
                 .params("key", key)
-                .execute(object : StringDialogCallback(activity) {
+                .execute(object : StringDialogCallback(activity!!) {
                     override fun onSuccess(response: Response<String>) {
                         Log.e("OkGobody", response.body().toString())
                         try {
@@ -265,8 +268,6 @@ class DoorFragment : Fragment() {
 //        ToastUtil.showToastL("add clicked")
         this.onResume()
     }
-
-
 
     override fun onResume() {
         super.onResume()
@@ -310,7 +311,10 @@ class DoorFragment : Fragment() {
                 }
                 11 -> ToastUtil.showToastS("开门成功！")
                 12 -> ToastUtil.showToastS("开门失败，请重试！")
-                13 -> imageView!!.isEnabled = true
+                13 -> {
+                    if (m!=null)m.opening=false
+                    imageView!!.isEnabled = true
+                }
                 14 -> ToastUtil.showToastS("钥匙审核中，请等待审核!")
             }
             super.handleMessage(msg)

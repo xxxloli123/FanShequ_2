@@ -10,8 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.fanhong.cn.R
 import com.fanhong.cn.door_page.models.Keymodel
-import com.fanhong.cn.tools.ToastUtil
-import com.zhy.autolayout.AutoLinearLayout
 import com.zhy.autolayout.utils.AutoUtils
 import org.xutils.view.annotation.ViewInject
 import org.xutils.x
@@ -29,7 +27,7 @@ class MyExpandableAdapter(val context: Context,
     private val MIPMAP = intArrayOf(R.mipmap.yaoshizzsh, R.mipmap.yaoshi, R.mipmap.yaoshizzsh)
 
     interface OpenClick{
-        fun opendoor(key:String,view:ImageView)
+        fun opendoor(key: String, view: ImageView, model: Keymodel)
         fun nokey()
     }
     private var openClick:OpenClick?=null
@@ -52,7 +50,8 @@ class MyExpandableAdapter(val context: Context,
         return false
     }
 
-    override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup?): View {
+    override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertView: View?,
+                              parent: ViewGroup?): View {
         var groupHolder:GroupHolder
         var view:View
         if(convertView==null){
@@ -84,7 +83,8 @@ class MyExpandableAdapter(val context: Context,
         return groupPosition.toLong()
     }
 
-    override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
+    override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean,
+                              convertView: View?, parent: ViewGroup?): View {
         var childHolder:ChildHolder
         var view1:View
         if(convertView==null){
@@ -107,9 +107,13 @@ class MyExpandableAdapter(val context: Context,
 //            ToastUtil.showToastS("第"+groupPosition+"组的第"+childPosition+"个子项被点击了")
             when(status){
                 0-> openClick!!.nokey()
-                1-> openClick!!.opendoor(key,holder.power!!)
+                1-> {
+                    openClick!!.opendoor(key,holder.power!!,model)
+                    model.opening=true
+                }
             }
         }
+        holder.power!!.isEnabled=!model.opening
         return view1
     }
 

@@ -16,5 +16,5 @@
 <item android:state_pressed="true" android:color="@color/text_9" />
 <item android:state_focused="true" android:color="@color/text_9" />
 <item android:state_selected="true" android:color="@color/text_9" />
-<item android:color="@color/lightred" />
+<item android:color="@color/blue2" />
 </selector>
