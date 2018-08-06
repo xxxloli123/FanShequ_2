@@ -72,7 +72,9 @@
         <activity android:name=".user_page.shippingaddress.MyAddressActivity" />
         <activity android:name=".user_page.shippingaddress.EditAddressActivity" />
         <activity android:name=".door_page.SubmitDoorActivity" />
-        <activity android:name=".door_page.AddKeyActivity" />
+        <activity android:name=".door_page.AddKeyActivity"
+            android:theme="@style/MyTheme"/>
+
         <activity android:name=".service_page.shop.ShopIndexActivity" />
         <activity android:name=".service_page.shop.GoodsDetailsActivity" />
         <activity android:name=".service_page.shop.ShopCarActivity" />
@@ -87,8 +89,10 @@
         <activity android:name=".service_page.government.PersonalMessageActivity" />
         <activity android:name=".service_page.government.GovMemberInfoActivity" />
         <activity android:name=".service_page.government.GovDuesActivity" />
-        <activity android:name=".service_page.verification.VerificationActivity" />
-        <activity android:name=".service_page.verification.CarFormConfirmActivity" />
+        <activity android:name=".service_page.verification.VerificationActivity"
+            android:theme="@style/MyTheme"/>
+        <activity android:name=".service_page.verification.CarFormConfirmActivity"
+            android:theme="@style/MyTheme"/>
         <activity android:name=".service_page.express.ExpressHomeActivity" />
         <activity android:name=".service_page.express.SendExpressActivity" />
         <activity android:name=".service_page.express.CheckExpressActivity" />

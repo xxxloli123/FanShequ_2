@@ -14,14 +14,13 @@ import com.alipay.sdk.app.PayTask
 import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.home_page.fenxiao.PostSuccessActivity
-import com.fanhong.cn.tools.JsonSyncUtils
-import com.fanhong.cn.tools.SignUtils
-import com.fanhong.cn.tools.StringUtils
+import com.fanhong.cn.tools.*
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import com.vondear.rxfeature.module.wechat.pay.WechatModel
+import com.vondear.rxtool.interfaces.OnSuccessAndErrorListener
 import kotlinx.android.synthetic.main.activity_car_form_confirm.*
-import kotlinx.android.synthetic.main.activity_top.*
 import org.json.JSONException
 import org.json.JSONObject
 import org.xutils.common.Callback
@@ -139,11 +138,12 @@ class CarFormConfirmActivity : AppCompatActivity() {
                 2 -> {
                     btn_commit.isEnabled = false
                     api = WXAPIFactory.createWXAPI(this, App.PayConfig.WX_APPID)
-                    weiXinPay()
+//                    weiXinPay()
+
+                    WXPay2(getRandomString())
                 }
             }
         }
-
         registerReceiver(myReceiver, IntentFilter(App.PayConfig.WX_ACTION_RESULT))
     }
 
@@ -165,6 +165,40 @@ class CarFormConfirmActivity : AppCompatActivity() {
             alipayHandler.sendMessage(msg)
         }
         Thread(runnable).start()
+    }
+    private fun WXPay2(orderNum: String) {
+//        WechatPayTools.wechatPayUnifyOrder(mContext,
+//        WX_APP_ID, //微信分配的APP_ID
+//        WX_PARTNER_ID, //微信分配的 PARTNER_ID (商户ID)
+//        WX_PRIVATE_KEY, //微信分配的 PRIVATE_KEY (私钥)
+//        new WechatModel(order_id, //订单ID (唯一)
+//                        money, //价格
+//                        name, //商品名称
+//                        detail), //商品描述详情
+//        new onRequestListener() {
+//            @Override
+//            public void onSuccess(String s) {}
+//
+//            @Override
+//            public void onError(String s) {}
+//    });
+
+        WechatPayTools2.wechatPayUnifyOrder(this,
+                App.PayConfig.WX_APPID,
+                App.PayConfig.WX_MCH_ID,
+                App.PayConfig.WX_PRIVATE_KEY,
+                WechatModel(orderNum,"${(300 * 10 * 10)}","没有卵用","帆社区-代办年审"),
+                object : OnSuccessAndErrorListener {
+                    override fun onSuccess(p0: String?) {
+                        ToastUtil.showToastL(p0!!)
+                    }
+
+                    override fun onError(p0: String?) {
+                        ToastUtil.showToastL(p0!!)
+                    }
+
+                }
+        )
     }
 
     //支付宝单号

@@ -24,10 +24,13 @@ import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
-import com.amap.api.maps2d.AMap
+import com.amap.api.maps.AMap
+import com.amap.api.maps.LocationSource
+import com.amap.api.maps.model.BitmapDescriptorFactory
+import com.amap.api.maps.model.LatLng
+import com.amap.api.maps.model.Marker
+import com.amap.api.maps.model.MarkerOptions
 import com.amap.api.maps2d.CameraUpdateFactory
-import com.amap.api.maps2d.LocationSource
-import com.amap.api.maps2d.model.BitmapDescriptorFactory
 import com.amap.api.maps2d.model.MyLocationStyle
 import com.amap.api.maps2d.model.Text
 import com.fanhong.cn.App
@@ -48,6 +51,8 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
     private var mLocationOption: AMapLocationClientOption? = null
 
     private var aMap: AMap? = null
+    private var locationMarker: Marker? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verification)
@@ -117,6 +122,19 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
             aMap = gaode_map.map
             setUpMap()
         }
+        aMap!!.setOnMapLoadedListener { addMarkerInScreenCenter(null) }
+
+    }
+    private fun addMarkerInScreenCenter(locationLatLng: LatLng?) {
+        val latLng = aMap!!.cameraPosition.target
+        val screenPosition = aMap!!.projection.toScreenLocation(latLng)
+        locationMarker = aMap!!.addMarker(MarkerOptions()
+                .anchor(0.5f, 0.5f)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.dingwei)))
+        //设置Marker在屏幕上,不跟随地图移动
+        locationMarker!!.setPositionByPixels(screenPosition.x, screenPosition.y)
+        locationMarker!!.zIndex = 1f
+
     }
 
     /**
@@ -126,23 +144,26 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
         aMap!!.setLocationSource(this)// 设置定位监听
         aMap!!.uiSettings.isMyLocationButtonEnabled = true// 设置默认定位按钮是否显示
         aMap!!.isMyLocationEnabled = true// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-        setupLocationStyle()
+//        setupLocationStyle()
     }
 
+    /**
+     *
     private fun setupLocationStyle() {
-        // 自定义系统定位蓝点
-        val myLocationStyle = MyLocationStyle()
-        // 自定义定位蓝点图标
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.gps_point))
-        // 自定义精度范围的圆形边框颜色
-        myLocationStyle.strokeColor(Color.argb(180, 3, 145, 255))
-        //自定义精度范围的圆形边框宽度
-        myLocationStyle.strokeWidth(4f)
-        // 设置圆形的填充颜色
-        myLocationStyle.radiusFillColor(Color.argb(10, 0, 0, 180))
-        // 将自定义的 myLocationStyle 对象添加到地图上
-        aMap!!.setMyLocationStyle(myLocationStyle)
+    // 自定义系统定位蓝点
+    val myLocationStyle = MyLocationStyle()
+    // 自定义定位蓝点图标
+    myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.gps_point))
+    // 自定义精度范围的圆形边框颜色
+    myLocationStyle.strokeColor(Color.argb(180, 3, 145, 255))
+    //自定义精度范围的圆形边框宽度
+    myLocationStyle.strokeWidth(4f)
+    // 设置圆形的填充颜色
+    myLocationStyle.radiusFillColor(Color.argb(10, 0, 0, 180))
+    // 将自定义的 myLocationStyle 对象添加到地图上
+    aMap!!.setMyLocationStyle(myLocationStyle)
     }
+     */
 
     private var agreeSheet: Button? = null
     private fun createDialog() {
@@ -333,7 +354,8 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
                 default_location.setText(strings[0])
                 default_location.isFocusable = true
                 mListener!!.onLocationChanged(aMapLocation)// 显示系统小蓝点
-                aMap!!.moveCamera(CameraUpdateFactory.zoomTo(18f))
+                val curLatlng = LatLng(aMapLocation.latitude, aMapLocation.longitude)
+                aMap!!.moveCamera(com.amap.api.maps.CameraUpdateFactory.newLatLngZoom(curLatlng, 16f))
                 //调用停止定位
                 deactivate()
             } else {

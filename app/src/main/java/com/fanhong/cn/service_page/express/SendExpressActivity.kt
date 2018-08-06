@@ -18,6 +18,7 @@ import com.fanhong.cn.home_page.fenxiao.PostSuccessActivity
 import com.fanhong.cn.myviews.SpinerPopWindow
 import com.fanhong.cn.tools.JsonSyncUtils
 import com.fanhong.cn.tools.ToastUtil
+import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_send_express.*
 import kotlinx.android.synthetic.main.activity_top.*
 import org.xutils.common.Callback
@@ -41,7 +42,7 @@ class SendExpressActivity : AppCompatActivity() {
         setOnClicks()
 
         client = AMapLocationClient(this)
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 19) {
             requestPermission()
         } else {
             getLocation()
@@ -51,8 +52,12 @@ class SendExpressActivity : AppCompatActivity() {
     private fun getLocation() {
         val location = client?.lastKnownLocation
         if (location != null && location.errorCode == 0) {
-            val strings = location.address.split("靠近".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            send_express_address.setText(strings[0])
+            //                                            分裂                    最后一次
+//            val strings = location.address.split("靠近".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val strings2 = location.address.substring(0,location.address.indexOf("靠"))
+            send_express_address.setText(strings2)
+
+            RxToast.normal(strings2)
             seProvince = location.province
         }
     }

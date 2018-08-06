@@ -10,6 +10,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.support.animation.DynamicAnimation
+import android.support.animation.SpringAnimation
+import android.support.animation.SpringForce
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
@@ -54,9 +57,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private val fragments: MutableList<Fragment> = ArrayList()
-
-    private var apkPath = ""
-    private var apkName = ""
 
     private var lastTab = 0
     private var myBuilder: DownloadBuilder? = null
@@ -125,6 +125,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun onClicks(v: View) {
+        setSpringAnimation(v)
         when (v.id) {
             R.id.all_tab_home -> {
                 if (tv_tab_home.visibility == View.GONE) return
@@ -138,7 +139,7 @@ class HomeActivity : AppCompatActivity() {
                 if (tv_tab_door.visibility == View.GONE) return
                 setTabView(1)
                 home_viewpager.currentItem = 1
-                fragments[1].onResume()
+                if (!isLogged())fragments[1].onResume()
                 img_tab_home.setImageResource(R.mipmap.home_page)
                 img_tab_door.setImageResource(R.mipmap.entrance_guard_1)
                 img_tab_my.setImageResource(R.mipmap.mine)
@@ -147,10 +148,41 @@ class HomeActivity : AppCompatActivity() {
                 if (tv_tab_my.visibility == View.GONE) return
                 setTabView(2)
                 home_viewpager.currentItem = 2
-
                 img_tab_home.setImageResource(R.mipmap.home_page)
                 img_tab_door.setImageResource(R.mipmap.entrance_guard)
                 img_tab_my.setImageResource(R.mipmap.mine_1)
+            }
+        }
+    }
+
+    private fun setSpringAnimation(v: View?) {
+        //Spring Force (弹簧 力)
+//        val s=SpringForce(0F)
+        //              ( ,参数是动画类型,float类型的被作用对象最终位置)
+//        SpringAnimation(v,DynamicAnimation)
+        val animX = SpringAnimation(v, SpringAnimation.SCALE_X, 0.5f)
+        val animY = SpringAnimation(v, SpringAnimation.SCALE_Y, 0.5f)
+
+        animX.spring.finalPosition = 0.5f
+
+        animY.spring.finalPosition = 0.5f
+        animX.start()
+        animY.start()
+
+        animX.addEndListener { animation, canceled, value, velocity ->
+            if (animX.spring.finalPosition==0.5f){
+                animX.spring.stiffness = SpringForce.STIFFNESS_LOW
+                animX.spring.dampingRatio = SpringForce.DAMPING_RATIO_HIGH_BOUNCY
+                animX.spring.finalPosition = 1f
+                animX.start()
+            }
+        }
+        animY.addEndListener { animation, canceled, value, velocity ->
+            if (animY.spring.finalPosition==0.5f){
+                animY.spring.stiffness = SpringForce.STIFFNESS_LOW
+                animY.spring.dampingRatio = SpringForce.DAMPING_RATIO_HIGH_BOUNCY
+                animY.spring.finalPosition = 1f
+                animY.start()
             }
         }
     }

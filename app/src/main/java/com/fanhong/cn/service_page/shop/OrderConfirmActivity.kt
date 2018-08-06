@@ -176,7 +176,7 @@ class OrderConfirmActivity : AppCompatActivity() {
                             //仅在剩余支付时间大于一分钟的情况下才进行支付
                             when (payWay) {
                                 1 -> aliPay(orderNum, residueTime)
-                                2 -> WXPay2(orderNum, targetTime)
+                                2 -> WXPay2(orderNum)
                             }
                             btn_commit.isEnabled=false
                         } else {
@@ -204,7 +204,7 @@ class OrderConfirmActivity : AppCompatActivity() {
         })
     }
 
-    private fun WXPay2(orderNum: String, targetTime: Long) {
+    private fun WXPay2(orderNum: String) {
 //        WechatPayTools.wechatPayUnifyOrder(mContext,
 //        WX_APP_ID, //微信分配的APP_ID
 //        WX_PARTNER_ID, //微信分配的 PARTNER_ID (商户ID)
@@ -499,7 +499,7 @@ class OrderConfirmActivity : AppCompatActivity() {
                     }
 
                     override fun onError(response: Response<String>) {
-                        Log.e("OkGoError", response.message())
+                        Log.e("OkGoError", response.exception.toString())
                     }
                 })
     }

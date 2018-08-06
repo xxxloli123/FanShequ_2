@@ -2,12 +2,167 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/activity_top" />
+    <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentTop="true"
+        android:background="@color/blue2">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="5px"
+            android:src="@mipmap/back_white" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="title"
+            android:textColor="@color/white"
+            android:textSize="40px" />
+
+        <TextView
+            android:id="@+id/top_extra"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:padding="10px"
+            android:text="extra"
+            android:textColor="@color/white"
+            android:textSize="36px"
+            android:visibility="gone" />
+    </com.zhy.autolayout.AutoRelativeLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_margin="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_9"
+                android:text="服务项目"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_1"
+                android:text="代办年审"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_margin="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_9"
+                android:text="姓名"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_1"
+                android:text="1334561535"
+                android:id="@+id/tv_form_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_margin="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_9"
+                android:text="联系电话"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_1"
+                android:text="1334561535"
+                android:id="@+id/tv_form_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_margin="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_9"
+                android:text="价格"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_form_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="300元/次"
+                android:textSize="28px" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_margin="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_9"
+                android:text="取车地址"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="28px"
+                android:textColor="@color/text_1"
+                android:text="1334561535"
+                android:id="@+id/tv_form_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+    <!--<com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40px"
@@ -16,6 +171,7 @@
         android:gravity="center"
         android:paddingBottom="30px"
         android:paddingTop="30px">
+
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
@@ -106,8 +262,68 @@
                     android:textSize="26px" />
             </com.zhy.autolayout.AutoLinearLayout>
         </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
+
+        <View
+            android:layout_marginRight="4dp"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择支付方式"
+            android:textColor="@color/text_6"
+            android:textSize="36px" />
     </com.zhy.autolayout.AutoLinearLayout>
-    <LinearLayout
+<!--  今天测试时发现微信不能支付
+CheckBox 设置框在右 加上
+android:button="@null"
+        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+应该和商品购买时的一样用的后台接口但是现在没有了 只有自己写统一下单步骤 -->
+    <CheckBox
+        android:textColor="@color/text_9"
+        android:text="微信"
+        android:drawablePadding="22dp"
+        android:theme="@style/CheckBoxGreen"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:drawableLeft="@mipmap/wx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkbox_wx"
+        android:button="@null"
+        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+        android:checked="true"
+        android:layout_centerInParent="true" />
+
+    <View
+        android:layout_margin="12dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+    <CheckBox
+        android:id="@+id/checkbox_zfb"
+        android:textColor="@color/text_9"
+        android:text="支付宝"
+        android:drawablePadding="22dp"
+        android:theme="@style/MyCheckBox"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:drawableLeft="@mipmap/zfb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+        android:layout_centerInParent="true"/>
+
+    <!--<LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -159,17 +375,18 @@
             android:focusable="false" />
 
 
-    </LinearLayout>
+    </LinearLayout>-->
 
-    <Button
+    <com.fanhong.cn.view.StateButton
+        android:layout_margin="33dp"
         android:id="@+id/btn_commit"
         android:layout_width="match_parent"
-        android:layout_height="85px"
-        android:layout_marginLeft="40px"
-        android:layout_marginRight="40px"
-        android:layout_marginTop="40px"
-        android:background="@drawable/postbtn_dianji"
-        android:text="确认并去付款"
+        android:layout_height="wrap_content"
+        android:text="确认并支付"
         android:textColor="@color/white"
-        android:textSize="35px" />
+        android:textSize="18sp"
+        app:radius2="12dp"
+        app:normalBackgroundColor="@color/blue3"
+        app:pressedBackgroundColor="@color/dark_blue3"
+        app:unableBackgroundColor="@color/dark_blue3" />
 </com.zhy.autolayout.AutoLinearLayout>

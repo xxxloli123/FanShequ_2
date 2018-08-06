@@ -215,9 +215,6 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
     }
 
     private fun selectPhoto(b: Boolean) {
-        val builder = CropOptions.Builder()
-        //是否takePhoto剪裁
-        builder.setWithOwnCrop(true)
         //压缩图片
         val config = CompressConfig.Builder().setMaxSize(233 * 1020)
                 .setMaxPixel(0)
@@ -231,33 +228,33 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
                 file.parentFile.mkdirs()
             }
             val imageUri = Uri.fromFile(file)
-            takePhoto.onPickFromCaptureWithCrop(imageUri, builder.create())
+            takePhoto.onPickFromCapture(imageUri)
         } else {
             val builder1 = TakePhotoOptions.Builder()
             builder1.setWithOwnGallery(true)
             takePhoto.setTakePhotoOptions(builder1.create())
-            takePhoto.onPickMultipleWithCrop(3 - imgs.size, builder.create())
+            takePhoto.onPickFromGallery()
         }
     }
 
     override fun takeFail(result: TResult?, msg: String?) {
-        ToastUtil.showToastL("选择图片失败")
+        RxToast.error("选择图片失败")
         super.takeFail(result, msg)
     }
 
     override fun takeSuccess(result: TResult?) {
-        imgs.addAll(result!!.images)
+        imgs=(result!!.images)
         super.takeSuccess(result)
         showImg()
     }
 
     private fun showImg() {
         if (adapter == null) {
-            adapter = MyRecyclerAdapter(imgs, this)
+            adapter = MyRecyclerAdapter(imgs, this,true)
             rv_img.layoutManager = LinearLayoutManager(this,
                     LinearLayoutManager.HORIZONTAL, false)
             rv_img.adapter = adapter
-        } else adapter!!.notifyDataSetChanged()
+        } else adapter!!.refresh(imgs)
     }
 
     override fun click(v: View) {

@@ -109,7 +109,7 @@ class FillOrderActivity : TakePhotoActivity(), MyRecyclerAdapter.Callback {
                 all_select.visibility = View.GONE
             }
 
-            R.id.img_add -> if (imgs.size < 4) addImg() else ToastUtil.showToastL("图片只能上传三张")
+            R.id.img_add -> if (imgs.size < 3) addImg() else ToastUtil.showToastL("图片只能上传三张")
             R.id.btn_submit -> submit2()
         }
     }

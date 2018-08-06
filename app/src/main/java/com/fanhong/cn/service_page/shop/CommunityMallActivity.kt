@@ -57,6 +57,7 @@ class CommunityMallActivity : AppCompatActivity() {
         fragments.add(GoodsListFragment().setType(5))//
         fragments.add(GoodsListFragment().setType(4))//
         shop_viewpager.adapter = pagerAdapter
+        shop_viewpager.offscreenPageLimit = 2 //设置向左和向右都缓存 limit 个页面
 //        st_title2.setViewPager(shop_viewpager)
         for (i in mTitles.indices) {
             mTabEntities.add(TabEntity(mTitles[i]))
@@ -125,7 +126,7 @@ class CommunityMallActivity : AppCompatActivity() {
                         AlertDialog.Builder(this@CommunityMallActivity).setMessage("获取失败！ 是否重试?")
                                 .setPositiveButton("确定") { _, _ ->
                                 }.setNegativeButton("取消",null) .show()
-                        Log.e("OkGoError",response.message())
+                        Log.e("OkGoError",response.exception.toString())
                     }
                 })
     }

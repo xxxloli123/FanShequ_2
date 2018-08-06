@@ -2,6 +2,7 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_add_key"
     android:orientation="vertical">
 
@@ -28,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/checkidentity"
-                    android:textColor="@color/red"
+                    android:textColor="@color/blue2"
                     android:textSize="14sp" />
 
                 <TextView
@@ -58,18 +59,18 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <View
+                <com.fanhong.cn.view.StateButton
+                    app:normalBackgroundColor="@color/blue3"
+                    app:round2="true"
                     android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:background="@drawable/circle_red" />
-
+                    android:layout_height="14dp" />
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="5dp"
+                    android:layout_height="1px"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
-                    android:background="@color/red" />
+                    android:background="@color/blue2" />
 
                 <View
                     android:layout_width="14dp"
@@ -78,7 +79,7 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="5dp"
+                    android:layout_height="1px"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
@@ -195,16 +196,15 @@
 
             <include layout="@layout/agree_sheets" />
 
-            <Button
+            <com.fanhong.cn.view.StateButton
+                android:layout_margin="22dp"
                 android:id="@+id/key_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
-                android:layout_marginTop="20px"
-                android:background="@drawable/postbtn_dianji"
-                android:paddingBottom="10px"
-                android:paddingTop="10px"
+                app:radius2="12dp"
+                app:normalBackgroundColor="@color/blue3"
+                app:pressedBackgroundColor="@color/dark_blue3"
+                app:unableBackgroundColor="@color/dark_blue3"
                 android:text="提 交"
                 android:textColor="@color/white"
                 android:textSize="38px" />

@@ -49,12 +49,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="10px"
+        android:layout_marginTop="22px"
         android:layout_marginRight="5px"
         android:paddingLeft="10px"
         android:background="@color/white">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="77dp"
             android:layout_height="wrap_content"
             android:text="姓名"
             android:gravity="center_vertical"
@@ -80,11 +80,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="10px"
+        android:layout_marginTop="22px"
         android:layout_marginRight="5px"
         android:paddingLeft="10px">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="77dp"
             android:layout_height="wrap_content"
             android:textColor="@color/text_6"
             android:text="电话"
@@ -110,57 +110,22 @@
         android:layout_height="1px"
         android:background="@color/gray"/>
     <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="22px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginRight="5px"
-        android:layout_marginLeft="10px"
-        android:layout_marginTop="5px">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="位置"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_6"
-            android:drawablePadding="20px"
-            android:padding="20px" />
-
-        <EditText
-            android:id="@+id/default_location"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:lines="1"
-            android:singleLine="true"
-            android:textSize="28px"
-            android:background="@color/transParent"
-            android:layout_marginLeft="20px"
-            android:textColor="@color/text_6"
-            android:gravity="center_vertical"/>
-    </com.zhy.autolayout.AutoLinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/gray"/>
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10px"
         android:background="@color/white"
+        android:layout_marginLeft="10px"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="77dp"
             android:layout_height="wrap_content"
-            android:text="位置"
+            android:text="验证码"
             android:gravity="center_vertical"
             android:textColor="@color/text_6"
             android:drawablePadding="20px"
             android:padding="20px" />
 
         <EditText
-            android:hint="请输入验证码"
             android:id="@+id/input_code"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -172,7 +137,7 @@
             android:layout_marginLeft="20px"
             android:textColor="@color/text_6"
             android:gravity="center_vertical"
-             />
+            />
         <!--//设置圆角度
              app:radius="5dp"
             //设置左右为半圆， 不用计算radius
@@ -208,43 +173,80 @@
             //设置不可用时（enable = false）背景颜色
              app:unableBackgroundColor="@color/colorPrimaryDark"
 
-<com.fanhong.cn.view.StateButton
-            android:id="@+id/get_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/getcode"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:theme="@style/AppTheme.Button"
-            app:animationDuration="200"
-            app:radius="5dp"
-            />
+
 -->
-
-        <Button
+        <com.fanhong.cn.view.StateButton
             android:id="@+id/get_code"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-
+            android:layout_height="30dp"
+            android:padding="6dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/getcode"
+            android:textSize="13dp"
+            android:textColor="@android:color/white"
+            app:normalBackgroundColor="@color/blue2"
+            app:pressedBackgroundColor="#0E67AF"
+            app:radius2="10dp"
+            app:unableBackgroundColor="#0E67AF"
+            />
 
     </com.zhy.autolayout.AutoLinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginRight="5px"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="22px">
+        <TextView
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:text="位置"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_6"
+            android:drawablePadding="20px"
+            android:padding="20px" />
+
+        <EditText
+            android:id="@+id/default_location"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:lines="1"
+            android:singleLine="true"
+            android:textSize="28px"
+            android:background="@color/transParent"
+            android:layout_marginLeft="20px"
+            android:textColor="@color/text_6"
+            android:gravity="center_vertical"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray"/>
+
     <include layout="@layout/agree_sheets"/>
-    <com.amap.api.maps2d.MapView
+    <com.amap.api.maps.MapView
         android:id="@+id/gaode_map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_margin="10px"/>
-    <Button
+    <com.fanhong.cn.view.StateButton
         android:id="@+id/submit_caryuyue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="立 即 预 约"
         android:textColor="@color/white"
-        android:textSize="35px"
-        android:background="@mipmap/button_background"
+        android:textSize="18sp"
+        app:normalBackgroundColor="@color/blue3"
+        app:pressedBackgroundColor="@color/dark_blue3"
+        app:unableBackgroundColor="@color/dark_blue3"
         />
 </com.zhy.autolayout.AutoLinearLayout>

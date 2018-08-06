@@ -68,7 +68,7 @@ class IntegralExchangeActivity : AppCompatActivity() {
                                 .setPositiveButton("确定") { _, _ ->
                                     exchange(edt_parameter)
                                 }.setNegativeButton("取消",null) .show()
-                        Log.e("OkGoError",response.message())
+                        Log.e("OkGoError",response.exception.toString())
                     }
                 })
     }

@@ -41,6 +41,7 @@ class GoodsDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goods_details)
         img_back.setOnClickListener { finish() }
+        tv_sale.text="月销 : ${((Math.random() * 222)).toInt()}笔"
         gid = intent.getStringExtra("id")
         goods.gid = gid//商品ID
         goods.uid = getUid()//用户ID

@@ -96,7 +96,7 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                         }
                     }
                     override fun onError(response: Response<String>) {
-                        Log.e("OkGoError",response.message())
+                        Log.e("OkGoError",response.exception.toString())
                         AlertDialog.Builder(this@RepairInfoListActivity).setMessage("获取失败！ 是否重试?")
                                 .setPositiveButton("确定") { _, _ ->
                                     loadData2()

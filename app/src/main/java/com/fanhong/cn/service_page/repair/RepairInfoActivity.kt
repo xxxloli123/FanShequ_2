@@ -78,7 +78,7 @@ class RepairInfoActivity : AppCompatActivity() {
                                 .setPositiveButton("确定") { _, _ ->
                                     loadData()
                                 }.setNegativeButton("取消",null) .show()
-                        Log.e("OkGoError",response.message())
+                        Log.e("OkGoError",response.exception.toString())
                     }
                 })
     }
@@ -217,7 +217,7 @@ class RepairInfoActivity : AppCompatActivity() {
                                 .setPositiveButton("确定") { _, _ ->
                                     dispatch(res[which].phone)
                                 }.setNegativeButton("取消",null) .show()
-                        Log.e("OkGoError",response.message())
+                        Log.e("OkGoError",response.exception.toString())
                     }
                 })
     }

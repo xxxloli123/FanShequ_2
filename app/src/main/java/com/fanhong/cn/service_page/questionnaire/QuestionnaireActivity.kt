@@ -34,9 +34,10 @@ class QuestionnaireActivity : AppCompatActivity(),QuestionnaireAdapter.Callqck {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questionnaire)
+        val pref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
+        tv_title.text=pref.getString(App.PrefNames.GARDENNAME, "")+"物业 问卷调查"
         img_back.setOnClickListener { finish() }
         check()
-        initView()
     }
 
     private fun check() {
@@ -47,8 +48,10 @@ class QuestionnaireActivity : AppCompatActivity(),QuestionnaireAdapter.Callqck {
                             //        1067 查询是否评价物业（app->平台）
                             //        cmd:数据类型
                             //        uid：当前用户ID
+//                                      qid:小区id
                 .params("cmd","1067")
                 .params("uid",pref.getString(App.PrefNames.USERID, "-1"))
+                .params("qid", pref.getString(App.PrefNames.GARDENID, ""))
                 .execute(object : StringDialogCallback(this) {
                     override fun onSuccess(response: Response<String>) {
                         Log.e("OkGo 1067", response.body().toString())
@@ -57,7 +60,7 @@ class QuestionnaireActivity : AppCompatActivity(),QuestionnaireAdapter.Callqck {
                         }
                     }
                     override fun onError(response: Response<String>) {
-                        Log.e("OkGoError", response.message())
+                        Log.e("OkGoError", response.exception.toString())
                     }
                 })
     }
@@ -104,7 +107,7 @@ class QuestionnaireActivity : AppCompatActivity(),QuestionnaireAdapter.Callqck {
                                 .setPositiveButton("确定") { _, _ ->
                                     loadData()
                                 }.setNegativeButton("取消",null) .show()
-                        Log.e("OkGoError",response.message())
+                        Log.e("OkGoError",response.exception.toString())
                     }
                 })
     }

@@ -19,7 +19,7 @@
             android:layout_marginLeft="20px"
             android:focusable="false"
             android:padding="10px"
-            android:src="@mipmap/pre_mj" />
+            android:src="@mipmap/xiaoqubiaozi" />
 
         <TextView
             android:id="@+id/cell_name"

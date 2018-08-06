@@ -7,7 +7,7 @@
 
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/all_fillStatusBar"
-        android:background="@color/skyblue"
+        android:background="@color/blue2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

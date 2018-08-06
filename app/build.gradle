@@ -95,12 +95,15 @@ dependencies {
     //    compile 'cn.finalteam:galleryfinal:1.4.8.7'
     //agentweb
     compile 'com.just.agentweb:agentweb:1.0.3'
+
     //高德定位
     compile 'com.amap.api:location:latest.integration'
     //3D地图
     compile 'com.amap.api:3dmap:latest.integration'
     //2D地图
     compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
+
     //rongCloud融云
     implementation project(':imlib')
     //微信支付
@@ -128,6 +131,7 @@ dependencies {
         exclude group: 'com.android.support'
     }
     compile 'com.android.support:support-dynamic-animation:26.1.0'
+    compile 'com.github.lguipeng:AnimCheckBox:1.0.1'
     implementation('com.github.vondear.RxTool:RxFeature:v2.0.4') {
         exclude group: 'com.android.support'
     }

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background2"
     tools:context=".service_page.shop.CommunityMallActivity">
 
     <com.zhy.autolayout.AutoRelativeLayout
@@ -16,8 +15,8 @@
             android:id="@+id/bn_banner"
             android:layout_width="match_parent"
             android:layout_height="388px"
-            android:background="@mipmap/sc_banner"
-            app:banner_default_image="@mipmap/banner"
+            android:background="@drawable/banner"
+            app:banner_default_image="@drawable/banner"
             app:indicator_drawable_selected="@color/blue2"
             app:indicator_drawable_unselected="@color/white"
             app:indicator_height="12px"
@@ -45,6 +44,7 @@
                     android:src="@mipmap/back_white" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="55px"
                     android:layout_height="55px"
                     android:layout_alignParentRight="true"
@@ -59,45 +59,20 @@
     </com.zhy.autolayout.AutoRelativeLayout>
 
 
-    <!--<com.ogaclejapan.smarttablayout.SmartTabLayout-->
-    <!--android:id="@+id/st_tiappe"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="99px"-->
-    <!--android:paddingBottom="4dp"-->
-    <!--app:sapp_defaultTabTextColor="@color/text_6"-->
-    <!--app:sapp_distributeEvenly="true"-->
-    <!--app:sapp_indicatorColor="@color/blue2"-->
-    <!--app:sapp_indicatorCornerRadius="1.5dp"-->
-    <!--app:sapp_indicatorInterpolation="smart"-->
-    <!--app:sapp_indicatorThickness="3dp"-->
-    <!--/>-->
-    <!--apTabIndicatorColor 导航条的颜色-->
-    <!--apTabUnderlineColor Tab底部下划线的颜色-->
-    <!--apTabDividerColor 每个Tab之间的分割线颜色-->
-    <!--apTabstabTextSelectColor 被选中的Tab的文本字体颜色-->
-    <!--apTabIndicatorHeight 导航条的高度-->
-    <!--apTabUnderlineHeight Tab底部下划线的高度-->
-    <!--apTabDividerPadding Tab分割线的padding-->
-    <!--apTabPaddingLeftRight 每个Tab的左右padding-->
-    <!--apTabPaddingTopBottom 每个Tab的上下padding-->
-    <!--apTabScrollOffset 选中tab的滑动offset-->
-    <!--apTabBackground tab的背景-->
-    <!--apTabShouldExpand 伸缩情况，如果为真，每个tab都是相同的weight，默认是false-->
-    <!--apTabTextAllCaps Tab的文字是否为全部大写，如果是true就全部大写，默认为true-->
-    <!--apTabTextSelectColor 你所选择的那个tab的颜色-->
-    <!--apTabDrawMode 绘制模式，text或者normal，用于是否将下划线绘制为跟随TextView-->
-    <!--<com.lhh.apst.library.AdvancedPagerSlidingTabStrip-->
-    <!--app:apTabUnderlineColor="@color/line"-->
-    <!--app:apTabUnderlineHeight="2px"-->
-    <!--app:apTabIndicatorHeight="11px"-->
-    <!--app:apTabIndicatorColor="@color/blue2"-->
-    <!--app:apTabTextSelectColor="@color/blue2"-->
-    <!--android:textSize="33px"-->
-    <!--android:textColor="@color/text_6"-->
-    <!--android:id="@+id/st_tiappe2"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="99px"-->
-    <!--android:fillViewport="false"/>-->
+    <!--<com.ogaclejapan.smarttablayout.SmartTabLayout
+    android:id="@+id/st_tiappe"
+    android:layout_width="match_parent"
+    android:layout_height="99px"
+    android:paddingBottom="4dp"
+    app:sapp_defaultTabTextColor="@color/text_6"
+    app:sapp_distributeEvenly="true"
+    app:sapp_indicatorColor="@color/blue2"
+    app:sapp_indicatorCornerRadius="1.5dp"
+    app:sapp_indicatorInterpolation="smart"
+    app:sapp_indicatorThickness="3dp"
+    />-->
+
+    <!---->
 
     <!-- 指示器高度 -->
     <!--<attr name="indicatorHeight" format="dimension" />-->
@@ -111,14 +86,15 @@
     <!--<attr name="indicatorTextSize" format="dimension" />-->
     <!--&lt;!&ndash; 指示器文字被选中后的大小 &ndash;&gt;-->
     <!--<attr name="selectedIndicatorTextSize" format="dimension" />-->
-    <!--<com.danxx.tabstrip.FlymeTabStrip-->
-    <!--android:id="@+id/fts_tiappe"-->
-    <!--app:indicatorMargin="20dp"-->
-    <!--app:indicatorTextColor="@color/text_6"-->
-    <!--app:selectedIndicatorTextSize="16sp"-->
-    <!--app:indicatorColor="@color/blue2"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="99px"/>-->
+    <!--<com.danxx.tabstrip.FlymeTabStrip
+    android:id="@+id/fts_tiappe"
+    app:indicatorMargin="20dp"
+    app:indicatorTextColor="@color/text_6"
+    app:selectedIndicatorTextSize="16sp"
+    app:indicatorColor="@color/blue2"
+    android:layout_width="match_parent"
+    android:layout_height="99px"/>-->
+
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/ctl_title"
         android:layout_width="match_parent"
@@ -143,7 +119,6 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/shop_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="28px" />
+        android:layout_height="match_parent" />
 
 </com.zhy.autolayout.AutoLinearLayout>
