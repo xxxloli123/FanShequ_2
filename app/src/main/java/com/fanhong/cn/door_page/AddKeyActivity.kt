@@ -72,6 +72,7 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val s=""
         setContentView(R.layout.activity_add_key)
         mSharedPref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         uid = mSharedPref?.getString(App.PrefNames.USERID, "-1")
