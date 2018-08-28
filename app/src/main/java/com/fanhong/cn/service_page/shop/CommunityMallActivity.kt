@@ -130,4 +130,5 @@ class CommunityMallActivity : AppCompatActivity() {
                     }
                 })
     }
+
 }

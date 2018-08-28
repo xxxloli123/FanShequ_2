@@ -47,11 +47,216 @@
     </com.zhy.autolayout.AutoRelativeLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
+        android:background="@color/white"
+        android:padding="11dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ScrollView
+        android:layout_height="wrap_content">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/all_integrate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_marginRight="22dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_fraction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.6"
+                    android:textColor="@color/blue2"
+                    android:textSize="33sp" />
+
+                <TextView
+                    android:text="物业评分"
+                    android:textColor="@color/text_9"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginRight="3dp"
+                        android:text="服务"
+                        android:textColor="@color/text_9"
+                        android:textSize="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/srb_service"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_numStars="5"
+                        app:srb_drawableEmpty="@mipmap/uncheck"
+                        app:srb_drawableFilled="@mipmap/stars"
+                        app:srb_minimumStars="0"
+                        app:srb_rating="4.5"
+                        app:srb_starWidth="13dp"
+                        app:srb_starHeight="13dp"
+                        app:srb_starPadding="3dp"
+                        app:srb_stepSize="0.5"
+                        app:srb_isIndicator="false"
+                        app:srb_clickable="false"
+                        app:srb_scrollable="false"
+                        app:srb_clearRatingEnabled="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_service"
+                        android:layout_marginLeft="12dp"
+                        android:text="4.6"
+                        android:textColor="@color/text_9"
+                        android:textSize="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.zhy.autolayout.AutoLinearLayout>
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginRight="3dp"
+                        android:text="消防"
+                        android:textColor="@color/text_9"
+                        android:textSize="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/srb_fire_control"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_numStars="5"
+                        app:srb_drawableEmpty="@mipmap/uncheck"
+                        app:srb_drawableFilled="@mipmap/stars"
+                        app:srb_minimumStars="0"
+                        app:srb_starWidth="13dp"
+                        app:srb_starHeight="13dp"
+                        app:srb_starPadding="3dp"
+                        app:srb_stepSize="0.5"
+                        app:srb_isIndicator="false"
+                        app:srb_clickable="false"
+                        app:srb_scrollable="false"
+                        app:srb_clearRatingEnabled="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_fire_control"
+                        android:layout_marginLeft="12dp"
+                        android:text="4.6"
+                        android:textColor="@color/text_9"
+                        android:textSize="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.zhy.autolayout.AutoLinearLayout>
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginRight="3dp"
+                        android:text="环境"
+                        android:textColor="@color/text_9"
+                        android:textSize="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/srb_environment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_numStars="5"
+                        app:srb_drawableEmpty="@mipmap/uncheck"
+                        app:srb_drawableFilled="@mipmap/stars"
+                        app:srb_minimumStars="0"
+                        app:srb_rating="4.5"
+                        app:srb_starWidth="13dp"
+                        app:srb_starHeight="13dp"
+                        app:srb_starPadding="3dp"
+                        app:srb_stepSize="0.5"
+                        app:srb_isIndicator="false"
+                        app:srb_clickable="false"
+                        app:srb_scrollable="false"
+                        app:srb_clearRatingEnabled="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_environment"
+                        android:layout_marginLeft="12dp"
+                        android:text="4.6"
+                        android:textColor="@color/text_9"
+                        android:textSize="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <View
+                    android:layout_margin="6dp"
+                    android:background="@color/line"
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"/>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_satisfaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="66%"
+                    android:textColor="@color/blue2"
+                    android:textSize="33sp" />
+
+                <TextView
+                    android:text="满意度"
+                    android:textColor="@color/text_9"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <ImageView
+            android:id="@+id/img_integrate"
             android:visibility="gone"
-            android:id="@+id/scroll_view"
+            android:adjustViewBounds="true"
+            android:src="@drawable/myqdwf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.zhy.autolayout.AutoLinearLayout
@@ -59,78 +264,82 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="match_parent">
-                <com.zhy.autolayout.AutoRelativeLayout
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/all_questionnaire2"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.zhy.autolayout.AutoRelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_questionnaire_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </com.zhy.autolayout.AutoRelativeLayout>
+
+                    <TextView
+                        android:textSize="33px"
+                        android:textColor="@color/text_6"
+                        android:layout_marginTop="33px"
+                        android:text="请留下你的宝贵意见"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:gravity="top"
+                        android:layout_marginTop="24px"
+                        android:id="@+id/edt_opinion"
+                        android:layout_width="match_parent"
+                        android:layout_height="250px"
+                        android:background="@drawable/shape_comment_choose_bg2"
+                        android:hint="我们会认真阅读您的建议"
+                        android:padding="12px"
+                        android:textColor="@color/text_6"
+                        android:textColorHint="@color/text_9"
+                        android:textSize="28px" />
+
+                    <com.fanhong.cn.view.StateButton
+                        android:onClick="submit"
+                        android:layout_margin="11dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="提交"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:radius2="12dp"
+                        app:normalBackgroundColor="@color/blue3"
+                        app:pressedBackgroundColor="@color/dark_blue3"
+                        app:unableBackgroundColor="@color/dark_blue3" />
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="全部评价"
+                        android:textColor="@color/text_6"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_questionnaire_list"
-                        android:layout_weight="1"
+                        android:id="@+id/rv_list_comment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </android.support.v7.widget.RecyclerView>
-
-                </com.zhy.autolayout.AutoRelativeLayout>
-
-                <TextView
-                    android:textSize="33px"
-                    android:textColor="@color/text_6"
-                    android:layout_marginTop="33px"
-                    android:text="请留下你的宝贵意见"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:gravity="top"
-                    android:layout_marginTop="24px"
-                    android:id="@+id/edt_opinion"
-                    android:layout_width="match_parent"
-                    android:layout_height="250px"
-                    android:background="@drawable/shape_comment_choose_bg2"
-                    android:hint="我们会认真阅读您的建议"
-                    android:padding="12px"
-                    android:textColor="@color/text_6"
-                    android:textColorHint="@color/text_9"
-                    android:textSize="28px" />
-
-                <Button
-                    android:onClick="submit"
-                    android:text="提交"
-                    android:id="@+id/btn_register_commit"
-                    android:layout_width="match_parent"
-                    android:layout_height="88px"
-                    android:layout_margin="44px"
-                    android:background="@mipmap/button_background"
-                    android:textColor="@color/white"
-                    android:textSize="19.0sp" />
+                        android:layout_height="wrap_content"/>
+                </com.zhy.autolayout.AutoLinearLayout>
 
             </com.zhy.autolayout.AutoLinearLayout>
 
         </ScrollView>
-
-        <com.zhy.autolayout.AutoLinearLayout
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:paddingTop="122px"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:adjustViewBounds="true"
-                android:src="@drawable/pj"
-                android:layout_width="333px"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_marginTop="66px"
-                android:text="您已参与过本次问卷调查了"
-                android:textColor="@color/text_6"
-                android:textSize="26px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </com.zhy.autolayout.AutoLinearLayout>
-
     </com.zhy.autolayout.AutoLinearLayout>
-
 
 </com.zhy.autolayout.AutoLinearLayout>

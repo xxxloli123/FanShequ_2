@@ -20,6 +20,7 @@ import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.login_pages.LoginActivity
 import com.fanhong.cn.tools.JsonSyncUtils
+import com.vondear.rxtool.view.RxToast
 import com.zhy.autolayout.AutoRelativeLayout
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_goods_details.*
@@ -78,14 +79,13 @@ class GoodsDetailsActivity : AppCompatActivity() {
             refreshDiscuss(1)
         }
 
-        layout_addCar.setOnClickListener {
+        tv_add_to_car.setOnClickListener {
             if (!isLoged()) {
                 AlertDialog.Builder(this).setMessage("请先登录！").setPositiveButton("立即登录", { _, _ ->
                     startActivity(Intent(this@GoodsDetailsActivity, LoginActivity::class.java))
                 }).setNegativeButton("取消", null).show()
                 return@setOnClickListener
             }
-            showAddAnim()
             addToCar()
         }
         btn_buyNow.setOnClickListener {
@@ -186,6 +186,7 @@ class GoodsDetailsActivity : AppCompatActivity() {
                 count = countBox.maxSize
             existGoods.count = count
             App.db.saveOrUpdate(existGoods)
+            RxToast.success("已添加到购物车")
         }
         Log.e("TestLog", "newGoods:$existGoods")
 //        existGoods = App.db.selector(GoodsCarTable::class.java).where("c_id", "=", gid).findFirst()

@@ -13,6 +13,7 @@ import android.widget.*
 import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.myviews.CountBox
+import com.vondear.rxtool.view.RxToast
 import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_shop_car.*
 import kotlinx.android.synthetic.main.activity_top.*
@@ -36,8 +37,6 @@ class ShopCarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shop_car)
         tv_title.text = "购物车"
         img_back.setOnClickListener { finish() }
-
-
         btn_buyNow.setOnClickListener {
             if (total > 0) {
                 val i = Intent(this, OrderConfirmActivity::class.java)
@@ -54,10 +53,15 @@ class ShopCarActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         goods.clear()
-        goods += App.db.selector(GoodsCarTable::class.java).where("c_uid", "=", getUid()).findAll()
-        lv_car.adapter = GoodsAdapter(this, goods).setTotalChangeListener { total ->
-            tv_goods_total.text = "￥$total"
-        }
+        goods += App.db.selector(GoodsCarTable::class.java).where("c_uid",
+                "=", getUid()).findAll()
+        lv_car.adapter = GoodsAdapter(this, goods,
+                object : GoodsAdapter.OnTotalChange {
+                    override fun onTotalChange(total: Float) {
+                        tv_goods_total.text = "￥$total"
+                    }
+                })
+
         total = 0f
         total = App.db.selector(GoodsCarTable::class.java).where("c_select", "=", true).and("c_uid", "=", getUid()).findAll()
                 .map { it.count * it.price.toFloat() }
@@ -66,14 +70,16 @@ class ShopCarActivity : AppCompatActivity() {
         tv_goods_total.text = "￥$total"
     }
 
-    private class GoodsAdapter(val context: Context, val list: MutableList<GoodsCarTable>) : BaseAdapter() {
+    private class GoodsAdapter(val context: Context, val list: MutableList<GoodsCarTable>,
+                               val onTotalChangeListener: OnTotalChange) : BaseAdapter() {
         private val option = ImageOptions.Builder().setUseMemCache(true).setFailureDrawableId(R.mipmap.img_default).setFailureDrawableId(R.mipmap.img_default).build()
-        private var onTotalChangeListener: OnTotalChange? = null
+        //        private var onTotalChangeListener: OnTotalChange? = null
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val holder: ViewHolder
             val view: View =
                     if (null == convertView) {
-                        val view = LayoutInflater.from(context).inflate(R.layout.item_goods_car, parent, false)
+                        val view = LayoutInflater.from(context)
+                                .inflate(R.layout.item_goods_car, parent, false)
                         holder = ViewHolder(view)
                         view.tag = holder
                         view
@@ -89,7 +95,8 @@ class ShopCarActivity : AppCompatActivity() {
             holder.tvPrice?.text = "￥${data.price}"
             holder.tvUnit?.text = data.unit
             holder.countBox?.count = data.count
-            holder.check?.setOnCheckedChangeListener { _, isChecked ->
+            holder.check?.setOnClickListener {
+                val isChecked=holder.check!!.isChecked
                 val sum = holder.countBox!!.count * data.price.toFloat()
                 if (isChecked) {
                     total += sum
@@ -98,8 +105,11 @@ class ShopCarActivity : AppCompatActivity() {
                 }
                 total = (Math.round(total * 100)).toFloat() / 100
                 data.select = isChecked
-                App.db.update(GoodsCarTable::class.java, WhereBuilder.b("c_id", "=", data.gid).and("c_uid", "=", uid), KeyValue("c_select", isChecked))
                 onTotalChangeListener?.onTotalChange(total)
+                App.db.update(GoodsCarTable::class.java, WhereBuilder.
+                        b("c_id", "=", data.gid).
+                        and("c_uid", "=", uid),
+                        KeyValue("c_select", isChecked))
             }
             holder.btnClose?.setOnClickListener {
                 AlertDialog.Builder(context).setMessage("是否删除此项？").setPositiveButton("确定") { _, _ ->
@@ -132,6 +142,23 @@ class ShopCarActivity : AppCompatActivity() {
 //                (context as Activity).runOnUiThread { notifyDataSetChanged() }
             }
             view.setOnClickListener {
+                holder.check!!.isChecked=!holder.check!!.isChecked
+                val isChecked=holder.check!!.isChecked
+                val sum = holder.countBox!!.count * data.price.toFloat()
+                if (isChecked) {
+                    total += sum
+                } else {
+                    total -= sum
+                }
+                total = (Math.round(total * 100)).toFloat() / 100
+                data.select = isChecked
+                onTotalChangeListener?.onTotalChange(total)
+                App.db.update(GoodsCarTable::class.java, WhereBuilder.
+                        b("c_id", "=", data.gid).
+                        and("c_uid", "=", uid),
+                        KeyValue("c_select", isChecked))
+            }
+            holder.tvDescription!!.setOnClickListener {
                 val intent = Intent(context, GoodsDetailsActivity::class.java)
                 intent.putExtra("id", data.gid)
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
@@ -174,17 +201,20 @@ class ShopCarActivity : AppCompatActivity() {
             }
         }
 
-        private interface OnTotalChange {
+        interface OnTotalChange {
             fun onTotalChange(total: Float)
         }
 
-        fun setTotalChangeListener(onTotalChange: (total: Float) -> Unit): GoodsAdapter {
-            onTotalChangeListener = object : OnTotalChange {
-                override fun onTotalChange(total: Float) {
-                    onTotalChange(total)
-                }
-            }
-            return this
+        /***
+         * fun setTotalChangeListener(onTotalChange: (total: Float) -> Unit): GoodsAdapter {
+        onTotalChangeListener = object : OnTotalChange {
+        override fun onTotalChange(total: Float) {
+        onTotalChange(total)
         }
+        }
+        return this
+        }
+         */
+
     }
 }

@@ -67,7 +67,8 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
             }
             R.id.all_questionnaire -> {
                 if (isLogged()){
-                    if (pref.getString(App.PrefNames.GARDENID, "")!="-1"){
+                    if (tv_position.text.toString() != "选择小区" &&
+                            !tv_position.text.toString().isEmpty()){
                         startActivity(Intent(activity, QuestionnaireActivity::class.java))
                     }else ToastUtil.showToastL("你还没有选择小区")
                 }
@@ -75,7 +76,8 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
             }
             R.id.all_repair_owner -> {
                 if (isLogged()) {
-                    if (pref.getString(App.PrefNames.GARDENID, "")!="-1"){
+                    if (tv_position.text.toString() != "选择小区" &&
+                            !tv_position.text.toString().isEmpty()){
                         val intent = Intent(activity, FillOrderActivity::class.java)
                         intent.putExtra("owner",666)
                         startActivity(intent)

@@ -45,7 +45,6 @@
         app:srb_isIndicator="false"
         app:srb_clickable="true"
         app:srb_scrollable="true"
-        app:srb_clearRatingEnabled="true">
-    </com.willy.ratingbar.ScaleRatingBar>
+        app:srb_clearRatingEnabled="true"/>
 
 </com.zhy.autolayout.AutoLinearLayout>

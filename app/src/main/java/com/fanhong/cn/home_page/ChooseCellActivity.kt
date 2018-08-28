@@ -15,6 +15,7 @@ import com.fanhong.cn.home_page.adapters.SortAdapter
 import com.fanhong.cn.home_page.models.SortModel
 import com.fanhong.cn.myviews.SideBar
 import com.fanhong.cn.tools.CharacterParser
+import com.fanhong.cn.tools.LogUtil
 import kotlinx.android.synthetic.main.activity_choosecell.*
 import kotlinx.android.synthetic.main.activity_top.*
 import org.json.JSONException
@@ -54,6 +55,7 @@ class ChooseCellActivity : AppCompatActivity() {
             }
 
             override fun onSuccess(result: String) {
+                LogUtil.e("getGardenName", result)
                 try {
                     var array = JSONObject(result).getJSONArray("data")
                     (0 until array.length())

@@ -72,7 +72,7 @@ class DoorFragment : Fragment() {
      * 获取状态栏高度
      * @return
      */
-    fun  getStatusBar(): Int {
+    private fun  getStatusBar(): Int {
         /**
          * 获取状态栏高度
          */

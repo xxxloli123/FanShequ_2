@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_head"
+                android:layout_width="33dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/portrait" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_weight="1"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:textColor="@color/text_6"
+                    android:text="蕉迟但到"
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="6dp"
+                        android:textSize="12dp"
+                        android:text="评分"
+                        android:textColor="@color/text_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/simpleRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_numStars="5"
+                        app:srb_drawableEmpty="@mipmap/uncheck"
+                        app:srb_drawableFilled="@mipmap/stars"
+                        app:srb_minimumStars="0"
+                        app:srb_starWidth="13dp"
+                        app:srb_starHeight="13dp"
+                        app:srb_starPadding="3dp"
+                        app:srb_stepSize="0.5"
+                        app:srb_isIndicator="false"
+                        app:srb_clickable="false"
+                        app:srb_scrollable="false"
+                        app:srb_clearRatingEnabled="true"/>
+                </com.zhy.autolayout.AutoLinearLayout>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_marginTop="2dp"
+                android:textSize="12dp"
+                android:text="2333.33.33"
+                android:textColor="@color/text_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_marginRight="6dp"
+            android:textColor="@color/text_6"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="39dp"
+            android:text="蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到"
+            android:textSize="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+</LinearLayout>

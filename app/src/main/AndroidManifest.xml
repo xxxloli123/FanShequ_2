@@ -66,7 +66,9 @@
         <activity android:name=".user_page.OrderListActivity" />
         <activity android:name=".user_page.OrderDetailsActivity" />
         <activity android:name=".user_page.EvaluateActivity" />
-        <activity android:name=".user_page.ScoreActivity" />
+        <activity android:name=".user_page.ScoreActivity"
+            android:theme="@style/MyTheme"/>
+
         <activity android:name=".user_page.ScoreCashActivity" />
         <activity android:name=".user_page.shippingaddress.AddAddressActivity" />
         <activity android:name=".user_page.shippingaddress.MyAddressActivity" />

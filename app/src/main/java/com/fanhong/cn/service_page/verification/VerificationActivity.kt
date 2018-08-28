@@ -3,6 +3,7 @@ package com.fanhong.cn.service_page.verification
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -26,13 +27,18 @@ import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
 import com.amap.api.maps.LocationSource
-import com.amap.api.maps.model.BitmapDescriptorFactory
-import com.amap.api.maps.model.LatLng
-import com.amap.api.maps.model.Marker
-import com.amap.api.maps.model.MarkerOptions
+import com.amap.api.maps.model.*
+import com.amap.api.maps.model.animation.TranslateAnimation
 import com.amap.api.maps2d.CameraUpdateFactory
 import com.amap.api.maps2d.model.MyLocationStyle
 import com.amap.api.maps2d.model.Text
+import com.amap.api.services.core.AMapException
+import com.amap.api.services.core.LatLonPoint
+import com.amap.api.services.core.PoiItem
+import com.amap.api.services.geocoder.GeocodeResult
+import com.amap.api.services.geocoder.GeocodeSearch
+import com.amap.api.services.geocoder.RegeocodeQuery
+import com.amap.api.services.geocoder.RegeocodeResult
 import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.tools.JsonSyncUtils
@@ -44,7 +50,28 @@ import org.xutils.http.RequestParams
 import org.xutils.x
 import java.util.*
 
-class VerificationActivity : AppCompatActivity(), AMapLocationListener, LocationSource {
+class VerificationActivity : AppCompatActivity(), AMapLocationListener, LocationSource,
+        GeocodeSearch.OnGeocodeSearchListener{
+    override fun onRegeocodeSearched(result: RegeocodeResult?, rCode: Int) {
+        if (rCode == AMapException.CODE_AMAP_SUCCESS) {
+            if (result?.regeocodeAddress != null
+                    && result.regeocodeAddress.formatAddress != null) {
+                val address =  (result.regeocodeAddress.city
+                        + result.regeocodeAddress.district
+                        + result.regeocodeAddress.streetNumber.street
+                        + result.regeocodeAddress.streetNumber.number
+                        +(result.regeocodeAddress.pois[0])
+                        )
+                default_location.setText(address)
+            }
+        } else {
+            Toast.makeText(this@VerificationActivity, "error code is $rCode", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
+    }
+
     private var bundle: Bundle? = null
     private var mListener: LocationSource.OnLocationChangedListener? = null
     private var mlocationClient: AMapLocationClient? = null
@@ -52,6 +79,8 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
 
     private var aMap: AMap? = null
     private var locationMarker: Marker? = null
+    private var searchLatlonPoint: LatLonPoint? = null
+    private var geocoderSearch: GeocodeSearch? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +132,8 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>
+                                            , grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 100) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -117,13 +147,65 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
     }
 
     private fun init(savedInstanceState: Bundle?) {
+        geocoderSearch = GeocodeSearch(this)
+        geocoderSearch!!.setOnGeocodeSearchListener(this)
         gaode_map.onCreate(savedInstanceState)
         if (aMap == null) {
             aMap = gaode_map.map
             setUpMap()
         }
         aMap!!.setOnMapLoadedListener { addMarkerInScreenCenter(null) }
+        aMap!!.setOnCameraChangeListener(object :AMap.OnCameraChangeListener{
+            override fun onCameraChangeFinish(cameraPosition: CameraPosition) {
+                geoAddress()
+                startJumpAnimation()
+                searchLatlonPoint = LatLonPoint(cameraPosition.target.latitude, cameraPosition.target.longitude)
+            }
 
+            override fun onCameraChange(p0: CameraPosition?) {
+            }
+        })
+    }
+
+    fun startJumpAnimation() {
+        if (locationMarker != null) {
+            //根据屏幕距离计算需要移动的目标点
+            val latLng = locationMarker!!.position
+            val point = aMap!!.projection.toScreenLocation(latLng)
+            point.y -= dip2px(this, 125f)
+            val target = aMap!!.projection
+                    .fromScreenLocation(point)
+            //使用TranslateAnimation,填写一个需要移动的目标点
+            val animation = TranslateAnimation(target)
+            animation.setInterpolator { input ->
+                // 模拟重加速度的interpolator
+                if (input <= 0.5) {
+                    (0.5f - 2.0 * (0.5 - input) * (0.5 - input)).toFloat()
+                } else {
+                    (0.5f - Math.sqrt(((input - 0.5f) * (1.5f - input)).toDouble())).toFloat()
+                }
+            }
+            //整个移动所需要的时间
+            animation.setDuration(600)
+            //设置动画
+            locationMarker!!.setAnimation(animation)
+            //开始动画
+            locationMarker!!.startAnimation()
+
+        } else {
+            Log.e("ama", "screenMarker is null")
+        }
+    }
+    //dip和px转换
+    private fun dip2px(context: Context, dpValue: Float): Int {
+        val scale = context.resources.displayMetrics.density
+        return (dpValue * scale + 0.5f).toInt()
+    }
+    fun geoAddress() {
+        if (searchLatlonPoint != null) {
+            val query = RegeocodeQuery(searchLatlonPoint, 200f, GeocodeSearch.AMAP)// 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
+            geocoderSearch!!.getFromLocationAsyn(query)
+        }
     }
     private fun addMarkerInScreenCenter(locationLatLng: LatLng?) {
         val latLng = aMap!!.cameraPosition.target
@@ -141,10 +223,12 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
      * 设置一些amap的属性
      */
     private fun setUpMap() {
+//        aMap!!.uiSettings.isZoomControlsEnabled = false
         aMap!!.setLocationSource(this)// 设置定位监听
         aMap!!.uiSettings.isMyLocationButtonEnabled = true// 设置默认定位按钮是否显示
         aMap!!.isMyLocationEnabled = true// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
 //        setupLocationStyle()
+        aMap!!.setMyLocationType(AMap.LOCATION_TYPE_LOCATE)
     }
 
     /**
@@ -350,8 +434,9 @@ class VerificationActivity : AppCompatActivity(), AMapLocationListener, Location
                 //                Log.i("xq","BuildingId==>"+aMapLocation.getBuildingId());
                 //                Log.i("xq","Floor==>"+aMapLocation.getFloor());
 
-                val strings = aMapLocation.address.split("靠近".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-                default_location.setText(strings[0])
+//                val strings = aMapLocation.address.split("靠近".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+                val strings2 = aMapLocation.address.substring(0,aMapLocation.address.indexOf("靠"))
+                default_location.setText(strings2)
                 default_location.isFocusable = true
                 mListener!!.onLocationChanged(aMapLocation)// 显示系统小蓝点
                 val curLatlng = LatLng(aMapLocation.latitude, aMapLocation.longitude)

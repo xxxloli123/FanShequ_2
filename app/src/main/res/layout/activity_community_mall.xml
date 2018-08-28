@@ -94,9 +94,7 @@
     app:indicatorColor="@color/blue2"
     android:layout_width="match_parent"
     android:layout_height="99px"/>-->
-
-    <com.flyco.tablayout.CommonTabLayout
-        android:id="@+id/ctl_title"
+<!--<com.flyco.tablayout.CommonTabLayout
         android:layout_width="match_parent"
         android:layout_height="33dp"
         android:layout_marginLeft="11dp"
@@ -109,12 +107,27 @@
         app:tl_textBold="SELECT"
         app:tl_textSelectColor="@color/blue2"
         app:tl_textUnselectColor="@color/text_6"
-        app:tl_textsize="16dp" />
+        app:tl_textsize="16dp" />-->
 
-    <View
+    <com.flyco.tablayout.CommonTabLayout
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        app:tl_tab_space_equal="true"
+        app:tl_textUnselectColor="@color/text_6"
+        android:id="@+id/ctl_title"
+        app:tl_indicator_color="@color/blue2"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:tl_iconVisible="false"
+        app:tl_indicator_margin_left="5dp"
+        app:tl_indicator_margin_right="5dp"
+        app:tl_indicator_style="BLOCK"
+        app:tl_textsize="16dp"/>
+    <!--<View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray2" />
+        android:background="@color/gray2" />-->
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/shop_viewpager"
