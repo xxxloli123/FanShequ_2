@@ -91,7 +91,7 @@ class AddKeyActivity : TakePhotoActivity(), MyRecyclerAdapter.Callback {
         }
         initViews()
         val params = HashMap<String, String>()
-//        appType	i32	App类型（1:安卓手机，2:ios手机，3:安卓开发板）
+//        appType	i32	App类型（1:安卓手机，2:ios手机，3:安卓开发板
         params["appType"] = "1"
 //        token	string	Token：加密字符串（加密方式：MD5-32位，加密方法：将userId进行MD5加密等于token）
         params["token"] = RxTool.Md5(uid!!)
