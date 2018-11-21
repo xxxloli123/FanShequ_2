@@ -208,6 +208,13 @@
                 android:text="提 交"
                 android:textColor="@color/white"
                 android:textSize="38px" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/edt_debug"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
         </com.zhy.autolayout.AutoLinearLayout>
+
     </ScrollView>
 </com.zhy.autolayout.AutoLinearLayout>

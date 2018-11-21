@@ -36,4 +36,19 @@
         android:text="@string/copyright"
         android:textColor="@color/text_9"
         android:textSize="28px" />
+
+    <TextView
+        android:onClick="surprise"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/imgLogo"
+        android:layout_width="66dp"
+        android:layout_height="66dp" />
+
+    <TextView
+        android:textIsSelectable="true"
+        android:visibility="gone"
+        android:layout_below="@+id/imgLogo"
+        android:id="@+id/egg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </com.zhy.autolayout.AutoRelativeLayout>

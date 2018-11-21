@@ -64,4 +64,11 @@
         <item name="colorControlNormal">@color/gray</item>
         <item name="colorControlActivated">@color/green</item>
     </style>
+
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <!-- colorControlNormal MyEditText下划线颜色   -->
+        <item name="colorControlNormal">@color/white</item>
+        <!-- colorControlActivated MyEditText 输入闪烁光标颜色   -->
+        <item name="colorControlActivated">@color/blue2</item>
+    </style>
 </resources>

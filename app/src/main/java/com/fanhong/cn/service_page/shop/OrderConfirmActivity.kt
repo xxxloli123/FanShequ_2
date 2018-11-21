@@ -141,9 +141,9 @@ class OrderConfirmActivity : AppCompatActivity() {
 
     private fun onCommit() {
         if (!isLoged()) {
-            AlertDialog.Builder(this).setMessage("请先登录！").setPositiveButton("立即登录", { _, _ ->
+            AlertDialog.Builder(this).setMessage("请先登录！").setPositiveButton("立即登录") { _, _ ->
                 startActivity(Intent(this@OrderConfirmActivity, LoginActivity::class.java))
-            }).setNegativeButton("取消", null).show()
+            }.setNegativeButton("取消", null).show()
             return
         }
         if (addrId == "-1") {

@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import com.fanhong.cn.App
 import com.fanhong.cn.R
+import com.fanhong.cn.help.RxRegTool
 import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.tools.*
 import com.lzy.okgo.OkGo
@@ -51,7 +52,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun register2() {
         val name = edt_username.text.toString().trim()
-        if (!StringUtils.validPhoneNum("0", name)) {
+        if (!RxRegTool.isMobile(name)) {
             ToastUtil.showToastL("请输入正确的电话号码！")
             return
         }
@@ -123,7 +124,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun resetPwd() {
         val name = edt_username.text.toString().trim()
-        if (!StringUtils.validPhoneNum("0", name)) {
+        if (!RxRegTool.isMobile(name)) {
             ToastUtil.showToastL("请输入正确的电话号码！")
             return
         }
@@ -237,7 +238,7 @@ class RegisterActivity : AppCompatActivity() {
 
     fun onGetCode(v: View) {
         val phoneNo = edt_username.text.toString().trim()
-        if (StringUtils.validPhoneNum("0", phoneNo)) {
+        if (RxRegTool.isMobile(phoneNo)) {
             App.lastCodeMsgTime = System.currentTimeMillis()
             Thread(runnable).start()
             val param = RequestParams(App.CMD)

@@ -161,6 +161,7 @@ class DoorFragment : Fragment() {
             }
 
             override fun onSuccess(result: String?) {
+                Log.e(TAG, "125::$result")
                 try {
                     var array = JSONObject(result).getJSONArray("data")
                     if (array.length() > 0) {
@@ -177,6 +178,8 @@ class DoorFragment : Fragment() {
                                             .forEach {
                                                 var model = Keymodel(it.optString("bname"),
                                                         it.optString("key"),
+                                                        it.optString("id"),
+                                                        it.optString("dizhi"),
                                                         false,
                                                         it.optInt("sh"))
                                                 childList.add(model)

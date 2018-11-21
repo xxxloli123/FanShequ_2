@@ -26,7 +26,6 @@ import org.xutils.x
 import java.util.*
 import kotlin.Comparator
 
-
 /**
  * Created by Administrator on 2018/1/17.
  */
@@ -81,6 +80,7 @@ class ChooseCellActivity : AppCompatActivity() {
 
     private fun initViews() {
         characterParser = CharacterParser.instance
+
         sidebar.setTextView(dialog)
         sidebar.setOnLetterChangedListener(object : SideBar.OnLetterChangedListener {
             override fun onLetterChanged(s: String) {

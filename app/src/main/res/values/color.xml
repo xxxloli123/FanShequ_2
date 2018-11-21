@@ -37,6 +37,9 @@
     <color name="gray3">#9C9C9C</color>
     <color name="gray4">#363636</color>
     <color name="gray5">#F4F5F9</color>
+    <color name="gray6_EDEDED">#EDEDED</color>
+    <color name="gray7_ECECEC">#ECECEC</color>
+    <color name="gray8_E6E6E6">#E6E6E6</color>
     <color name="grayD">#DDDDDD</color>
 
     <color name="radioback">#7fd4ff</color>
@@ -47,6 +50,7 @@
     <color name="blue2">#1983d1</color>
     <color name="blue3">#3097E3</color>
     <color name="blue4">#278EDB</color>
+    <color name="blue5">#2699EE</color>
     <color name="dark_blue3">#1A78C2</color>
     <color name="line">#cccccc</color>
     <color name="background">#ECE7E6</color>

@@ -73,7 +73,7 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                                         ri.imgUrls= ArrayList()
                                         for (a in 0 until  jsonArray.length()){
                                             if (!jsonArray[a].toString().isEmpty()){
-                                                ri.imgUrls.add((jsonArray[a].toString())
+                                                ri.imgUrls!!.add((jsonArray[a].toString())
                                                         .replace("\\", ""))
                                             }
                                         }
@@ -86,15 +86,14 @@ class RepairInfoListActivity : AppCompatActivity(),RepairInfoAdapter.Callback {
                                     }
                                 }
                                 showRIlist(allRI)
-
                             }else PromptDialog(this@RepairInfoListActivity).showError("获取失败")
-
                         } catch (e: JSONException) {
                             LogUtil.e("JSONException",e.toString())
                             ToastUtil.showToastL("数据解析异常")
                             e.printStackTrace()
                         }
                     }
+
                     override fun onError(response: Response<String>) {
                         Log.e("OkGoError",response.exception.toString())
                         AlertDialog.Builder(this@RepairInfoListActivity).setMessage("获取失败！ 是否重试?")

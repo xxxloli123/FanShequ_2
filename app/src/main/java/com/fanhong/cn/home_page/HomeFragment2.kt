@@ -22,6 +22,7 @@ import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.login_pages.LoginActivity
 import com.fanhong.cn.service_page.express.ExpressHomeActivity
 import com.fanhong.cn.service_page.questionnaire.QuestionnaireActivity
+import com.fanhong.cn.service_page.questionnaire.QuestionnaireFActivity
 import com.fanhong.cn.service_page.repair.FillOrderActivity
 import com.fanhong.cn.service_page.shop.CommunityMallActivity
 import com.fanhong.cn.service_page.usedshop.UsedShopActivity
@@ -56,6 +57,31 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
     private var banners= ArrayList<Banner>()
     private  var adapter: ActivitiesAdapter? = null
 
+    private fun check() {
+        OkGo.post<String>(App.CMD)
+                .tag(this)//
+                .isMultipart(true)
+                //        1067 查询是否评价物业（app->平台）
+                //        cmd:数据类型
+                //        uid：当前用户ID
+//                        qid:小区id
+                .params("cmd", "1067")
+                .params("uid", pref!!.getString(App.PrefNames.USERID, "-1"))
+                .params("qid", pref!!.getString(App.PrefNames.GARDENID, ""))
+                .execute(object : StringDialogCallback(this.activity!!) {
+                    override fun onSuccess(response: Response<String>) {
+                        Log.e("OkGo 1067", response.body().toString())
+                        if (response.body().toString().contains("\"state\":\"200\"")) {
+                            startActivity(Intent(activity,QuestionnaireActivity::class.java))
+                        } else startActivity(Intent(activity,QuestionnaireFActivity::class.java))
+                    }
+
+                    override fun onError(response: Response<String>) {
+                        Log.e("OkGoError", response.exception.toString())
+                    }
+                })
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tv_position -> {
@@ -69,7 +95,7 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
                 if (isLogged()){
                     if (tv_position.text.toString() != "选择小区" &&
                             !tv_position.text.toString().isEmpty()){
-                        startActivity(Intent(activity, QuestionnaireActivity::class.java))
+                        check()
                     }else ToastUtil.showToastL("你还没有选择小区")
                 }
                 else notLogin()
@@ -132,8 +158,7 @@ class HomeFragment2 : Fragment(),View.OnClickListener,ActivitiesAdapter.Callback
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         pref = activity!!.getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
-        if (!pref.getString(App.PrefNames.GARDENNAME, "").isEmpty())
-        tv_position.text=pref.getString(App.PrefNames.GARDENNAME, "")
+        tv_position.text=pref.getString(App.PrefNames.GARDENNAME, "选择小区")
         all_repair.setOnClickListener(this)
         all_repair_owner.setOnClickListener(this)
         tv_position.setOnClickListener(this)

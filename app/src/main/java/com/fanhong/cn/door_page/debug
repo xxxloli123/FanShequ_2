@@ -1,0 +1,36 @@
+"{timestamp=>1541037874, appType=1, userId=133,
+signature=404a0b70d5c5d1acb036d345103019507bcb3acfa54cdab0e8b0b1670de17e7c,
+ token=9fc3d7152ba9336a670e36d0ed79bc43, nonce=2edec5a2-8}"
+    标识符错误
+
+    "{timestamp=>1541038689, appType=>1, userId=>133,
+    signature=>3f65ad2ec73b1a1c99d88857b450a44f11f3ce3ba32e182fa689278feec96c27,
+     token=>9fc3d7152ba9336a670e36d0ed79bc43, nonce=>b851211f-0}"
+        string(1) "{"
+        标识符错误
+
+1012: string(187) ""{timestamp=>1541039119, appType=>1,userId=>133,
+signature=>a1777609f251b7257375228cb70df8d26419957e4501bebec37c1dc4eb4578b5,
+ token=>9fc3d7152ba9336a670e36d0ed79bc43, nonce=>c2d19030-4}""
+
+ header=[{"timestamp":"1541056622","appType":"1","userId":"133","signature":
+ "80e6a049d8cbe7fca62437c50038a374c91a8565aa0a1e3fe2da47dca942633f","token":
+ "9fc3d7152ba9336a670e36d0ed79bc43","nonce":"2a08715c-e"}]&
+ communityId=[33]&communityDoorId=[411]&picName=[meizu_fhd_num_percent.png]&
+ content=[FileWrapper{file=/data/user/0/com.fanhong.cn/cache/takephoto_cache/
+ meizu_fhd_num_percent.png, fileName=meizu_fhd_num_percent.png,
+ contentType=image/png, fileSize=1129}]
+
+ header=[{"timestamp":"1541061223","appType":"1","userId":"133"
+ ,"signature":"2d7bd7738c3957afe458805da41be9a723e30f0965a860b05156e3e31907594b",
+ "token":"9fc3d7152ba9336a670e36d0ed79bc43","nonce":"df40b32a-e"}]&userId=[133]
+ &communityId=[142]&communityDoorId=[704]&picName=[meizu_fhd_num_percent.png]
+ &content=[FileWrapper{file=/data/user/0/com.fanhong.cn/cache/takephoto_cache/meizu_fhd_num_percent.png, fileName=meizu_fhd_num_percent.png, contentType=image/png, fileSize=1129}]
+
+ header=[{"timestamp":"1541061526","appType":"1","userId":"133","signature":
+ "71dd42b82ef49b50c50a9aa41ab2f1764b10a07a267ca82223acee4a93152a2b","token":
+ "9fc3d7152ba9336a670e36d0ed79bc43","nonce":"1c5de479-c"}]&userId=[133]
+ &communityId=[142]&communityDoorId=[705]&picName=[meizu_fhd_num_background.png]&
+ content=[FileWrapper{file=/data/user/0/com.fanhong.cn/cache/takephoto_cache/meizu_fhd_num_background.png, fileName=meizu_fhd_num_background.png, contentType=image/png, fileSize=13639}]
+
+

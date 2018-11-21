@@ -3,17 +3,19 @@ package com.fanhong.cn
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
-import android.os.Environment
-import android.support.v4.content.ContextCompat
 import android.util.Log
+import com.simple.spiderman.SpiderMan
 import com.vondear.rxtool.RxTool
 import com.zhy.autolayout.config.AutoLayoutConifg
-//import com.lzy.okgo.OkGo
+import com.lzy.okgo.OkGo
 import io.rong.imlib.RongIMClient
 import org.xutils.DbManager
 import org.xutils.x
 import java.io.File
 import java.util.*
+import com.zhy.http.okhttp.OkHttpUtils
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -56,6 +58,8 @@ val  sqpath = /*Environment.getExternalStorageDirectory().path+*/"/data/data/com
                 .setAllowTransaction(true)
         var db = x.getDb(daoConfig)
     }
+
+    private val TAG = this.javaClass.toString()
 
     /**
      *全局缓存数据键集
@@ -131,32 +135,21 @@ val  sqpath = /*Environment.getExternalStorageDirectory().path+*/"/data/data/com
         super.onCreate()
         x.Ext.init(this)
 
+        OkGo.getInstance().init(this);
+        val okHttpClient = OkHttpClient.Builder()
+                //                .addInterceptor(new LoggerInterceptor("TAG"))
+                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
+                .readTimeout(10000L, TimeUnit.MILLISECONDS)
+                //其他配置
+                .build()
+
+        OkHttpUtils.initClient(okHttpClient)
+        initSpiderMan()
         RxTool.init(this)
         //配置 默认使用的高度是设备的可用高度，也就是不包括状态栏和底部的操作栏的，
         // 如果你希望拿设备的物理高度进行百分比化：
 //        可以在Application的onCreate方法中进行设置:
         AutoLayoutConifg.getInstance().useDeviceSize()
-
-//        val theme = ThemeConfig.Builder()
-//                .setTitleBarBgColor(ContextCompat.getColor(this, R.color.skyblue))
-//                .setCheckSelectedColor(ContextCompat.getColor(this, R.color.skyblue))
-//                .setCropControlColor(ContextCompat.getColor(this, R.color.skyblue))
-//                .setIconCamera(R.mipmap.camera)
-//                .build()
-//        val functionCfg = FunctionConfig.Builder()
-//                .setEnableCamera(true)
-//                .setEnableEdit(true)
-//                .setEnableCrop(true)
-//                .setEnableRotate(true)
-//                .setCropSquare(true)
-//                .setEnablePreview(true)
-//                .build()
-//        val imgLoader = XImageLoader()
-//        val coreCfg = CoreConfig.Builder(this, imgLoader, theme)
-//                .setFunctionConfig(functionCfg)
-//                .build()
-//        GalleryFinal.init(coreCfg)
-
         /**
          * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIMClient 的进程和 Push 进程执行了 init。
          * io.rong.push 为融云 push 进程名称，不可修改。
@@ -164,6 +157,11 @@ val  sqpath = /*Environment.getExternalStorageDirectory().path+*/"/data/data/com
         if (applicationInfo.packageName == getCurProcessName(applicationContext) || "io.rong.push" == getCurProcessName(applicationContext)) {
             RongIMClient.init(this)
         }
+    }
+
+    private fun initSpiderMan() {
+        SpiderMan.init(this).setOnCrashListener { t, ex, model ->
+                    Log.e(TAG, "李大娘==" + model.toString()) }
     }
 
     private fun getCurProcessName(context: Context): String? {
@@ -182,6 +180,4 @@ val  sqpath = /*Environment.getExternalStorageDirectory().path+*/"/data/data/com
         }
         return null
     }
-
-
 }

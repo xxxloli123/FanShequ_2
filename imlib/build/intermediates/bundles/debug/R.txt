@@ -92,13 +92,14 @@ int string rc_notification_new_plural_msg 0x7f150006
 int string rc_notification_ticker_text 0x7f150007
 int string rc_quit_custom_service 0x7f150008
 int string status_bar_notification_info_overflow 0x7f150009
-int style TextAppearance_Compat_Notification 0x7f160001
-int style TextAppearance_Compat_Notification_Info 0x7f160002
-int style TextAppearance_Compat_Notification_Line2 0x7f160003
-int style TextAppearance_Compat_Notification_Time 0x7f160004
-int style TextAppearance_Compat_Notification_Title 0x7f160005
-int style Widget_Compat_NotificationActionContainer 0x7f160006
-int style Widget_Compat_NotificationActionText 0x7f160007
+int style MyTheme 0x7f160001
+int style TextAppearance_Compat_Notification 0x7f160002
+int style TextAppearance_Compat_Notification_Info 0x7f160003
+int style TextAppearance_Compat_Notification_Line2 0x7f160004
+int style TextAppearance_Compat_Notification_Time 0x7f160005
+int style TextAppearance_Compat_Notification_Title 0x7f160006
+int style Widget_Compat_NotificationActionContainer 0x7f160007
+int style Widget_Compat_NotificationActionText 0x7f160008
 int[] styleable FontFamily { 0x7f040002, 0x7f040003, 0x7f040004, 0x7f040005, 0x7f040006, 0x7f040007 }
 int styleable FontFamily_fontProviderAuthority 0
 int styleable FontFamily_fontProviderCerts 1

@@ -4,16 +4,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
     defaultConfig {
         multiDexEnabled true
 
         applicationId "com.fanhong.cn"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 32
+        versionCode 33
         multiDexEnabled true
-        versionName '1.8.1'
+        versionName '1.9'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -30,7 +30,7 @@ android {
     }
     signingConfigs {
         config {
-            storeFile file('D:/Android/pro/FanShequ_2/FanShequ_2/FanShequ_2/fanhong2.jks')
+            storeFile file('F:/Android/pro/FanShequ_2/FanShequ_2/fanhong2.jks')
             storePassword '100200'
             keyAlias 'fhkj'
             keyPassword '100200'
@@ -141,4 +141,9 @@ dependencies {
     }
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.wenzb:ImageCheckBox:1.0.0'
+    debugImplementation 'com.simple:spiderman:1.0.6'
+    releaseImplementation 'com.simple:spiderman-no-op:1.0.6'
+    implementation 'com.zhy:okhttputils:2.6.2'
+
 }

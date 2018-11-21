@@ -20,6 +20,7 @@ public class DateUtil {
         return time;
 
     }
+
     /**
      * 获取当前时间
      * @param pattern

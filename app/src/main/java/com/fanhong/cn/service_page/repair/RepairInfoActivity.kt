@@ -107,15 +107,15 @@ class RepairInfoActivity : AppCompatActivity() {
                     tv_call.text="派单"
                     tv_call.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null)
                 }else{
-                    tv_handle_date.text=DateUtil.getDateToString(repairInfo.time.toLong(),"MM-dd")
-                    tv_handle_time.text=DateUtil.getDateToString(repairInfo.time.toLong(),"HH:mm")
+                    tv_handle_date.text=DateUtil.getDateToString(repairInfo.time!!.toLong(),"MM-dd")
+                    tv_handle_time.text=DateUtil.getDateToString(repairInfo.time!!.toLong(),"HH:mm")
                 }
             }
             1->{
                 arl_handleing.visibility=View.VISIBLE
                 if (repairInfo.time1!="null"){
-                    tv_handle_date.text=DateUtil.getDateToString(repairInfo.time.toLong(),"MM-dd")
-                    tv_handle_time.text=DateUtil.getDateToString(repairInfo.time.toLong(),"HH:mm")
+                    tv_handle_date.text=DateUtil.getDateToString(repairInfo.time!!.toLong(),"MM-dd")
+                    tv_handle_time.text=DateUtil.getDateToString(repairInfo.time!!.toLong(),"HH:mm")
                 }
                 img_handle.setImageResource(R.mipmap.dispose)
                 tv_handleing_info.text="已经为您分配维修员，维修员${repairInfo.wxboy}(${repairInfo.wxphone})" +
@@ -123,12 +123,12 @@ class RepairInfoActivity : AppCompatActivity() {
             }
             2->{
                 arl_complete.visibility=View.VISIBLE
-                tv_complete_date.text=DateUtil.getDateToString(repairInfo.time2.toLong(),"MM-dd")
-                tv_complete_time.text=DateUtil.getDateToString(repairInfo.time2.toLong(),"HH:mm")
+                tv_complete_date.text=DateUtil.getDateToString(repairInfo.time2!!.toLong(),"MM-dd")
+                tv_complete_time.text=DateUtil.getDateToString(repairInfo.time2!!.toLong(),"HH:mm")
                 img_handleing.setImageResource(R.mipmap.single)
                 arl_handleing.visibility=View.VISIBLE
-                tv_handleing_date.text=DateUtil.getDateToString(repairInfo.time1.toLong(),"MM-dd")
-                tv_handle_time.text=DateUtil.getDateToString(repairInfo.time1.toLong(),"HH:mm")
+                tv_handleing_date.text=DateUtil.getDateToString(repairInfo.time1!!.toLong(),"MM-dd")
+                tv_handle_time.text=DateUtil.getDateToString(repairInfo.time1!!.toLong(),"HH:mm")
                 img_handle.setImageResource(R.mipmap.dispose)
                 tv_handleing_info.text="已经为您分配维修员，维修员${repairInfo.wxboy}(${repairInfo.wxphone})" +
                         "为您维修"
@@ -137,16 +137,16 @@ class RepairInfoActivity : AppCompatActivity() {
 
         tv_device.text=repairInfo.men
         if (repairInfo.imgUrls!=null){
-            for (i in repairInfo.imgUrls.indices){
-                Log.e("imgUrl",repairInfo.imgUrls[i])
+            for (i in repairInfo.imgUrls!!.indices){
+                Log.e("imgUrl", repairInfo.imgUrls!![i])
                 when(i){
-                    0-> Picasso.with(this).load(repairInfo.imgUrls[i]).resize(200,200).
+                    0-> Picasso.with(this).load(repairInfo.imgUrls!![i]).resize(200,200).
                             centerCrop().into(img1)
 
-                    1-> Picasso.with(this).load(repairInfo.imgUrls[i]).resize(200,200).
+                    1-> Picasso.with(this).load(repairInfo.imgUrls!![i]).resize(200,200).
                             centerCrop().into(img2)
 
-                    2-> Picasso.with(this).load(repairInfo.imgUrls[i]).resize(200,200).
+                    2-> Picasso.with(this).load(repairInfo.imgUrls!![i]).resize(200,200).
                             centerCrop().into(img3)
                 }
             }
@@ -154,7 +154,7 @@ class RepairInfoActivity : AppCompatActivity() {
         tv_phone.text=repairInfo.lxphone
         tv_address.text=repairInfo.dizhi
         tv_number.text=repairInfo.time
-        tv_date.text=DateUtil.getDateToString(repairInfo.time.toLong(),"yyyy-MM-dd")
+        tv_date.text=DateUtil.getDateToString(repairInfo.time!!.toLong(),"yyyy-MM-dd")
         tv_remark.text=repairInfo.concent
     }
 

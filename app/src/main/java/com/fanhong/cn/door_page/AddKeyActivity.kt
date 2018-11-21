@@ -21,23 +21,30 @@ import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import com.fanhong.cn.App
 import com.fanhong.cn.R
 import com.fanhong.cn.service_page.repair.adapter.MyRecyclerAdapter
 import com.fanhong.cn.home_page.ChooseCellActivity
+import com.fanhong.cn.http.callback.OkUtilDialogCall
 import com.fanhong.cn.http.callback.StringDialogCallback
 import com.fanhong.cn.myviews.PhotoSelectWindow
 import com.fanhong.cn.myviews.SpinerPopWindow
 import com.fanhong.cn.tools.*
 import com.lzy.okgo.OkGo
+import com.lzy.okgo.callback.StringCallback
 import com.lzy.okgo.model.Response
+import com.vondear.rxtool.RxEncryptTool
+import com.vondear.rxtool.RxTool
 import com.vondear.rxtool.view.RxToast
 import com.vondear.rxui.view.dialog.RxDialogShapeLoading
+import com.zhy.http.okhttp.OkHttpUtils
 import kotlinx.android.synthetic.main.activity_add_key.*
 import kotlinx.android.synthetic.main.activity_top.*
 import kotlinx.android.synthetic.main.agree_sheets.*
 import me.leefeng.promptlibrary.PromptDialog
+import okhttp3.Call
 import org.devio.takephoto.app.TakePhotoActivity
 import org.devio.takephoto.compress.CompressConfig
 import org.devio.takephoto.model.CropOptions
@@ -53,9 +60,10 @@ import org.xutils.http.body.MultipartBody
 import org.xutils.x
 import java.io.File
 import java.io.IOException
+import java.lang.Exception
 import java.util.*
 
-class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
+class AddKeyActivity : TakePhotoActivity(), MyRecyclerAdapter.Callback {
 
     var cellId: String? = null
     var lastCellId: String? = null
@@ -72,7 +80,6 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val s=""
         setContentView(R.layout.activity_add_key)
         mSharedPref = getSharedPreferences(App.PREFERENCES_NAME, Context.MODE_PRIVATE)
         uid = mSharedPref?.getString(App.PrefNames.USERID, "-1")
@@ -83,11 +90,51 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
             lastCellId = cellId
         }
         initViews()
+        val params = HashMap<String, String>()
+//        appType	i32	App类型（1:安卓手机，2:ios手机，3:安卓开发板）
+        params["appType"] = "1"
+//        token	string	Token：加密字符串（加密方式：MD5-32位，加密方法：将userId进行MD5加密等于token）
+        params["token"] = RxTool.Md5(uid!!)
+//        timestamp	i64	当前时间戳(毫秒数)
+        val timeStampSec = System.currentTimeMillis() / 1000
+        val timestamp = String.format("%010d", timeStampSec)
+        params["timestamp"] = timestamp
+//        nonce	string	长度大于10位的随机字符串不能重复,推荐使用 UUID
+//        UUID 全部 " 2833 6efc - ef19-40e3-abc2-c50d36a70163"
+        params["nonce"] = UUID.randomUUID().toString().substring(0, 10)
+//        signature	string	签名信息：加密字符串（加密方式：Sha256，加密方法：
+//        timestamp+"固定字符串"+nonce拼接成一个长字符串后进行Sha256加密等于
+//          signature，固定字符串为：fanhong）
+        params["signature"] = RxEncryptTool.encryptSHA256ToString(
+                params["timestamp"] + "fanhong" + params["nonce"]).toLowerCase()
+//        userId	i64	用户id（当前用户id，若为开发板，则为开发板板号）
+        params["userId"] = uid!!
+        val json0bject = JSONObject(params)
+
+
+        OkGo.post<String>(
+                "http://192.168.0.124/BEST1.0.1/index.php/App/index/newuserxx")
+                .tag(this)//
+                .isMultipart(true)
+                .params("header", json0bject.toString())
+                .execute(object : StringDialogCallback(this) {
+                    override fun onSuccess(response: Response<String>) {
+                        Log.e("OkGo 1067", response.body().toString())
+                        if (response.body().toString().contains("\"state\":\"200\"")) {
+
+                            finish()
+                        }
+                    }
+
+                    override fun onError(response: Response<String>) {
+                        Log.e("OkGoError", response.exception.toString())
+                    }
+                })
     }
 
-    fun selectBuilding(v:View){
+    fun selectBuilding(v: View) {
         //没选择小区
-        if (cellId==null)return
+        if (cellId == null) return
 
         val rxDialogShapeLoading = RxDialogShapeLoading(this)
         rxDialogShapeLoading.show()
@@ -99,7 +146,7 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
             }
 
             override fun onSuccess(result: String) {
-                LogUtil.e("1001",result)
+                LogUtil.e("1001", result)
                 if (JsonSyncUtils.getJsonValue(result!!, "state") == "200") {
                     var data = JsonSyncUtils.getJsonValue(result!!, "data")
                     buildingList = JsonSyncUtils.getStringList(data!!, "bname")
@@ -113,14 +160,14 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
                     ssp?.width = key_choosebuilding.width
                     rxDialogShapeLoading.cancel()
                     ssp?.showAsDropDown(key_choosebuilding)
-                }else rxDialogShapeLoading.cancel(RxDialogShapeLoading.RxCancelType.error,"请求数据失败")
+                } else rxDialogShapeLoading.cancel(RxDialogShapeLoading.RxCancelType.error, "请求数据失败")
             }
 
             override fun onCancelled(cex: Callback.CancelledException?) {
             }
 
             override fun onError(ex: Throwable?, isOnCallback: Boolean) {
-                rxDialogShapeLoading.cancel(RxDialogShapeLoading.RxCancelType.error,"请求数据失败")
+                rxDialogShapeLoading.cancel(RxDialogShapeLoading.RxCancelType.error, "请求数据失败")
             }
         })
     }
@@ -166,39 +213,105 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
 
     private fun submit2() {
         var filenames = ""
-        val request = OkGo.post<String>(App.CMD)
+
+        val params = HashMap<String, String>()
+//        appType	i32	App类型（1:安卓手机，2:ios手机，3:安卓开发板）
+        params["appType"] = "1"
+//        token	string	Token：加密字符串（加密方式：MD5-32位，加密方法：将userId进行MD5加密等于token）
+        params["token"] = RxTool.Md5(uid!!)
+//        timestamp	i64	当前时间戳(毫秒数)
+        val timeStampSec = System.currentTimeMillis() / 1000
+        val timestamp = String.format("%010d", timeStampSec)
+        params["timestamp"] = timestamp
+//        nonce	string	长度大于10位的随机字符串不能重复,推荐使用 UUID
+//        UUID 全部 " 2833 6efc - ef19-40e3-abc2-c50d36a70163"
+        params["nonce"] = UUID.randomUUID().toString().substring(0, 10)
+//        signature	string	签名信息：加密字符串（加密方式：Sha256，加密方法：
+//        timestamp+"固定字符串"+nonce拼接成一个长字符串后进行Sha256加密等于
+//          signature，固定字符串为：fanhong）
+        params["signature"] = RxEncryptTool.encryptSHA256ToString(
+                params["timestamp"] + "fanhong" + params["nonce"]).toLowerCase()
+//        userId	i64	用户id（当前用户id，若为开发板，则为开发板板号）
+        params["userId"] = uid!!
+//        val s=params.toString().replace("=","=>")
+        val json0bject = JSONObject(params)
+
+//        val p = RequestParams(
+//                "http://192.168.0.124/BEST1.0.1/index.php/App/index/newuserxx")
+//        p.isMultipart = true
+////           体（身体。。看不懂）
+//        p.addBodyParameter("header", json0bject.toString())
+//        p.addBodyParameter("userId", uid)
+////                                communityId	i32	小区Id
+//        p.addBodyParameter("communityId", cellId)
+////                communityDoorId	i32	小区门Id
+//        p.addBodyParameter("communityDoorId", buildingId)
+////                                content		人脸图片数据（可为空）
+//        p.addBodyParameter("content", File(imgs[0].compressPath))
+//        p.addBodyParameter("picName", File(imgs[0].compressPath).name)
+//        x.http().post(p, object : Callback.CommonCallback<String> {
+//            override fun onSuccess(result: String) {
+//                LogUtil.e("OkGo 1012", result+"456123")
+//                Toast.makeText(x.app(), result, Toast.LENGTH_LONG).show()
+//            }
+//
+//            override fun onError(ex: Throwable, isOnCallback: Boolean) {
+//                val e=EditText(this@AddKeyActivity)
+//                e.setText("ex.message=="+ex.message+"...ex.cause=="+ex.cause+
+//                        "...isOnCallback=="+isOnCallback)
+//                AlertDialog.Builder(this@AddKeyActivity).setView(e).show()
+////                edt_debug.setText("ex.message=="+ex.message+"...ex.cause=="+ex.cause+
+////                        "...isOnCallback=="+isOnCallback)
+//                Toast.makeText(x.app(), ex.message, Toast.LENGTH_LONG).show()
+//            }
+//
+//            override fun onCancelled(cex: Callback.CancelledException) {
+//                Toast.makeText(x.app(), "cancelled", Toast.LENGTH_LONG).show()
+//            }
+//
+//            override fun onFinished() {
+//
+//            }
+//        })
+
+        val request = OkGo.post<String>(
+                "http://192.168.0.124/BEST1.0.1/index.php/App/index/newuserxx")
                 .tag(this)//
                 .isMultipart(true)
-                            //        cmd：数据类型
-                            //        uid：用户id
-                            //        xid：小区id
-                            //        dizhi：楼栋id
-                            //        xinxi：图片信息
-                            //        rltp：人脸图片
-                .params("cmd", "1012")
-                .params("uid", uid)
-                .params("xid", cellId)
-                .params("dizhi", buildingId)
-        for (i in imgs.indices){
-            request.params("touxiang" + (i + 1), File(imgs[i].compressPath))
-            filenames += if(i==0){File(imgs[i].compressPath).name}else{","+File(imgs[i].compressPath).name}
+                .params("header", json0bject.toString())
+                .params("userId", uid)
+//                communityId	i32	小区Id
+                .params("communityId", cellId)
+//                communityDoorId	i32	小区门Id
+                .params("communityDoorId", buildingId)
+        for (i in imgs.indices) {
+            request.params("content", File(imgs[i].compressPath))
+            filenames += if (i == 0) {
+                File(imgs[i].compressPath).name
+            } else {
+                "," + File(imgs[i].compressPath).name
+            }
         }
-        request.params("xinxi", filenames)
+        request.params("picName", filenames)
+
+        edt_debug.setText(""+request.params)
         request.execute(object : StringDialogCallback(this) {
             override fun onSuccess(response: Response<String>) {
-                Log.e("OkGo 1012", response.body().toString())
+                LogUtil.e("OkGo 1012", response.body().toString() + "..")
                 if (response.body().toString().contains("\"cw\":\"1\"")
                         || response.body().toString().contains("\"state\":\"200\"")) {
                     PromptDialog(this@AddKeyActivity).showSuccess("提交成功", true)
                     Handler().postDelayed({ finish() }, 1500)
                 } else PromptDialog(this@AddKeyActivity).showError("系统错误")
             }
+
             override fun onError(response: Response<String>) {
-                Log.e("OkGoError", response.exception.toString())
+                Log.e("OkGoError", response.exception.toString() + "\n" +
+                        response.message() + "\n" + response.rawResponse + "\n" + response.body())
                 AlertDialog.Builder(this@AddKeyActivity).setMessage("onError提交失败！ 是否重试?")
                         .setPositiveButton("确定") { _, _ ->
                             submit2()
-                        }.setNegativeButton("取消",null) .show()
+                        }.setNegativeButton("取消", null).show()
             }
         })
     }
@@ -244,14 +357,14 @@ class AddKeyActivity : TakePhotoActivity() ,MyRecyclerAdapter.Callback{
     }
 
     override fun takeSuccess(result: TResult?) {
-        imgs=(result!!.images)
+        imgs = (result!!.images)
         super.takeSuccess(result)
         showImg()
     }
 
     private fun showImg() {
         if (adapter == null) {
-            adapter = MyRecyclerAdapter(imgs, this,true)
+            adapter = MyRecyclerAdapter(imgs, this, true)
             rv_img.layoutManager = LinearLayoutManager(this,
                     LinearLayoutManager.HORIZONTAL, false)
             rv_img.adapter = adapter
